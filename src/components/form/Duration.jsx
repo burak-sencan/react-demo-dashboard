@@ -27,7 +27,7 @@ const Duration = ({ data, activeStep }) => {
       <Question data={data} />
 
       <DatePicker
-        className="w-full p-4 text-center hover:cursor-context-menu focus:outline-none"
+        className="w-full p-4 text-center hover:cursor-context-menu rounded-md focus:outline-none"
         dateFormat="dd/MM/yyyy"
         placeholderText="Proje Bitiş Tarihi"
         selected={startDate}

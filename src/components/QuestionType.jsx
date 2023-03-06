@@ -8,8 +8,9 @@ import {
   RadioInput,
   SelectInput,
   TextInput,
-  TextareaInput,
+  WorkDetail,
 } from './form'
+import CanSeeNumber from './form/CanSeeNumber'
 
 const QuestionType = ({ activeStep }) => {
   const { formData } = useContext(ServiceContext)
@@ -42,10 +43,10 @@ const QuestionType = ({ activeStep }) => {
       return <Duration data={formData[activeStep]} activeStep={activeStep} />
     if (type === 'budge')
       return <BudgeInput data={formData[activeStep]} activeStep={activeStep} />
-    if (type === 'workDetails')
-      return (
-        <TextareaInput data={formData[activeStep]} activeStep={activeStep} />
-      )
+    if (type === 'workDetail')
+      return <WorkDetail data={formData[activeStep]} activeStep={activeStep} />
+    if (type === 'canSeeNumber')
+      return <CanSeeNumber data={formData[activeStep]} activeStep={activeStep} />
   }
 }
 

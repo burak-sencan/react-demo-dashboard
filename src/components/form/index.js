@@ -4,7 +4,7 @@ import CheckboxInput from './Checkbox'
 import RadioInput from './RadioInput'
 import SelectInput from './SelectInput'
 import TextInput from './Text'
-import TextareaInput from './Textarea'
+import WorkDetail from './WorkDetail'
 
 export {
   AdressInput,
@@ -13,5 +13,5 @@ export {
   RadioInput,
   SelectInput,
   TextInput,
-  TextareaInput,
+  WorkDetail,
 }

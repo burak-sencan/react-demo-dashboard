@@ -103,8 +103,15 @@ export const ServiceProvider = ({ children }) => {
     idx++
     tempFormData.push({
       activeStep: idx,
-      type_name: 'workDetails',
+      type_name: 'workDetail',
       question: 'İş Detayi',
+      answer: null,
+    })
+    idx++
+    tempFormData.push({
+      activeStep: idx,
+      type_name: 'canSeeNumber',
+      question: 'Numaran Gösterilsin mi',
       answer: null,
     })
 

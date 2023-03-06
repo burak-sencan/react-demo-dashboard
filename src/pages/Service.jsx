@@ -44,7 +44,16 @@ const Service = () => {
         {formData.length === 0 ? (
           <></>
         ) : activeStep === formData.length ? (
-          <Button onClick={handleSubmit}> Submit </Button>
+          <Box className="flex justify-between">
+            <Button
+              color="inherit"
+              disabled={activeStep === 0}
+              onClick={handleBack}
+            >
+              Back
+            </Button>
+            <Button onClick={handleSubmit}> Submit </Button>
+          </Box>
         ) : (
           <Box className="flex justify-between">
             <Button
