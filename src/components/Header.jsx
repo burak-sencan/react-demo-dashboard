@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { FaHome, FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa'
+import { FaHome, FaSignInAlt, FaUser } from 'react-icons/fa'
 import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs'
 
 import { Link } from 'react-router-dom'
@@ -31,7 +31,7 @@ const Header = () => {
   }, [])
 
   return (
-    <header className="flex h-10 items-center justify-between bg-slate-900 p-4 text-white dark:bg-white dark:text-black">
+    <header className="flex h-12  items-center justify-between  p-4 text-white">
       <Link to="/">
         <FaHome />
       </Link>

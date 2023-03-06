@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import ServiceContext from '../context/serviceContext'
+import Duration from './form/Duration'
 import {
   AdressInput,
   BudgeInput,
@@ -10,14 +11,16 @@ import {
   TextareaInput,
 } from './form'
 
-const Question = ({ activeStep }) => {
+const QuestionType = ({ activeStep }) => {
   const { formData } = useContext(ServiceContext)
-  console.log(formData[activeStep])
+
+  console.log('activeStep: ', activeStep)
+  console.log('formData: ', formData[activeStep])
 
   // Loading
   if (formData.lenght === 0) return <p>Loading</p>
 
-  // Dynamic Questions
+  // Dynamic QuestionType
   if (formData[activeStep].question) {
     let type = formData[activeStep].type_name
 
@@ -31,15 +34,19 @@ const Question = ({ activeStep }) => {
       return <SelectInput data={formData[activeStep]} activeStep={activeStep} />
     if (type === 'text')
       return <TextInput data={formData[activeStep]} activeStep={activeStep} />
-    if (type === 'textarea')
+
+    //Statics
+    if (type === 'adress')
+      return <AdressInput data={formData[activeStep]} activeStep={activeStep} />
+    if (type === 'duration')
+      return <Duration data={formData[activeStep]} activeStep={activeStep} />
+    if (type === 'budge')
+      return <BudgeInput data={formData[activeStep]} activeStep={activeStep} />
+    if (type === 'workDetails')
       return (
         <TextareaInput data={formData[activeStep]} activeStep={activeStep} />
       )
-    if (type === 'adress')
-      return <AdressInput data={formData[activeStep]} activeStep={activeStep} />
-    if (type === 'budge')
-      return <BudgeInput data={formData[activeStep]} activeStep={activeStep} />
   }
 }
 
-export default Question
+export default QuestionType

@@ -1,20 +1,26 @@
 import { TextField } from '@mui/material'
 import { useState } from 'react'
+import Question from './Question'
 
 const Textarea = ({ data }) => {
+  const [value, setValue] = useState('')
+
   const handleChange = (e) => {
-    setVal(e.target.value)
+    setValue(e.target.value)
   }
-  const [val, setVal] = useState('')
+
   return (
-    <TextField
-      label={data.question}
-      val={val}
-      onChange={handleChange}
-      multiline
-      maxRows={4}
-      variant="filled"
-    />
+    <>
+      <Question data={data} />
+      <TextField
+        label={data.question}
+        val={value}
+        onChange={handleChange}
+        multiline
+        maxRows={4}
+        variant="filled"
+      />
+    </>
   )
 }
 

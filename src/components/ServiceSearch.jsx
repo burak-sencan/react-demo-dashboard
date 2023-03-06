@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import api from '../context/api'
 import Paper from '@mui/material/Paper'
 import List from '@mui/material/List'
@@ -6,8 +6,10 @@ import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemButton from '@mui/material/ListItemButton'
 import { Link } from 'react-router-dom'
+import ServiceContext from '../context/serviceContext'
 
 const ServiceSearch = () => {
+  const { setFormData } = useContext(ServiceContext)
   const [value, setValue] = useState('')
   const [services, setServices] = useState('')
   const [results, setResults] = useState([])
@@ -17,6 +19,8 @@ const ServiceSearch = () => {
       setServices(response.data.result)
       console.log(response.data.result)
     })
+
+    setFormData([]) //Resetting form data for new search
   }, [])
 
   const handleResult = (e) => {
@@ -30,6 +34,7 @@ const ServiceSearch = () => {
     })
     setResults(tempData.slice(0, 5))
   }
+
   return (
     <>
       <Paper
@@ -37,14 +42,14 @@ const ServiceSearch = () => {
         sx={{ padding: 0, display: 'flex', alignItems: 'center', width: 500 }}
       >
         <input
-          className="h-12 w-full p-4 focus:outline-none"
+          className="h-12 w-full rounded-md p-4 focus:outline-none"
           placeholder="Hizmet Ara"
           value={value}
           onChange={handleResult}
         />
       </Paper>
-      {results.length > 0 && (
-        <Paper className="mt-4">
+      {results.length > 0 && value.length > 0 && (
+        <Paper className="mt-2">
           <List>
             {results.map((result) => (
               <ListItem key={result.id} disablePadding>

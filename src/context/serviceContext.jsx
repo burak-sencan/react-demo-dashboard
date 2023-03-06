@@ -23,6 +23,7 @@ export const ServiceProvider = ({ children }) => {
   }
 
   const prepareFormData = (data) => {
+    console.log(data)
     let idx = 0
     const tempFormData = []
     data.questions.map((question) => {
@@ -33,22 +34,20 @@ export const ServiceProvider = ({ children }) => {
           type_name: question.type_name,
           question: question.label,
           answers: question.answers,
-          answer: null, // answered id for question
+          answer: null,
         }
         tempFormData.push(tempJson)
       } else if (question.type_name === 'checkbox') {
-        idx++
         let tempJson = {
           activeStep: idx,
           questionId: question.id,
           type_name: question.type_name,
           question: question.label,
           answers: question.answers,
-          answer: null,
+          answer: [],
         }
         tempFormData.push(tempJson)
       } else if (question.type_name === 'select') {
-        idx++
         let tempJson = {
           activeStep: idx,
           questionId: question.id,
@@ -59,7 +58,6 @@ export const ServiceProvider = ({ children }) => {
         }
         tempFormData.push(tempJson)
       } else if (question.type_name === 'text') {
-        idx++
         let tempJson = {
           activeStep: idx,
           type_name: question.type_name,
@@ -68,7 +66,6 @@ export const ServiceProvider = ({ children }) => {
         }
         tempFormData.push(tempJson)
       } else if (question.type_name === 'textarea') {
-        idx++
         let tempJson = {
           activeStep: idx,
           type_name: question.type_name,
@@ -78,28 +75,41 @@ export const ServiceProvider = ({ children }) => {
         }
         tempFormData.push(tempJson)
       }
+      idx++
     })
+
     //Static
-    idx++
+    if (idx !== 0) idx++
     tempFormData.push({
-      activeStep:idx,
+      activeStep: idx,
       type_name: 'adress',
-      question: 'adress',
-      answers: 'adress answers',
+      question: 'Adres',
       answer: null,
     })
     idx++
     tempFormData.push({
-      activeStep:idx,
+      activeStep: idx,
+      type_name: 'duration',
+      question: 'Ne kadar Zaman Alacak',
+      answer: null,
+    })
+    idx++
+    tempFormData.push({
+      activeStep: idx,
       type_name: 'budge',
-      question: 'adress',
-      answers: 'adress answers',
+      question: 'Bütçe',
+      answer: null,
+    })
+    idx++
+    tempFormData.push({
+      activeStep: idx,
+      type_name: 'workDetails',
+      question: 'İş Detayi',
       answer: null,
     })
 
     setFormData(tempFormData)
-    console.log(data)
-    console.log(tempFormData)
+    console.log('tempFormData : ', tempFormData)
   }
 
   return (

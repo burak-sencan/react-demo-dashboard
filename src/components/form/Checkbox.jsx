@@ -1,33 +1,92 @@
 import FormGroup from '@mui/material/FormGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import ServiceContext from '../../context/serviceContext'
+import Question from './Question'
 
-const CheckboxInput = ({ data }) => {
-  const [input, setInput] = useState([])
+const CheckboxInput = ({ data, activeStep }) => {
+  const { formData, setFormData } = useContext(ServiceContext)
+  const [value, setValue] = useState(formData[activeStep]?.answer)
 
   const handleChange = (e) => {
     let val = e.target.value
-    if (!input.includes(val)) {
-      setInput([...input, val])
+
+    if (!value.includes(val)) {
+      setValue([...value, val])
+      handleInput(val)
     } else {
-      setInput(input.filter((id) => id !== val))
+      // map filter //
+      // const updatedFormData = formData.map((obj) =>
+      //   obj.activeStep === activeStep
+      //     ? { ...obj, answer: obj.answer.filter((item) => item !== val) }
+      //     : obj
+      // )
+
+      // const updatedValues = formData
+      //   .filter((obj) => obj.activeStep === activeStep)
+      //   .map((obj) => obj.answer.filter((item) => item !== val))
+      //   .flat()
+
+      // setFormData(updatedFormData)
+      // setValue(...updatedValues)
+      // map filter //
+
+      formData.forEach((obj) => {
+        if (obj.activeStep === activeStep) {
+          let temp = []
+          obj.answer.forEach((item) => {
+            if (item !== val) {
+              temp.push(item)
+            }
+          })
+
+          const x = formData.map((item) =>
+            item.activeStep === activeStep ? { ...item, answer: temp } : item
+          )
+          // setValue(...value, ...temp)
+          setValue(...temp)
+          setFormData(x)
+        }
+      })
     }
-    console.log(input)
   }
 
+  const handleInput = (val) => {
+    setFormData(
+      formData.map((item) =>
+        item.activeStep === activeStep
+          ? { ...item, answer: [...item.answer, val] }
+          : item
+      )
+    )
+  }
+
+  useEffect(() => {
+    setValue(formData[activeStep]?.answer)
+  }, [value])
+
   return (
-    <FormGroup className="overflow-auto">
-      {data.answers.map((opt) => (
-        <FormControlLabel
-          key={opt.id}
-          value={opt.id}
-          onChange={handleChange}
-          control={<Checkbox />}
-          label={opt.value}
-        />
-      ))}
-    </FormGroup>
+    <>
+      <Question data={data} />
+      <FormGroup className=" overflow-auto">
+        {data.answers.map((opt) => (
+          <FormControlLabel
+            className="hover:bg-slate-100"
+            key={opt.id}
+            value={opt.id}
+            onChange={handleChange}
+            control={
+              <Checkbox
+                color="success"
+                checked={value?.includes(opt.id) ? true : false}
+              />
+            }
+            label={opt.value}
+          />
+        ))}
+      </FormGroup>
+    </>
   )
 }
 export default CheckboxInput

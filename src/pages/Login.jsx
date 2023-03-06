@@ -8,7 +8,7 @@ const Login = () => {
   })
 
   return (
-    <section class="min-h-screen p-8 dark:bg-gray-900 ">
+    <section class=" w-full p-8 dark:bg-gray-900">
       <div class="mx-auto flex flex-col items-center justify-center px-6 py-8  lg:py-0">
         <div class="w-full rounded-lg bg-white  shadow dark:border dark:border-gray-700 dark:bg-gray-800 sm:max-w-md md:mt-0 xl:p-0">
           <div class="space-y-4 p-6 sm:p-8 md:space-y-6">

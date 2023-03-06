@@ -29,5 +29,21 @@ const api = {
       }
     )
   },
+  getProvinces: () => {
+    return axios.get(process.env.REACT_APP_API_URL + '/get_provinces/', {
+      method: 'GET',
+    })
+  },
+  getCounties: (id) => {
+    return axios.get(process.env.REACT_APP_API_URL + '/get_counties/' + id, {
+      method: 'GET',
+    })
+  },
+  getDistricts: (id) => {
+    return axios.get(process.env.REACT_APP_API_URL + '/get_districts/' + id, {
+      method: 'GET',
+    })
+  },
 }
+
 export default api
