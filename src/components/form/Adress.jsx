@@ -52,7 +52,8 @@ const Adress = ({ data, activeStep }) => {
       setDistricts(response.data.result)
       console.log(response.data.result)
       if (response.data.result.length === 0) {
-        handleFormData([provinceValue, countiesValue])
+        const data = [provinceValue, countiesValue]
+        handleFormData(data)
       }
     })
   }
@@ -61,8 +62,10 @@ const Adress = ({ data, activeStep }) => {
     const districId = e.target.value
     setDistrictsValue(districId)
     const data = [provinceValue, countiesValue, districId]
+    console.log(data)
     handleFormData(data)
   }
+
   const handleFormData = (data) => {
     console.log(data)
     console.log(formData)

@@ -79,7 +79,7 @@ export const ServiceProvider = ({ children }) => {
     })
 
     //Static
-    if (idx !== 0) idx++
+
     tempFormData.push({
       activeStep: idx,
       type_name: 'adress',

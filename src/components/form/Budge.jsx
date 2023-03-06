@@ -5,7 +5,6 @@ import ServiceContext from '../../context/serviceContext'
 
 const Budge = ({ data, activeStep }) => {
   const { formData, setFormData } = useContext(ServiceContext)
-
   const [value, setValue] = useState('')
 
   const handleText = (e) => {
@@ -21,7 +20,7 @@ const Budge = ({ data, activeStep }) => {
   const disableBudgeInput = (e) => {
     setFormData(
       formData.map((item) =>
-        item.activeStep === activeStep ? { ...item, answer: 1 } : item
+        item.activeStep === activeStep ? { ...item, answer: 0 } : item
       )
     )
   }
@@ -38,13 +37,19 @@ const Budge = ({ data, activeStep }) => {
             ? ''
             : formData[activeStep].answer
         }
-        // disabled={formData[activeStep].answer === null ? false : true}
-
+        // disabled={
+        //   formData[activeStep].answer === null
+        //     ? false
+        //     : formData[activeStep].answer === 0
+        //     ? true
+        //     : false
+        // }
         placeholder="1000"
         onChange={handleText}
       />
       <FormGroup className="flex items-center">
         <FormControlLabel
+          checked={formData[activeStep].answer === 0 ? true : false}
           onChange={disableBudgeInput}
           control={<Checkbox />}
           label="Belirtmek istemiyorum"
