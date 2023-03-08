@@ -1,28 +1,23 @@
-import { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
-import AuthContext from '../context/authContext'
+import axios from 'axios'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Register = () => {
-  const { register } = useContext(AuthContext)
+  const navigate = useNavigate()
   const [formData, setformData] = useState({
-    first_name: '',
-    last_name: '',
+    full_name: '',
     email: '',
     password: '',
-    password2: '',
+    password_repeat: '',
     account_type: 1,
     phone: '',
   })
 
-  const {
-    first_name,
-    last_name,
-    email,
-    password,
-    password2,
-    account_type,
-    phone,
-  } = formData
+  const { full_name, email, password, password_repeat, account_type, phone } =
+    formData
 
   const onChange = (e) => {
     setformData((prevState) => ({
@@ -30,20 +25,42 @@ const Register = () => {
       [e.target.name]: e.target.value,
     }))
   }
+
   const onSubmit = (e) => {
     e.preventDefault()
-    if (password !== password2) {
-      console.log('password !== password2')
+    if (password !== password_repeat) {
+      toast('Şifreler birbiri ile aynı değil.')
     } else {
       const userData = {
-        first_name,
-        last_name,
+        full_name,
         email,
         password,
+        password_repeat,
         account_type,
         phone,
       }
+
       register(userData)
+    }
+  }
+  //register user
+  const register = async (userData) => {
+    const headers = { 'Content-Type': 'text/plain' }
+    try {
+      const response = await axios.post(
+        process.env.REACT_APP_API_URL + '/register',
+        userData,
+        { headers }
+      )
+      if (response.data) {
+        if (response.data.status === 201) {
+          navigate('/login')
+        }
+        if (response.data.status === 401) {
+        }
+      }
+    } catch (error) {
+      toast(error.response.data.message)
     }
   }
 
@@ -58,38 +75,22 @@ const Register = () => {
             <form className="space-y-4 md:space-y-6" onSubmit={onSubmit}>
               <div>
                 <label
-                  htmlFor="first_name"
+                  htmlFor="full_name"
                   className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Ad
+                  Ad Soyad
                 </label>
                 <input
                   type="text"
-                  value={first_name}
+                  value={full_name}
                   onChange={onChange}
-                  name="first_name"
-                  id="first_name"
+                  name="full_name"
+                  id="full_name"
                   className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
                   required=""
                 />
               </div>
-              <div>
-                <label
-                  htmlFor="last_name"
-                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Soyad
-                </label>
-                <input
-                  type="text"
-                  value={last_name}
-                  onChange={onChange}
-                  name="last_name"
-                  id="last_name"
-                  className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
-                  required=""
-                />
-              </div>
+
               <div>
                 <label
                   htmlFor="email"
@@ -107,24 +108,7 @@ const Register = () => {
                   required=""
                 />
               </div>
-              <div>
-                <label
-                  htmlFor="phone"
-                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Telefon
-                </label>
-                <input
-                  type="tel"
-                  value={phone}
-                  onChange={onChange}
-                  placeholder="5554443322"
-                  name="phone"
-                  id="phone"
-                  className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
-                  required=""
-                />
-              </div>
+
               <div>
                 <label
                   htmlFor="password"
@@ -144,17 +128,35 @@ const Register = () => {
               </div>
               <div>
                 <label
-                  htmlFor="password2"
+                  htmlFor="password_repeat"
                   className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Şifre Tekrar
                 </label>
                 <input
                   type="password"
-                  value={password2}
+                  value={password_repeat}
                   onChange={onChange}
-                  name="password2"
-                  id="password2"
+                  name="password_repeat"
+                  id="password_repeat"
+                  className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+                  required=""
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="phone"
+                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Telefon
+                </label>
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={onChange}
+                  placeholder="5554443322"
+                  name="phone"
+                  id="phone"
                   className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
                   required=""
                 />
@@ -178,6 +180,19 @@ const Register = () => {
           </div>
         </div>
       </div>
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </section>
   )
 }
