@@ -4,6 +4,7 @@ const Welcome = () => {
   return (
     <div className="flex flex-col">
       <Hero />
+  
     </div>
   )
 }

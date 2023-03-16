@@ -14,7 +14,6 @@ const Duration = ({ data, activeStep }) => {
 
   const handleDate = (date) => {
     setStartDate(date)
-    
     setFormData(
       formData.map((item) =>
         item.activeStep === activeStep ? { ...item, answer: date } : item
@@ -27,7 +26,7 @@ const Duration = ({ data, activeStep }) => {
       <Question data={data} />
 
       <DatePicker
-        className="w-full p-4 text-center hover:cursor-context-menu rounded-md focus:outline-none"
+        className="w-full rounded-md p-4 text-center hover:cursor-context-menu focus:outline-none"
         dateFormat="dd/MM/yyyy"
         placeholderText="Proje Bitiş Tarihi"
         selected={startDate}

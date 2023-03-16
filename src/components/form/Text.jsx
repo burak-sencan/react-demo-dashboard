@@ -9,7 +9,6 @@ const Text = ({ data, activeStep }) => {
 
   const handleText = (e) => {
     setValue(e.target.value)
-    console.log(e.target.value)
     setFormData(
       formData.map((item) =>
         item.activeStep === activeStep

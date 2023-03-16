@@ -7,7 +7,6 @@ const WorkDetails = ({ data, activeStep }) => {
   const { formData, setFormData } = useContext(ServiceContext)
 
   const handleChange = (e) => {
-    console.log(formData[activeStep].answer)
     setFormData(
       formData.map((item) =>
         item.activeStep === activeStep

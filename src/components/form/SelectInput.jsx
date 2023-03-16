@@ -23,7 +23,6 @@ const SelectInput = ({ data, activeStep }) => {
 
   const handleChange = (e) => {
     setValue(e.target.value)
-    console.log(e.target.value)
     setFormData(
       formData.map((item) =>
         item.activeStep === activeStep

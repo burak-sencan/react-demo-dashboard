@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { ToastContainer, toast } from 'react-toastify'
@@ -12,7 +12,7 @@ const Register = () => {
     email: '',
     password: '',
     password_repeat: '',
-    account_type: 1,
+    account_type: '',
     phone: '',
   })
 
@@ -45,12 +45,10 @@ const Register = () => {
   }
   //register user
   const register = async (userData) => {
-    const headers = { 'Content-Type': 'text/plain' }
     try {
       const response = await axios.post(
         process.env.REACT_APP_API_URL + '/register',
-        userData,
-        { headers }
+        userData
       )
       if (response.data) {
         if (response.data.status === 201) {
@@ -65,7 +63,7 @@ const Register = () => {
   }
 
   return (
-    <section className="w-full p-8 dark:bg-gray-900">
+    <section className="w-full p-8">
       <div className="mx-auto flex flex-col items-center justify-center px-6 py-8  lg:py-0">
         <div className="w-full rounded-lg bg-white shadow dark:border dark:border-gray-700 dark:bg-gray-800 sm:max-w-md md:mt-0 xl:p-0">
           <div className="space-y-4 p-6 sm:p-8 md:space-y-6">
@@ -73,6 +71,52 @@ const Register = () => {
               Hesap Oluştur
             </h1>
             <form className="space-y-4 md:space-y-6" onSubmit={onSubmit}>
+              <div>
+                <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+                  Kullanıcı Tipi
+                </label>
+                <div className="flex justify-between gap-8">
+                  <label
+                    htmlFor="employers"
+                    // className="inline-flex w-full cursor-pointer items-center justify-between rounded-lg border border-gray-200 bg-white p-3 text-gray-500 hover:bg-gray-100 hover:text-gray-600 peer-checked:border-blue-600 peer-checked:text-blue-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:peer-checked:text-blue-500"
+                    className={`${
+                      account_type === '2'
+                        ? 'bg-lime-400 dark:bg-gray-50'
+                        : 'bg-white dark:bg-gray-800'
+                    } inline-flex w-full cursor-pointer items-center justify-between rounded-md border border-gray-200  p-3 text-gray-500 shadow-md peer-checked:border-blue-600 peer-checked:text-blue-600  dark:text-gray-400  dark:peer-checked:text-blue-500`}
+                  >
+                    Hizmet Veren
+                  </label>
+                  <input
+                    className="hidden"
+                    type="radio"
+                    id="employers"
+                    name="account_type"
+                    value="2"
+                    onChange={onChange}
+                  />
+
+                  <label
+                    htmlFor="recipients"
+                    className={`${
+                      account_type === '1'
+                        ? 'bg-lime-400 dark:bg-gray-50'
+                        : 'bg-white dark:bg-gray-800'
+                    } inline-flex w-full cursor-pointer items-center justify-between rounded-md border border-gray-200  p-3 text-gray-500 shadow-md peer-checked:border-blue-600 peer-checked:text-blue-600  dark:text-gray-400  dark:peer-checked:text-blue-500`}
+                  >
+                    Hizmet Alan
+                  </label>
+                  <input
+                    className="hidden"
+                    type="radio"
+                    id="recipients"
+                    name="account_type"
+                    value="1"
+                    onChange={onChange}
+                  />
+                </div>
+              </div>
+
               <div>
                 <label
                   htmlFor="full_name"
@@ -86,8 +130,8 @@ const Register = () => {
                   onChange={onChange}
                   name="full_name"
                   id="full_name"
-                  className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
-                  required=""
+                  className="w-full rounded-md border border-gray-300 bg-gray-50 p-2.5 text-gray-900 transition focus:bg-slate-200 focus:outline-none dark:border-gray-600  dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:bg-slate-100 dark:focus:text-slate-900 dark:focus:ring-blue-500 sm:text-sm"
+                  required="required"
                 />
               </div>
 
@@ -104,7 +148,7 @@ const Register = () => {
                   onChange={onChange}
                   name="email"
                   id="email"
-                  className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+                  className="w-full rounded-md border border-gray-300 bg-gray-50 p-2.5 text-gray-900 transition focus:bg-slate-200 focus:outline-none dark:border-gray-600  dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:bg-slate-100 dark:focus:text-slate-900 dark:focus:ring-blue-500 sm:text-sm"
                   required=""
                 />
               </div>
@@ -122,7 +166,7 @@ const Register = () => {
                   onChange={onChange}
                   name="password"
                   id="password"
-                  className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+                  className="w-full rounded-md border border-gray-300 bg-gray-50 p-2.5 text-gray-900 transition focus:bg-slate-200 focus:outline-none dark:border-gray-600  dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:bg-slate-100 dark:focus:text-slate-900 dark:focus:ring-blue-500 sm:text-sm"
                   required=""
                 />
               </div>
@@ -139,7 +183,7 @@ const Register = () => {
                   onChange={onChange}
                   name="password_repeat"
                   id="password_repeat"
-                  className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+                  className="w-full rounded-md border border-gray-300 bg-gray-50 p-2.5 text-gray-900 transition focus:bg-slate-200 focus:outline-none dark:border-gray-600  dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:bg-slate-100 dark:focus:text-slate-900 dark:focus:ring-blue-500 sm:text-sm"
                   required=""
                 />
               </div>
@@ -157,13 +201,14 @@ const Register = () => {
                   placeholder="5554443322"
                   name="phone"
                   id="phone"
-                  className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+                  className="w-full rounded-md border border-gray-300 bg-gray-50 p-2.5 text-gray-900 transition focus:bg-slate-200 focus:outline-none dark:border-gray-600  dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:bg-slate-100 dark:focus:text-slate-900 dark:focus:ring-blue-500 sm:text-sm"
                   required=""
                 />
               </div>
+
               <button
                 type="submit"
-                className="h-10 w-full rounded-md bg-lime-600 text-lime-300"
+                className="h-10 w-full rounded-md bg-lime-600 text-lime-300 transition hover:text-white"
               >
                 Hesap Oluştur
               </button>
@@ -171,7 +216,7 @@ const Register = () => {
                 Bir hesabınız var ise,
                 <Link
                   to="/login"
-                  className="text-primary-600 dark:text-primary-500 font-medium hover:underline"
+                  className="text-primary-600  dark:text-primary-500 font-medium hover:underline"
                 >
                   Giriş yap
                 </Link>

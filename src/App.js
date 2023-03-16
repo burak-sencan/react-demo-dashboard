@@ -1,12 +1,39 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from './context/authContext'
 import { ServiceProvider } from './context/serviceContext'
 import Header from './components/Header'
-import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Welcome from './pages/Welcome'
 import Service from './pages/Service'
+import {
+  EmployeeAddToYourSite,
+  EmployeeJobOpportunities,
+  EmployeeMessage,
+  EmployeeMyBids,
+  EmployeeMyGetBids,
+  EmployeePanel,
+  EmployeeSettings,
+  EmployeeWallet,
+  EmployeeShowMessage,
+  EmployeeShowJobOpportunities,
+  EmployeeShowMyBids,
+  EmployeeShowMyGetBids,
+} from './pages/dashboard/employeeDashboard/employersComponents'
+import {
+  RecipentAdvert,
+  ShowRecipentAdvert,
+  RecipentMessage,
+  RecipentSettings,
+  RecipentOffer,
+  RecipentPanel,
+  RecipentShowMessage,
+  RecipentShowAdvert,
+} from './pages/dashboard/recipientsDashboard/recipentComponents'
+import EmployeeDashboard from './pages/dashboard/employeeDashboard/EmployeeDashboard'
+import RecipentDashboard from './pages/dashboard/recipientsDashboard/RecipentDashboard'
+import ProtectedEmployeeRoute from './components/ProtectedEmployeeRoute'
+import ProtectedRecipientsRoute from './components/ProtectedRecipientsRoute'
 
 function App() {
   return (
@@ -14,31 +41,81 @@ function App() {
       <AuthProvider>
         <ServiceProvider>
           <BrowserRouter>
-            <div className="bg-slate-50 dark:bg-slate-900">
-              <div
-                className="
-              hover:dark:gray-900
-              fixed 
-              z-10  
-              w-full 
-              bg-gray-900/90 
-              backdrop-blur-sm
-              transition-all
-              hover:bg-gray-900
-              hover:backdrop-blur-none 
-              dark:bg-gray-600/90
-              dark:hover:bg-gray-600
-               "
-              >
+            <div className="bg-light-50 dark:bg-dark-800">
+              <div className="fixed z-50 w-full bg-white/80 shadow-md backdrop-blur-sm transition-all dark:bg-dark-900/80">
                 <Header />
               </div>
-              <div className="flex min-h-[100vh] items-center justify-center w-full pt-12">
+              <div className="flex min-h-screen w-full items-center justify-center pt-12">
                 <Routes>
                   <Route path="/" element={<Welcome />} />
-                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/service/:id" element={<Service />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
-                  <Route path="/service/:id" element={<Service />} />
+
+                  {/* ///////////////employeeDashboard///////////////////// */}
+                  <Route
+                    path="/employeeDashboard"
+                    element={
+                      //<ProtectedEmployeeRoute>
+                      <EmployeeDashboard />
+                      //</ProtectedEmployeeRoute>
+                    }
+                  >
+                    <Route index element={<Navigate to="panel" replace />} />
+                    <Route path="panel" element={<EmployeePanel />} />
+                    <Route
+                      path="jobOpportunities"
+                      element={<EmployeeJobOpportunities />}
+                    />
+                    <Route
+                      path="jobOpportunities/:id"
+                      element={<EmployeeShowJobOpportunities />}
+                    />
+                    <Route path="myBids" element={<EmployeeMyBids />} />
+                    <Route path="myBids/:id" element={<EmployeeShowMyBids />} />
+                    <Route path="getBids" element={<EmployeeMyGetBids />} />
+                    <Route
+                      path="getBids/:id"
+                      element={<EmployeeShowMyGetBids />}
+                    />
+                    <Route path="message" element={<EmployeeMessage />} />
+                    <Route
+                      path="message/:id"
+                      element={<EmployeeShowMessage />}
+                    />
+                    <Route
+                      path="addToYourSite"
+                      element={<EmployeeAddToYourSite />}
+                    />
+                    <Route path="wallet" element={<EmployeeWallet />} />
+                    <Route path="settings" element={<EmployeeSettings />} />
+                  </Route>
+
+                  {/* ///////////////recipentDashboard///////////////////// */}
+                  <Route
+                    path="/recipentDashboard"
+                    element={
+                      // <ProtectedRecipientsRoute>
+                      <RecipentDashboard />
+                      // </ProtectedRecipientsRoute>
+                    }
+                  >
+                    <Route index element={<Navigate to="panel" replace />} />
+                    <Route path="panel" element={<RecipentPanel />} />
+                    <Route index path="advert" element={<RecipentAdvert />} />
+                    <Route
+                      index
+                      path="advert/:id"
+                      element={<RecipentShowAdvert />}
+                    />
+                    <Route path="offer" element={<RecipentOffer />} />
+                    <Route path="message" element={<RecipentMessage />} />
+                    <Route
+                      path="message/:id"
+                      element={<RecipentShowMessage />}
+                    />
+                    <Route path="settings" element={<RecipentSettings />} />
+                  </Route>
                 </Routes>
               </div>
             </div>

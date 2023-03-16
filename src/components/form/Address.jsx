@@ -18,7 +18,7 @@ const MenuProps = {
   },
 }
 
-const Adress = ({ data, activeStep }) => {
+const Address = ({ data, activeStep }) => {
   const { formData, setFormData } = useContext(ServiceContext)
 
   const [provinceValue, setProvinceValue] = useState()
@@ -38,7 +38,6 @@ const Adress = ({ data, activeStep }) => {
 
     api.getCounties(provinceId).then((response) => {
       setCounties(response.data.result)
-      console.log(response.data.result)
     })
   }
 
@@ -46,29 +45,29 @@ const Adress = ({ data, activeStep }) => {
     const countyId = e.target.value
     setCountiesValue(countyId)
     setDistricts([])
-    console.log(countyId)
 
-    api.getDistricts(countyId).then((response) => {
-      setDistricts(response.data.result)
-      console.log(response.data.result)
-      if (response.data.result.length === 0) {
-        const data = [provinceValue, countiesValue]
-        handleFormData(data)
-      }
-    })
+    api
+      .getDistricts(countyId)
+      .then((response) => {
+        console.log(response.data.result)
+        setDistricts(response.data.result)
+      })
+      .catch((error) => {
+        if (error.response.status === 401) {
+          const data = [provinceValue, countyId]
+          handleFormData(data)
+        }
+      })
   }
 
   const handleDistricChance = (e) => {
     const districId = e.target.value
     setDistrictsValue(districId)
     const data = [provinceValue, countiesValue, districId]
-    console.log(data)
     handleFormData(data)
   }
 
   const handleFormData = (data) => {
-    console.log(data)
-    console.log(formData)
     setFormData(
       formData.map((item) =>
         item.activeStep === activeStep ? { ...item, answer: data } : item
@@ -79,16 +78,12 @@ const Adress = ({ data, activeStep }) => {
   useEffect(() => {
     api.getProvinces().then((response) => {
       setProvinces(response.data.result)
-      console.log(response.data.result)
     })
     // if (formData[activeStep]?.answer !== null) {
     //   setProvinceValue(formData[activeStep]?.answer[0])
     //   setCountiesValue(formData[activeStep]?.answer[1])
     //   setDistrictsValue(formData[activeStep]?.answer[2])
     // }
-    // console.log(provinces)
-    // console.log(counties)
-    // console.log(districts)
   }, [])
 
   return (
@@ -101,6 +96,7 @@ const Adress = ({ data, activeStep }) => {
           id="demo-simple-select"
           label="Şehir"
           onChange={handleProvinceChance}
+          value={provinceValue}
           MenuProps={MenuProps}
         >
           {provinces.map((province) => (
@@ -152,4 +148,4 @@ const Adress = ({ data, activeStep }) => {
   )
 }
 
-export default Adress
+export default Address

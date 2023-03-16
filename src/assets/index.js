@@ -1,3 +1,4 @@
 import spinner from './spinner.gif'
+import loading from './loading.gif'
 
-export { spinner }
+export { spinner, loading }

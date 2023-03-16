@@ -8,9 +8,6 @@ const RadioInput = ({ data, activeStep }) => {
   const { formData, setFormData } = useContext(ServiceContext)
   const [value, setValue] = useState(formData[activeStep].answer)
 
-  // console.log(formData[activeStep].answer)
-  // console.log(value)
-
   const handleChange = (e) => {
     setValue(e.target.value)
     setFormData(

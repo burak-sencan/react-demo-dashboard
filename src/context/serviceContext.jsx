@@ -14,7 +14,6 @@ export const ServiceProvider = ({ children }) => {
       const response = await axios
         .get(process.env.REACT_APP_API_URL + '/get_services')
         .then((response) => {
-          // console.log(response)
           setServices(response)
         })
     } catch (error) {
@@ -30,6 +29,7 @@ export const ServiceProvider = ({ children }) => {
       if (question.type_name === 'radio') {
         let tempJson = {
           activeStep: idx,
+          service_id: data.service_id,
           questionId: question.id,
           type_name: question.type_name,
           question: question.label,
@@ -40,7 +40,8 @@ export const ServiceProvider = ({ children }) => {
       } else if (question.type_name === 'checkbox') {
         let tempJson = {
           activeStep: idx,
-          questionId: question.id,
+          service_id: data.service_id,
+          question_id: question.id,
           type_name: question.type_name,
           question: question.label,
           answers: question.answers,
@@ -50,7 +51,8 @@ export const ServiceProvider = ({ children }) => {
       } else if (question.type_name === 'select') {
         let tempJson = {
           activeStep: idx,
-          questionId: question.id,
+          service_id: data.service_id,
+          question_id: question.id,
           type_name: question.type_name,
           question: question.label,
           answers: question.answers,
@@ -60,6 +62,7 @@ export const ServiceProvider = ({ children }) => {
       } else if (question.type_name === 'text') {
         let tempJson = {
           activeStep: idx,
+          service_id: data.service_id,
           type_name: question.type_name,
           question: question.label,
           answer: null,
@@ -68,6 +71,7 @@ export const ServiceProvider = ({ children }) => {
       } else if (question.type_name === 'textarea') {
         let tempJson = {
           activeStep: idx,
+          service_id: data.service_id,
           type_name: question.type_name,
           question: question.label,
           answers: question.answers,
@@ -79,13 +83,13 @@ export const ServiceProvider = ({ children }) => {
     })
 
     //Static
-
     tempFormData.push({
       activeStep: idx,
       type_name: 'adress',
       question: 'Adres',
       answer: null,
     })
+
     idx++
     tempFormData.push({
       activeStep: idx,
@@ -96,7 +100,7 @@ export const ServiceProvider = ({ children }) => {
     idx++
     tempFormData.push({
       activeStep: idx,
-      type_name: 'budge',
+      type_name: 'showBudget',
       question: 'Bütçe',
       answer: null,
     })
@@ -112,7 +116,7 @@ export const ServiceProvider = ({ children }) => {
       activeStep: idx,
       type_name: 'canSeeNumber',
       question: 'Numaran Gösterilsin mi',
-      answer: null,
+      answer: '1',
     })
 
     setFormData(tempFormData)

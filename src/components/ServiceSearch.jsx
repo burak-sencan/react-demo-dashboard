@@ -7,9 +7,11 @@ import ListItemText from '@mui/material/ListItemText'
 import ListItemButton from '@mui/material/ListItemButton'
 import { Link } from 'react-router-dom'
 import ServiceContext from '../context/serviceContext'
+import AuthContext from '../context/authContext'
 
 const ServiceSearch = () => {
   const { setFormData } = useContext(ServiceContext)
+  const { selfData } = useContext(AuthContext)
   const [value, setValue] = useState('')
   const [services, setServices] = useState('')
   const [results, setResults] = useState([])
@@ -17,7 +19,6 @@ const ServiceSearch = () => {
   useEffect(() => {
     api.getServices(value).then((response) => {
       setServices(response.data.result)
-      console.log(response.data.result)
     })
 
     setFormData([]) //Resetting form data for new search
@@ -32,14 +33,15 @@ const ServiceSearch = () => {
         tempData.push(obj)
       }
     })
-    setResults(tempData.slice(0, 5))
+    setResults(tempData.slice(0, 20)) //limit
   }
 
   return (
     <>
       <Paper
         component="form"
-        sx={{ padding: 0, display: 'flex', alignItems: 'center', width: 500 }}
+        sx={{ padding: 0, display: 'flex', alignItems: 'center' }}
+        className="w-full  lg:w-[500px]"
       >
         <input
           className="h-12 w-full rounded-md p-4 focus:outline-none"
@@ -50,11 +52,14 @@ const ServiceSearch = () => {
       </Paper>
       {results.length > 0 && value.length > 0 && (
         <Paper className="mt-2">
-          <List>
+          <List className="max-h-80 overflow-auto">
             {results.map((result) => (
               <ListItem key={result.id} disablePadding>
                 <ListItemButton>
-                  <Link className="w-full" to={`service/${result.id}`}>
+                  <Link
+                    className="w-full"
+                    to={selfData !== '' ? `service/${result.id}` : 'login'}
+                  >
                     <ListItemText primary={result.name} />
                   </Link>
                 </ListItemButton>

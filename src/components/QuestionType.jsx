@@ -2,8 +2,8 @@ import { useContext } from 'react'
 import ServiceContext from '../context/serviceContext'
 import Duration from './form/Duration'
 import {
-  AdressInput,
-  BudgeInput,
+  AddressInput,
+  BudgetInput,
   CheckboxInput,
   RadioInput,
   SelectInput,
@@ -38,15 +38,17 @@ const QuestionType = ({ activeStep }) => {
 
     //Statics
     if (type === 'adress')
-      return <AdressInput data={formData[activeStep]} activeStep={activeStep} />
+      return <AddressInput data={formData[activeStep]} activeStep={activeStep} />
     if (type === 'duration')
       return <Duration data={formData[activeStep]} activeStep={activeStep} />
-    if (type === 'budge')
-      return <BudgeInput data={formData[activeStep]} activeStep={activeStep} />
+    if (type === 'showBudget')
+      return <BudgetInput data={formData[activeStep]} activeStep={activeStep} />
     if (type === 'workDetail')
       return <WorkDetail data={formData[activeStep]} activeStep={activeStep} />
     if (type === 'canSeeNumber')
-      return <CanSeeNumber data={formData[activeStep]} activeStep={activeStep} />
+      return (
+        <CanSeeNumber data={formData[activeStep]} activeStep={activeStep} />
+      )
   }
 }
 

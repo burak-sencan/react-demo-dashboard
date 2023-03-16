@@ -1,9 +1,9 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import Question from './Question'
 import { Checkbox, FormControlLabel, FormGroup, TextField } from '@mui/material'
 import ServiceContext from '../../context/serviceContext'
 
-const Budge = ({ data, activeStep }) => {
+const Budget = ({ data, activeStep }) => {
   const { formData, setFormData } = useContext(ServiceContext)
 
   const handleText = (e) => {
@@ -15,7 +15,7 @@ const Budge = ({ data, activeStep }) => {
       )
     )
   }
-  const disableBudgeInput = (e) => {
+  const disableBudgtInput = (e) => {
     setFormData(
       formData.map((item) =>
         item.activeStep === activeStep ? { ...item, answer: 0 } : item
@@ -40,7 +40,7 @@ const Budge = ({ data, activeStep }) => {
       <FormGroup className="flex items-center">
         <FormControlLabel
           checked={formData[activeStep].answer === 0 ? true : false}
-          onChange={disableBudgeInput}
+          onChange={disableBudgtInput}
           control={<Checkbox />}
           label="Belirtmek istemiyorum"
         />
@@ -49,4 +49,4 @@ const Budge = ({ data, activeStep }) => {
   )
 }
 
-export default Budge
+export default Budget

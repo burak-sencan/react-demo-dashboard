@@ -1,5 +1,5 @@
-import AdressInput from './Adress'
-import BudgeInput from './Budge'
+import AddressInput from './Address'
+import BudgetInput from './Budget'
 import CheckboxInput from './Checkbox'
 import RadioInput from './RadioInput'
 import SelectInput from './SelectInput'
@@ -7,8 +7,8 @@ import TextInput from './Text'
 import WorkDetail from './WorkDetail'
 
 export {
-  AdressInput,
-  BudgeInput,
+  AddressInput,
+  BudgetInput,
   CheckboxInput,
   RadioInput,
   SelectInput,
