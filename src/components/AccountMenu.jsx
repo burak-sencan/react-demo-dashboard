@@ -6,7 +6,6 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
-import Settings from '@mui/icons-material/Settings'
 import Logout from '@mui/icons-material/Logout'
 import { useContext, useEffect, useState } from 'react'
 import AuthContext from '../context/authContext'
@@ -38,12 +37,11 @@ export default function AccountMenu() {
   useEffect(() => {
     const getSelfData = async (token) => {
       api.getSelfClient(token).then((response) => {
-        if (response === 401) {
+        if (!response.data.status) {
           setToken('')
           setSelfData('')
           localStorage.removeItem('token')
         } else {
-          console.log(response)
           setSelfData(response)
         }
       })
@@ -51,7 +49,7 @@ export default function AccountMenu() {
     getSelfData(token)
   }, [])
 
-  if (selfData === '') return <p>Loading...</p>
+  if (selfData === '') return <p>Yükleniyor...</p>
 
   return (
     <>
@@ -120,13 +118,6 @@ export default function AccountMenu() {
         </Link>
 
         <Divider sx={{ marginY: 1 }} />
-
-        {/* <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem> */}
         <MenuItem onClick={handleLogOut}>
           <ListItemIcon>
             <Logout fontSize="small" />

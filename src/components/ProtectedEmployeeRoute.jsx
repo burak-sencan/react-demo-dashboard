@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import api from '../context/api'
 import AuthContext from '../context/authContext'
+import Loading from '../pages/dashboard/utils/Loading'
 
 const ProtectedEmployeeRoute = ({ children }) => {
   const { token, selfData, setSelfData } = useContext(AuthContext)
@@ -20,7 +21,7 @@ const ProtectedEmployeeRoute = ({ children }) => {
   }, [])
 
   if (loading) {
-    return <p>Loading...</p>
+    return <Loading />
   } else {
     if (selfData.data.result.account_type === '2') {
       return children

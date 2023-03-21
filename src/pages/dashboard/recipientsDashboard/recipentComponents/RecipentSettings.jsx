@@ -28,7 +28,7 @@ const RecipentSettings = () => {
         account_type: accountType,
         email: email,
         current_password: password,
-        phone: phone,
+        // phone: phone,
         new_password: newPassword,
         new_password_repeat: newPasswordRepeat,
       }
@@ -162,6 +162,7 @@ const RecipentSettings = () => {
               <input
                 className=" rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none dark:text-dark-800"
                 value={email}
+                disabled
                 onChange={(e) => {
                   setEmail(e.target.value)
                 }}
@@ -171,6 +172,7 @@ const RecipentSettings = () => {
             <label className="flex flex-col items-center justify-between gap-4 lg:flex-row">
               Telefon
               <input
+                disabled
                 className=" rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none dark:text-dark-800"
                 value={phone}
                 onChange={(e) => {

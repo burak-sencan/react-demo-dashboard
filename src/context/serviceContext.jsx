@@ -5,74 +5,64 @@ import { createContext, useState } from 'react'
 const ServiceContext = createContext()
 
 export const ServiceProvider = ({ children }) => {
-  const [services, setServices] = useState(null)
+  const [services, setServices] = useState([])
   const [formData, setFormData] = useState([])
-
-  //register user
-  const getServices = async () => {
-    try {
-      const response = await axios
-        .get(process.env.REACT_APP_API_URL + '/get_services')
-        .then((response) => {
-          setServices(response)
-        })
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   const prepareFormData = (data) => {
     console.log(data)
     let idx = 0
     const tempFormData = []
     data.questions.map((question) => {
-      if (question.type_name === 'radio') {
+      if (question.type_id === 6) {
         let tempJson = {
           activeStep: idx,
-          service_id: data.service_id,
-          questionId: question.id,
-          type_name: question.type_name,
+          service_id: data.id,
+          question_id: question.id,
+          type_id: question.type_id,
           question: question.label,
           answers: question.answers,
           answer: null,
         }
+        console.log(tempJson)
         tempFormData.push(tempJson)
-      } else if (question.type_name === 'checkbox') {
+      } else if (question.type_id === 5) {
         let tempJson = {
           activeStep: idx,
-          service_id: data.service_id,
+          service_id: data.id,
           question_id: question.id,
-          type_name: question.type_name,
+          type_id: question.type_id,
           question: question.label,
           answers: question.answers,
           answer: [],
         }
         tempFormData.push(tempJson)
-      } else if (question.type_name === 'select') {
+      } else if (question.type_id === 1) {
         let tempJson = {
           activeStep: idx,
-          service_id: data.service_id,
+          service_id: data.id,
           question_id: question.id,
-          type_name: question.type_name,
+          type_id: question.type_id,
           question: question.label,
           answers: question.answers,
           answer: null,
         }
         tempFormData.push(tempJson)
-      } else if (question.type_name === 'text') {
+      } else if (question.type_id === 2) {
         let tempJson = {
           activeStep: idx,
-          service_id: data.service_id,
-          type_name: question.type_name,
+          service_id: data.id,
+          type_id: question.type_id,
           question: question.label,
           answer: null,
         }
         tempFormData.push(tempJson)
-      } else if (question.type_name === 'textarea') {
+      }
+      //plus minus olacakmış
+      else if (question.type_id === 'textarea') {
         let tempJson = {
           activeStep: idx,
-          service_id: data.service_id,
-          type_name: question.type_name,
+          service_id: data.id,
+          type_id: question.type_id,
           question: question.label,
           answers: question.answers,
           answer: null,
@@ -85,7 +75,7 @@ export const ServiceProvider = ({ children }) => {
     //Static
     tempFormData.push({
       activeStep: idx,
-      type_name: 'adress',
+      type_id: 'adress',
       question: 'Adres',
       answer: null,
     })
@@ -93,28 +83,28 @@ export const ServiceProvider = ({ children }) => {
     idx++
     tempFormData.push({
       activeStep: idx,
-      type_name: 'duration',
+      type_id: 'duration',
       question: 'Ne kadar Zaman Alacak',
       answer: null,
     })
     idx++
     tempFormData.push({
       activeStep: idx,
-      type_name: 'showBudget',
+      type_id: 'showBudget',
       question: 'Bütçe',
       answer: null,
     })
     idx++
     tempFormData.push({
       activeStep: idx,
-      type_name: 'workDetail',
+      type_id: 'workDetail',
       question: 'İş Detayi',
       answer: null,
     })
     idx++
     tempFormData.push({
       activeStep: idx,
-      type_name: 'canSeeNumber',
+      type_id: 'canSeeNumber',
       question: 'Numaran Gösterilsin mi',
       answer: '1',
     })
@@ -125,7 +115,7 @@ export const ServiceProvider = ({ children }) => {
 
   return (
     <ServiceContext.Provider
-      value={{ services, formData, getServices, prepareFormData, setFormData }}
+      value={{ services, formData, setServices, prepareFormData, setFormData }}
     >
       {children}
     </ServiceContext.Provider>

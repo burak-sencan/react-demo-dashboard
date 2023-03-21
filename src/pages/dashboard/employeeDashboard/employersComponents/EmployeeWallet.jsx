@@ -17,7 +17,7 @@ const EmployeeWallet = () => {
   return (
     <DashboardContent>
       <div className="flex h-full flex-col gap-4">
-        <div className="flex gap-2 rounded-md bg-white p-2 shadow-md dark:bg-dark-900 dark:text-gray-400">
+        <div className="flex gap-2 rounded-md bg-white p-4 shadow-md dark:bg-dark-900 dark:text-gray-400">
           <button
             className={`${
               index === '0' ? 'bg-dark-800 text-light-50' : ''
@@ -50,7 +50,7 @@ const EmployeeWallet = () => {
           </button>
         </div>
 
-        <div className=" rounded-md bg-white p-2 dark:bg-dark-900 dark:text-light-50">
+        <div className=" rounded-md bg-white p-4 dark:bg-dark-900 dark:text-light-50">
           {index === '0' ? (
             <div className=" flex h-48 items-center  bg-white dark:bg-dark-900">
               <form

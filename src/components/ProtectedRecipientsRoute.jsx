@@ -2,6 +2,7 @@ import { Navigate } from 'react-router-dom'
 import { useContext, useEffect, useState } from 'react'
 import AuthContext from '../context/authContext'
 import api from '../context/api'
+import Loading from '../pages/dashboard/utils/Loading'
 
 const ProtectedRecipientsRoute = ({ children }) => {
   const { token, selfData, setSelfData } = useContext(AuthContext)
@@ -20,7 +21,7 @@ const ProtectedRecipientsRoute = ({ children }) => {
   }, [])
 
   if (loading) {
-    return <p>Loading...</p>
+    return <Loading/>
   } else {
     if (selfData.data.result.account_type === '1') {
       return children

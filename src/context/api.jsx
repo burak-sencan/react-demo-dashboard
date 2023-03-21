@@ -2,32 +2,33 @@ import axios from 'axios'
 
 const api = {
   getServices: () => {
-    return axios.get(process.env.REACT_APP_API_URL + '/getServices')
+    return axios.get(process.env.REACT_APP_API_URL + '/services')
   },
   getService: (id) => {
-    return axios.get(process.env.REACT_APP_API_URL + '/getService/' + id)
+    return axios.get(process.env.REACT_APP_API_URL + '/services/' + id)
   },
   getServiceAndDetails: (id) => {
-    return axios.get(process.env.REACT_APP_API_URL + '/getServiceDetails/' + id)
+    return axios.get(
+      process.env.REACT_APP_API_URL +
+        '/services/service_questions_and_values/' +
+        id
+    )
   },
-  getQuestions: (id) => {
-    return axios.get(process.env.REACT_APP_API_URL + '/getQuestions/' + id)
-  },
-  getValues: (id) => {
-    return axios.get(process.env.REACT_APP_API_URL + '/getQuestionValues/' + id)
-  },
+
   getProvinces: () => {
-    return axios.get(process.env.REACT_APP_API_URL + '/getProvinces/')
+    return axios.get(process.env.REACT_APP_API_URL + '/cities/')
   },
   getCounties: (id) => {
-    return axios.get(process.env.REACT_APP_API_URL + '/getCounties/' + id)
+    return axios.get(process.env.REACT_APP_API_URL + '/cities/' + id)
   },
-  getDistricts: (id) => {
-    return axios.get(process.env.REACT_APP_API_URL + '/getDistricts/' + id)
+  getDistricts: (countie_id, district_id) => {
+    return axios.get(
+      process.env.REACT_APP_API_URL + `/cities/${countie_id}/${district_id}`
+    )
   },
   getSelfClient: (token) => {
     return axios
-      .get(process.env.REACT_APP_API_URL + '/getSelfClient', {
+      .get(process.env.REACT_APP_API_URL + '/clients/self', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -40,9 +41,10 @@ const api = {
         return 401
       })
   },
-  getClientServices: (token, data) => {
+  //Yapılacak
+  recipientsAddServiceRequest: (token, data) => {
     return axios.post(
-      process.env.REACT_APP_API_URL + '/postSelfServiceRequest',
+      process.env.REACT_APP_API_URL + '/recipients/add_service_request',
       data,
       {
         headers: {
@@ -52,15 +54,15 @@ const api = {
     )
   },
   getSelfMessages: (token) => {
-    return axios.get(process.env.REACT_APP_API_URL + '/getSelfMessages', {
+    return axios.get(process.env.REACT_APP_API_URL + '/messages', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
   },
-  getSelfRequestMessages: (token, id) => {
+  getSelfRequestMessages: (token, request_id, client_id) => {
     return axios.get(
-      process.env.REACT_APP_API_URL + `/getSelfRequestMessages/${id}`,
+      process.env.REACT_APP_API_URL + `/messages/${request_id}/${client_id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -68,20 +70,16 @@ const api = {
       }
     )
   },
-  sendRequestMessage: (token, data, id) => {
-    return axios.post(
-      process.env.REACT_APP_API_URL + `/sendRequestMessage/${id}`,
-      data,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
+  sendRequestMessage: (token, data) => {
+    return axios.post(process.env.REACT_APP_API_URL + `/messages/send`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
   },
-  getSelfServiceRequests: (token) => {
+  recipientsServiceRequests: (token) => {
     return axios.get(
-      process.env.REACT_APP_API_URL + '/getSelfServiceRequests',
+      process.env.REACT_APP_API_URL + '/recipients/service_requests',
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -89,6 +87,17 @@ const api = {
       }
     )
   },
+  recipientsServiceRequest: (token, id) => {
+    return axios.get(
+      process.env.REACT_APP_API_URL + `/recipients/service_requests/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+  },
+  //yapılacak
   getBankAccounts: (token) => {
     return axios.get(process.env.REACT_APP_API_URL + '/getBankAccounts', {
       headers: {
@@ -104,14 +113,79 @@ const api = {
     })
   },
   getOpportunities: (token) => {
-    return axios.get(process.env.REACT_APP_API_URL + '/getOpportunities', {
+    return axios.get(
+      process.env.REACT_APP_API_URL + '/employers/opportunities',
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+  },
+  getOpportunitie: (token, id) => {
+    return axios.get(
+      process.env.REACT_APP_API_URL + `/employers/opportunitie/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+  },
+
+  // get client interested services
+  getClientInterestedServices: (token) => {
+    return axios.get(process.env.REACT_APP_API_URL + `/client_services`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
   },
-  getOpportunitie: (token, id) => {
-    return axios.get(process.env.REACT_APP_API_URL + `/getOpportunitie/${id}`, {
+  // post client interested services
+  updateClientInterestedServices: (token, data) => {
+    return axios.post(
+      process.env.REACT_APP_API_URL + `/client_services`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+  },
+  // delete client interested services
+  deletelientInterestedServices: (token, id) => {
+    return axios.delete(
+      process.env.REACT_APP_API_URL + `/client_services/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+  },
+  // delete client interested services
+  sendBid: (token, data, id) => {
+    return axios.post(
+      process.env.REACT_APP_API_URL + `/employers/send_bid/${id}`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+  },
+  // get client interested services
+  getMyBids: (token) => {
+    return axios.get(process.env.REACT_APP_API_URL + `/employers/my_bids`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  },
+  getMyWonBids: (token) => {
+    return axios.get(process.env.REACT_APP_API_URL + `/employers/my_won_bids`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

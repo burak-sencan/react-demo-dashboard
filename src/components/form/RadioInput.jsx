@@ -49,7 +49,7 @@ const RadioInput = ({ data, activeStep }) => {
               className=" gap-2 hover:bg-slate-100"
               labelPlacement="end"
               key={opt.id}
-              value={opt.id}
+              value={opt.value}
               control={<Radio color="success" />}
               label={opt.value}
             />

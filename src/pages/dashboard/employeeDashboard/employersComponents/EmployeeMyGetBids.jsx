@@ -9,57 +9,67 @@ import { Box, Divider, IconButton, Tooltip } from '@mui/material'
 import LocalOfferIcon from '@mui/icons-material/LocalOffer'
 import Loading from '../../utils/Loading'
 
-const data = [
-  {
-    request_id: '1',
-    service_name: '1',
-    adress: '1',
-    duration: '1',
-    budget: '1',
-  },
-]
-
 const EmployeeMyGetBids = () => {
   const { token } = useContext(AuthContext)
   const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(true)
+  const [data, setData] = useState([])
 
   const columns = useMemo(() => [
     {
-      accessorKey: 'service_name',
+      accessorKey: 'request_details.service_details.name',
       header: 'Servis Adı',
+      maxSize: 20,
     },
     {
-      accessorKey: 'province_name',
+      accessorKey: 'request_details.location_details.city.name',
       header: 'İl',
+      maxSize: 20,
     },
     {
-      accessorKey: 'countie_name',
+      accessorKey: 'request_details.location_details.countie.name',
       header: 'İlçe',
+      maxSize: 20,
     },
     {
-      accessorKey: 'district_name',
+      accessorKey: 'request_details.location_details.district.name',
       header: 'Mahalle',
+      maxSize: 20,
     },
     {
-      accessorKey: 'duration',
+      accessorKey: 'request_details.duration',
       header: 'Süre',
+      maxSize: 20,
     },
     {
-      accessorKey: 'budget',
+      accessorKey: 'request_details.budget',
       header: 'Bütçe',
+      maxSize: 20,
+    },
+    {
+      accessorKey: 'quote_message',
+      header: 'Mesaj',
+    },
+    {
+      accessorKey: 'quote_price',
+      header: 'Teklif Fiyatı',
+      maxSize: 20,
     },
   ])
 
-  const [isLoading, setIsLoading] = useState(true)
   // const [data, setData] = useState([])
   useEffect(() => {
-    api.getBankAccounts(token).then((response) => {
+    api.getMyWonBids(token).then((response) => {
       console.log(response)
-      // setData(response.data.result)
+      if (response.data.result) {
+        setData(response.data.result)
+      } else {
+        setData([])
+      }
       setIsLoading(false)
     })
   }, [])
-  
+
   if (isLoading) return <Loading />
 
   return (

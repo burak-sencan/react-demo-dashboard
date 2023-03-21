@@ -5,6 +5,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios'
 import api from '../context/api'
+import Footer from '../components/Footer'
 
 const Login = () => {
   const { token, setToken, setSelfData } = useContext(AuthContext)
@@ -41,22 +42,21 @@ const Login = () => {
 
   const login = async (userData) => {
     try {
-      axios.defaults.headers.common['Access-Control-Request-Headers'] = null
-      axios.defaults.headers.common['Access-Control-Request-Method'] = null
       const response = await axios.post(
-        process.env.REACT_APP_API_URL + '/login',
+        process.env.REACT_APP_API_URL + '/clients/login',
         userData
       )
-      if (response.data) {
-        if (response.data.status === 201) {
-          localStorage.setItem('token', response.data.result)
-          setToken(response.data.result)
-          getSelfData(response.data.result)
+
+      if (response.data.status === true) {
+        localStorage.setItem('token', response.data.result)
+        setToken(response.data.result)
+        getSelfData(response.data.result)
+        toast(response.data.message)
+        setTimeout(() => {
           navigate('/')
-        }
-        if (response.data.status === 401) {
-          toast(response.data.message)
-        }
+        }, 1000)
+      } else {
+        toast(response.data.message)
       }
     } catch (error) {
       toast(error.response.data.message)
@@ -70,8 +70,8 @@ const Login = () => {
   }
 
   return (
-    <section className=" w-full p-8">
-      <div className="mx-auto flex flex-col items-center justify-center px-6 py-8  lg:py-0">
+    <section className=" w-full">
+      <div className="mx-auto flex min-h-[calc(100vh-3rem)] flex-col items-center justify-center px-6 py-8 ">
         <div className="w-full rounded-lg bg-white  shadow dark:border dark:border-gray-700 dark:bg-gray-800 sm:max-w-md md:mt-0 xl:p-0">
           <div className="space-y-4 p-6 sm:p-8 md:space-y-6">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-2xl">
@@ -121,7 +121,7 @@ const Login = () => {
                 Giriş Yap
               </button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Bir hesabın yok mu?
+                <span className="mr-1"> Bir hesabın yok mu?</span>
                 <Link
                   to="/register"
                   className="text-primary-600 dark:text-primary-500 font-medium hover:underline"
@@ -135,7 +135,7 @@ const Login = () => {
       </div>
       <ToastContainer
         position="bottom-right"
-        autoClose={3000}
+        autoClose={1000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -145,6 +145,7 @@ const Login = () => {
         pauseOnHover
         theme="light"
       />
+      <Footer />
     </section>
   )
 }

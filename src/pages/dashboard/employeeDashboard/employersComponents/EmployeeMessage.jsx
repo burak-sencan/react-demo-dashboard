@@ -19,16 +19,12 @@ const EmployeeMessage = () => {
   const columns = useMemo(
     () => [
       {
-        accessorKey: 'sender',
-        header: 'Gönderici',
+        accessorKey: 'recipient_name',
+        header: 'Alıcı',
       },
       {
-        accessorKey: 'details',
-        header: 'Detaylar',
-      },
-      {
-        accessorKey: 'time',
-        header: 'Süre',
+        accessorKey: 'message',
+        header: 'Mesaj',
       },
     ],
     []
@@ -68,9 +64,12 @@ const EmployeeMessage = () => {
           renderRowActions={({ row }) => (
             <Box sx={{ display: 'flex', gap: '1rem' }}>
               <IconButton
-                onClick={() =>
-                  navigate(`/employeeDashboard/message/${row.original.id}`)
-                }
+                onClick={() => {
+                  navigate(
+                    `/employeeDashboard/message/${row.original.request_id}/${row.original.recipient_id}`
+                  )
+                  // console.log(row.original)
+                }}
                 sx={{
                   cursor: 'pointer',
                 }}

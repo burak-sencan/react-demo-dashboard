@@ -10,7 +10,7 @@ const Budget = ({ data, activeStep }) => {
     setFormData(
       formData.map((item) =>
         item.activeStep === activeStep
-          ? { ...item, answer: e.target.value }
+          ? { ...item, answer: `${e.target.value}` }
           : item
       )
     )

@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
-import { FaHome, FaSignInAlt, FaUser } from 'react-icons/fa'
+import { FaSignInAlt, FaUser } from 'react-icons/fa'
 import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs'
-
+import { logo } from '../assets'
 import { Link } from 'react-router-dom'
 import AccountMenu from './AccountMenu'
 import AuthContext from '../context/authContext'
@@ -38,8 +38,8 @@ const Header = () => {
 
   return (
     <header className="flex h-12  items-center justify-between  p-4 text-dark-800 dark:text-light-50">
-      <Link to="/">
-        <FaHome />
+      <Link to="/" className="rounded-md py-1 px-4 dark:bg-white">
+        <img src={logo} className="w-16" alt="biderya-logo" />
       </Link>
 
       <ul className=" flex items-center gap-4">
@@ -60,14 +60,22 @@ const Header = () => {
         ) : (
           <>
             <li>
-              <Link to="/login">
-                <FaSignInAlt />
-              </Link>
+              <Tooltip title="Giriş Yap">
+                <button className="rounded-full p-2 transition hover:bg-gray-400 hover:text-white">
+                  <Link to="/login">
+                    <FaSignInAlt />
+                  </Link>
+                </button>
+              </Tooltip>
             </li>
             <li>
-              <Link to="/register">
-                <FaUser />
-              </Link>
+              <Tooltip title="Kayıt Ol">
+                <button className="rounded-full p-2 transition hover:bg-gray-400 hover:text-white">
+                  <Link to="/register">
+                    <FaUser />
+                  </Link>
+                </button>
+              </Tooltip>
             </li>
           </>
         )}

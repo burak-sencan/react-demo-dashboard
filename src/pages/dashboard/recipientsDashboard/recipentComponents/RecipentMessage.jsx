@@ -19,16 +19,12 @@ const RecipentMessage = () => {
   const columns = useMemo(
     () => [
       {
-        accessorKey: 'sender',
-        header: 'Gönderici',
+        accessorKey: 'recipient_name',
+        header: 'Alıcı',
       },
       {
-        accessorKey: 'details',
-        header: 'Detaylar',
-      },
-      {
-        accessorKey: 'time',
-        header: 'Süre',
+        accessorKey: 'message',
+        header: 'Mesaj',
       },
     ],
     []
@@ -70,7 +66,7 @@ const RecipentMessage = () => {
               <IconButton
                 onClick={() =>
                   navigate(
-                    `/recipentDashboard/message/${row.original.request_id}`
+                    `/recipentDashboard/message/${row.original.request_id}/${row.original.employer_id}`
                   )
                 }
                 sx={{

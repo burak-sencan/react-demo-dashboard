@@ -6,10 +6,11 @@ import { useContext, useEffect, useState } from 'react'
 import api from '../../../../context/api'
 import AuthContext from '../../../../context/authContext'
 import Loading from '../../utils/Loading'
+import { toast, ToastContainer } from 'react-toastify'
 
 const EmployeeShowJobOpportunities = () => {
   const { id } = useParams()
-  const { token } = useContext(AuthContext)
+  const { token, selfData } = useContext(AuthContext)
 
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState([])
@@ -27,17 +28,25 @@ const EmployeeShowJobOpportunities = () => {
       [e.target.name]: e.target.value,
     }))
   }
+
   const onSubmit = (e) => {
     e.preventDefault()
-    console.log({
+    const tempFormData = {
+      request_id: data.id,
+      service_id: data.service_details.id,
+      receiver_client_id: data.client_details.id,
+      // winner_client_id: winner_client_id,
       quote_price: quotePrice,
       quote_message: quoteMessage,
+    }
+    api.sendBid(token, tempFormData, data.id).then((response) => {
+      toast(response.data.message)
     })
   }
 
   useEffect(() => {
     api.getOpportunitie(token, id).then((response) => {
-      console.log(response)
+      console.log(response.data.result)
       setData(response.data.result)
       setIsLoading(false)
     })
@@ -51,51 +60,103 @@ const EmployeeShowJobOpportunities = () => {
         <Link to="/employeeDashboard/jobOpportunities/">
           <ArrowBackIcon className="text-dark-900 dark:text-light-50" />
         </Link>
-        <div className="m-2">
-          <Divider />
-        </div>
-        <div className=" flex flex-col overflow-auto  bg-white p-2 shadow-md dark:bg-dark-900 dark:text-dark-900 lg:p-4">
-          <div className="flex flex-col gap-4 rounded-md shadow-md">
-            <p className=" rounded-t-md bg-light-50 p-4  dark:text-dark-800">
-              Kullanıcı Bilgisi
-            </p>
-            <p className="rounded-md p-4 text-dark-800 dark:bg-dark-900 dark:text-light-50">
-              {data.client_full_name}
-            </p>
+
+        <Divider sx={{ margin: 2 }} />
+        <div className=" flex flex-col  overflow-auto  bg-white p-2 shadow-md dark:bg-dark-900 dark:text-dark-900 lg:p-4">
+          {/* User Info -- Service Name */}
+          <div className="flex w-full flex-col gap-4 lg:flex-row">
+            <div className="flex w-full flex-col rounded-md shadow-md">
+              <p className=" rounded-t-md bg-light-50 p-4  dark:text-dark-800">
+                Kullanıcı Bilgisi
+              </p>
+              <p className="rounded-md p-4 text-dark-800 dark:bg-dark-900 dark:text-light-50">
+                {data.client_details.name}
+              </p>
+            </div>
+
+            <div className="flex w-full flex-col rounded-md shadow-md">
+              <p className=" rounded-t-md bg-light-50 p-4  dark:text-dark-800">
+                Hizmet Türü
+              </p>
+              <p className="rounded-md p-4 text-dark-800 dark:bg-dark-900 dark:text-light-50">
+                {data.service_details.name}
+              </p>
+            </div>
           </div>
-          <div className="my-4">
-            <Divider />
+
+          {/* Budget Duration Location  */}
+          <div className="mt-4 flex w-full flex-col gap-4  lg:flex-row">
+            <div className="flex w-full flex-col rounded-md shadow-md">
+              <p className="rounded-t-md bg-light-50 p-4  dark:text-dark-800">
+                Bütçe
+              </p>
+              <p className="rounded-md p-4 text-dark-800 dark:bg-dark-900 dark:text-light-50">
+                {data.budget}
+              </p>
+            </div>
+
+            <div className="flex w-full flex-col rounded-md shadow-md">
+              <p className="rounded-t-md bg-light-50 p-4  dark:text-dark-800">
+                Süre
+              </p>
+              <p className="rounded-md p-4 text-dark-800 dark:bg-dark-900 dark:text-light-50">
+                {data.duration}
+              </p>
+            </div>
+
+            <div className="flex w-full flex-col rounded-md shadow-md">
+              <p className="rounded-t-md bg-light-50 p-4  dark:text-dark-800">
+                Lokasyon Bilgisi
+              </p>
+              <div className="flex flex-col gap-2 rounded-md  p-4 text-dark-800 dark:bg-dark-900 dark:text-light-50">
+                <p>Şehir Adı: {data.location_details.city.name}</p>
+                <p>İlçe Adı: {data.location_details.countie.name}</p>
+                <p>Mahalle Adı: {data.location_details.district.name}</p>
+              </div>
+            </div>
           </div>
-          {data.question_and_values.map((question) => (
-            <div
-              className="flex flex-col gap-4 rounded-md "
-              key={question.question_id}
-            >
-              <div className="flex  flex-col gap-4  rounded-md  shadow-md">
-                <p className=" rounded-t-md bg-lime-100 p-4 dark:text-dark-800">
-                  {question.question_name}
+
+          {/* Answers */}
+          <p className=" mt-4 rounded-md bg-light-50 p-4 text-center text-lg dark:text-dark-800">
+            İlana Verilen Cevaplar
+          </p>
+          {data.questions_and_values.map((question, idx) => (
+            <div className="flex flex-col gap-4 rounded-md" key={idx}>
+              <div className="my-2 flex flex-col  rounded-md  shadow-md">
+                <p className=" rounded-t-md bg-light-50 p-4 dark:bg-white dark:text-dark-800">
+                  {question.question}
                 </p>
                 <p className="p-4 text-dark-800 dark:bg-dark-900 dark:text-light-50">
-                  {question.values.map((value) => `${value} `)}
+                  {typeof question.answer === 'string' ? (
+                    <span>{question.answer}</span>
+                  ) : (
+                    question.answer.map((item) => (
+                      <div className="m-2">
+                        <span key={item}>{item}</span>
+                      </div>
+                    ))
+                  )}
                 </p>
               </div>
             </div>
           ))}
 
-          <div className="my-4">
-            <Divider />
-          </div>
-          <div className="flex flex-col gap-4 shadow-md">
-            <p className="rounded-md bg-light-50 p-4 dark:text-dark-800">
+          {/* Details */}
+          <Divider sx={{ marginY: 2 }} />
+          <div className="flex flex-col rounded-md shadow-md">
+            <p className="rounded-t-md bg-light-50 p-4 dark:text-dark-800">
               Detaylar
             </p>
             <p className="rounded-md p-4 text-dark-800 dark:bg-dark-900 dark:text-light-50">
               {data.details}
             </p>
           </div>
-          <div className="my-4">
-            <Divider />
-          </div>
+
+          {/* Form */}
+          {/* <Divider sx={{ marginTop: 4 }} /> */}
+          <p className=" my-4 rounded-md bg-light-50 p-4 text-center text-lg dark:text-dark-800">
+            Teklif Ver
+          </p>
           <form action="" onSubmit={onSubmit} className="flex flex-col gap-2">
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
@@ -112,7 +173,7 @@ const EmployeeShowJobOpportunities = () => {
                   value={quoteMessage}
                   onChange={onChange}
                   required="required"
-                  className="w-full rounded-md border border-gray-300 bg-gray-50 p-2.5 text-gray-900 transition focus:bg-slate-200 focus:outline-none dark:border-gray-600 dark:bg-gray-700  dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:bg-slate-100 dark:focus:text-slate-900 dark:focus:ring-blue-500 sm:text-sm lg:w-2/3"
+                  className="w-full rounded-md border border-gray-300 bg-gray-50 p-2 text-gray-900 transition focus:bg-slate-200 focus:outline-none dark:border-gray-600 dark:bg-gray-700  dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:bg-slate-100 dark:focus:text-slate-900 dark:focus:ring-blue-500 sm:text-sm lg:w-2/3"
                 />
               </div>
 
@@ -129,7 +190,7 @@ const EmployeeShowJobOpportunities = () => {
                   name="quotePrice"
                   value={quotePrice}
                   onChange={onChange}
-                  className="w-full rounded-md border border-gray-300 bg-gray-50 p-2.5 text-gray-900 transition focus:bg-slate-200 focus:outline-none dark:border-gray-600 dark:bg-gray-700  dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:bg-slate-100 dark:focus:text-slate-900 dark:focus:ring-blue-500 sm:text-sm lg:w-2/3"
+                  className="w-full rounded-md border border-gray-300 bg-gray-50 p-2 text-gray-900 transition focus:bg-slate-200 focus:outline-none dark:border-gray-600 dark:bg-gray-700  dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:bg-slate-100 dark:focus:text-slate-900 dark:focus:ring-blue-500 sm:text-sm lg:w-2/3"
                   required="required"
                 />
               </div>
@@ -142,6 +203,18 @@ const EmployeeShowJobOpportunities = () => {
             </button>
           </form>
         </div>
+        <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       </div>
     </DashboardContent>
   )

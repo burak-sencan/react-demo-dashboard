@@ -74,12 +74,12 @@ const CheckboxInput = ({ data, activeStep }) => {
           <FormControlLabel
             className="hover:bg-slate-100"
             key={opt.id}
-            value={opt.id}
+            value={opt.value}
             onChange={handleChange}
             control={
               <Checkbox
                 color="success"
-                checked={value?.includes(opt.id) ? true : false}
+                checked={value?.includes(opt.value) ? true : false}
               />
             }
             label={opt.value}

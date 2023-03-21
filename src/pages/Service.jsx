@@ -1,12 +1,13 @@
 import { useContext, useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import ServiceContext from '../context/serviceContext'
 import AuthContext from '../context/authContext'
 import QuestionType from '../components/QuestionType'
 import api from '../context/api'
-import { Box, Button } from '@mui/material'
+import { Box, Button, Divider, Tooltip } from '@mui/material'
 import Spinner from '../components/Spinner'
 import { toast, ToastContainer } from 'react-toastify'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 const Service = () => {
   const [activeStep, setActiveStep] = useState(0)
@@ -17,6 +18,7 @@ const Service = () => {
 
   useEffect(() => {
     api.getServiceAndDetails(id).then((response) => {
+      console.log(response)
       prepareFormData(response.data.result)
     })
   }, [])
@@ -30,11 +32,11 @@ const Service = () => {
   }
 
   const handleSubmit = () => {
-    let question_and_value_ids = {}
+    let questions_and_values = []
     let service_id
-    let province_id
+    let city_id
     let countie_id
-    let districts_id
+    let district_id
     let duration
     let workDetail
     let canSeeNumber
@@ -42,17 +44,20 @@ const Service = () => {
     let budget
 
     formData.forEach((item) => {
-      if (item.questionId != null) {
+      console.log(item)
+      if (item.question_id != null) {
         service_id = item.service_id
-        question_and_value_ids[item.questionId] = item.answer
+        questions_and_values.push({
+          question: item.question,
+          answer: item.answer,
+        })
       } else {
-        if (item.type_name === 'adress') {
-          province_id = item.answer[0]
+        if (item.type_id === 'adress') {
+          city_id = item.answer[0]
           countie_id = item.answer[1]
-          districts_id = 0
-          if (item.answer.length > 3) districts_id = item.answer[2]
+          district_id = item.answer[2]
         }
-        if (item.type_name === 'duration') {
+        if (item.type_id === 'duration') {
           //convert to dd/mm/yyyy
           const date = new Date()
           const year = date.getFullYear()
@@ -62,13 +67,13 @@ const Service = () => {
 
           duration = formattedDate
         }
-        if (item.type_name === 'workDetail') {
+        if (item.type_id === 'workDetail') {
           workDetail = item.answer
         }
-        if (item.type_name === 'canSeeNumber') {
+        if (item.type_id === 'canSeeNumber') {
           canSeeNumber = item.answer
         }
-        if (item.type_name === 'showBudget') {
+        if (item.type_id === 'showBudget') {
           if (item.answer === 0) {
             showBudget = 0
             budget = 0
@@ -81,29 +86,49 @@ const Service = () => {
     })
 
     const data = {
-      question_and_value_ids: question_and_value_ids,
-      province_id: province_id,
-      countie_id: countie_id,
-      districts_id: districts_id,
+      questions_and_values: questions_and_values,
+      city_id: `${city_id}`,
+      countie_id: `${countie_id}`,
+      district_id: `${district_id}`,
       duration: duration,
       details: workDetail,
       can_see_number: canSeeNumber,
-      show_budget: showBudget,
-      budget: budget,
-      service_id: service_id,
+      show_budget: `${showBudget}`,
+      budget: `${budget}`,
+      service_id: `${service_id}`,
     }
 
+    console.log(data)
     postFormData(token, data)
   }
 
   const postFormData = async (token, data) => {
-    api.getClientServices(token, data).then((response) => {
+    api.recipientsAddServiceRequest(token, data).then((response) => {
       toast(response.data.message)
       toast('Anasayfaya Dönülüyor.')
       setTimeout(() => {
         navigate('/')
       }, 5000)
     })
+  }
+  const { selfData } = useContext(AuthContext)
+  console.log(selfData.data.result.id)
+  if (selfData.data.result.account_type === '2') {
+    return (
+      <div className="flex h-96 flex-col justify-center gap-4 ">
+        <p>Sadece Hizmet Alanlar Talep Oluşturabilir. </p>
+        <p>
+          Talep Oluşturabilmeniz İçin Hizmet Alan Tipinde Bir Hesap İle Giriş
+          Yapmalısınız.
+        </p>
+        <Divider />
+        <Link to="/">
+          <Tooltip title="Anasayfa'ya Dön">
+            <ArrowBackIcon className="text-dark-900 dark:text-light-50" />
+          </Tooltip>
+        </Link>
+      </div>
+    )
   }
 
   return (

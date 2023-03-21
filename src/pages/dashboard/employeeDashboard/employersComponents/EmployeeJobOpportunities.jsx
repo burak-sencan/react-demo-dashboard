@@ -15,20 +15,23 @@ const EmployeeJobOpportunities = () => {
 
   const columns = useMemo(() => [
     {
-      accessorKey: 'service_name',
+      accessorKey: 'service_details.name',
       header: 'Servis Adı',
     },
     {
-      accessorKey: 'province_name',
+      accessorKey: 'location_details.city_name',
       header: 'İl',
+      maxSize: 20,
     },
     {
-      accessorKey: 'countie_name',
+      accessorKey: 'location_details.countie_name',
       header: 'İlçe',
+      maxSize: 20,
     },
     {
-      accessorKey: 'district_name',
+      accessorKey: 'location_details.district_name',
       header: 'Mahalle',
+      maxSize: 20,
     },
     {
       accessorKey: 'duration',
@@ -37,6 +40,9 @@ const EmployeeJobOpportunities = () => {
     {
       accessorKey: 'budget',
       header: 'Bütçe',
+      Cell: ({ cell }) => (
+        <p>{`${cell.getValue() === 0 ? 'Belirtilmedi' : cell.getValue()}`} </p>
+      ),
     },
   ])
 
@@ -45,7 +51,12 @@ const EmployeeJobOpportunities = () => {
   useEffect(() => {
     api.getOpportunities(token).then((response) => {
       console.log(response)
-      setData(response.data.result)
+      if (response.data.status === false) {
+        // no data
+        setData([])
+      } else {
+        setData(response.data.result)
+      }
       setIsLoading(false)
     })
   }, [])

@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import HomeIcon from '@mui/icons-material/Home'
 import LocalOfferIcon from '@mui/icons-material/LocalOffer'
@@ -7,7 +6,8 @@ import SettingsIcon from '@mui/icons-material/Settings'
 import MenuIcon from '@mui/icons-material/Menu'
 import WalletIcon from '@mui/icons-material/Wallet'
 import AddToQueueIcon from '@mui/icons-material/AddToQueue'
-import { Box, Divider, Stack } from '@mui/material'
+import { Divider, Stack } from '@mui/material'
+import { useLocation } from 'react-router-dom'
 
 const employers = [
   {
@@ -46,7 +46,8 @@ const employers = [
 ]
 
 const Sidebar = ({ toggle, isOpen }) => {
-  const [idx, setIdx] = useState('1')
+  const location = useLocation()
+  const isItemActive = (item) => location.pathname.includes(item.url)
 
   return (
     <div className="hide-scrollbar-f hide-scrollbar-c flex h-full flex-col items-center overflow-auto bg-white pt-4 dark:!bg-dark-900">
@@ -65,7 +66,7 @@ const Sidebar = ({ toggle, isOpen }) => {
           >
             <button
               className={`${
-                idx === item.id
+                isItemActive(item)
                   ? '!bg-slate-200 !text-dark-800  dark:!bg-gray-700 dark:!text-white'
                   : '!text-gray-400 hover:!text-dark-800 dark:hover:!text-stone-100'
               } flex-start flex gap-2 overflow-hidden  rounded-md text-left transition ${
@@ -73,9 +74,6 @@ const Sidebar = ({ toggle, isOpen }) => {
                   ? 'flex !w-32 justify-center !px-0 !py-2'
                   : '!w-full !p-2'
               } `}
-              onClick={() => {
-                setIdx(item.id)
-              }}
             >
               {item.icon}
               {isOpen && item.text}

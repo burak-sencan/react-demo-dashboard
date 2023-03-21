@@ -15,7 +15,7 @@ const CanSeeNumber = ({ data, activeStep }) => {
     setFormData(
       formData.map((item) =>
         item.activeStep === activeStep
-          ? { ...item, answer: event.target.value }
+          ? { ...item, answer: `${event.target.value}` }
           : item
       )
     )

@@ -47,7 +47,7 @@ const Address = ({ data, activeStep }) => {
     setDistricts([])
 
     api
-      .getDistricts(countyId)
+      .getDistricts(provinceValue, countyId)
       .then((response) => {
         console.log(response.data.result)
         setDistricts(response.data.result)

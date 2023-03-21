@@ -6,13 +6,27 @@ import { toast, ToastContainer } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import DashboardContent from '../../utils/DashboardContent'
 import Loading from '../../utils/Loading'
+import {
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Paper,
+  Tooltip,
+} from '@mui/material'
 
 const EmployeeSettings = () => {
   const { token, setToken, selfData, setSelfData } = useContext(AuthContext)
   const navigate = useNavigate()
 
+  const [isLoading, setIsLoading] = useState(true)
+  const [services, setServices] = useState('')
+  const [value, setValue] = useState('')
+  const [results, setResults] = useState([])
+  const [employeerSkills, setEmployeerSkills] = useState([])
+
   //formStates
-  const [fullName, setfullName] = useState('')
+  const [fullName, setFullName] = useState('')
   const [accountType, setAccountType] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
@@ -29,7 +43,7 @@ const EmployeeSettings = () => {
         account_type: accountType,
         email: email,
         current_password: password,
-        phone: phone,
+        // phone: phone,
         new_password: newPassword,
         new_password_repeat: newPasswordRepeat,
       }
@@ -37,7 +51,7 @@ const EmployeeSettings = () => {
     }
   }
 
-  //update user
+  // update user
   const updateUser = async (userData) => {
     try {
       const response = await axios.post(
@@ -64,7 +78,6 @@ const EmployeeSettings = () => {
       toast(error.response.data.message)
     }
   }
-
   const getSelfData = async (token) => {
     api.getSelfClient(token).then((response) => {
       setSelfData(response)
@@ -73,37 +86,168 @@ const EmployeeSettings = () => {
       }
     })
   }
-
-  useEffect(() => {
-    setfullName(selfData.data.result.full_name)
-    setAccountType(selfData.data.result.account_type)
-    setEmail(selfData.data.result.email)
-    setPhone(selfData.data.result.phone)
-    console.log(selfData)
-  }, [])
-
+  const handleResult = (e) => {
+    const textInput = e.target.value
+    let tempData = []
+    setValue(textInput)
+    services.map((obj) => {
+      if (obj.name.toLowerCase().includes(textInput.toLowerCase())) {
+        tempData.push(obj)
+      }
+    })
+    setResults(tempData.slice(0, 20)) //limit
+    // console.log(tempData.slice(0, 20))
+  }
   const handleChangeRadio = (e) => {
     setAccountType(e.target.value)
   }
 
-  if (typeof selfData === 'string') {
+  // Handle add user interesting
+  const handleEmployeeSkill = (res) => {
+    if (
+      !employeerSkills.find(
+        (employeerSkill) => employeerSkill.service_id === res.id
+      )
+    ) {
+      if (employeerSkills.length > 9) {
+        toast('En fazla 10 adet ilgi alanı eklenebilir.')
+        setValue('')
+      } else {
+        setEmployeerSkills([
+          ...employeerSkills,
+          {
+            service_id: res.id,
+            name: res.name,
+            client_id: selfData.data.result.id,
+          },
+        ])
+        handleSaveInterested(res)
+      }
+    } else {
+      setValue('')
+      toast(`${res.name} Önceden Eklenmiş.`)
+    }
+  }
+
+  const handleSaveInterested = (data) => {
+    console.log(data)
+    api
+      .updateClientInterestedServices(token, { service_id: data.id })
+      .then((response) => {
+        toast(response.data.message)
+        setValue('')
+      })
+  }
+
+  const handleDelete = (event, id) => {
+    const deletedItemId = event.target.value
+    const newEmployeerSkills = employeerSkills.filter(
+      (employeerSkill) => employeerSkill.service_id !== +deletedItemId
+    )
+
+    api.deletelientInterestedServices(token, id).then((response) => {
+      toast(response.data.message)
+      setEmployeerSkills(newEmployeerSkills)
+    })
+  }
+
+  useEffect(() => {
+    setFullName(selfData.data.result.full_name)
+    setAccountType(selfData.data.result.account_type)
+    setEmail(selfData.data.result.email)
+    setPhone(selfData.data.result.phone)
+
+    api
+      .getServices()
+      .then((response) => {
+        setServices(response.data.result)
+      })
+      .then(
+        api.getClientInterestedServices(token).then((response) => {
+          if (response.data.result) {
+            setEmployeerSkills(response.data.result)
+            console.log(response.data.result)
+          } else {
+            setEmployeerSkills([])
+          }
+          setIsLoading(false)
+        })
+      )
+  }, [])
+
+  if (typeof selfData === 'string' || isLoading) {
     return <Loading />
   }
 
   return (
     <DashboardContent>
       <div className="flex flex-col gap-4">
-        <div className="flex  min-h-[100%] flex-col gap-8  rounded-md bg-white p-2 dark:bg-dark-900 lg:flex-row">
-          <p>İlgi Alanlarınız</p>
-          
+        {/* İnterested */}
+        <div className="flex min-h-[50vh] flex-col justify-between gap-8 rounded-md  bg-white p-2 dark:bg-dark-900 lg:flex-row ">
+          <div className="flex flex-col justify-between gap-4">
+            <div>
+              <p className="p-4">İlgi Alanı Ekle</p>
+              <div className="mt-1 w-full lg:w-[500px]">
+                <Paper
+                  component="form"
+                  sx={{ padding: 0, display: 'flex', alignItems: 'center' }}
+                >
+                  <input
+                    className="h-12 w-full rounded-md p-4 focus:outline-none"
+                    placeholder="Hizmet Ara"
+                    value={value}
+                    onChange={handleResult}
+                  />
+                </Paper>
+                {results.length > 0 && value.length > 0 && (
+                  <Paper className="relative mt-1 ">
+                    <List className="max-h-80 overflow-auto">
+                      {results.map((result) => (
+                        <Tooltip title="Ekle">
+                          <ListItem key={result.id} disablePadding>
+                            <ListItemButton
+                              onClick={(e) => {
+                                handleEmployeeSkill(result)
+                              }}
+                            >
+                              <ListItemText primary={result.name} />
+                            </ListItemButton>
+                          </ListItem>
+                        </Tooltip>
+                      ))}
+                    </List>
+                  </Paper>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="w-full">
+            <p className="p-4">İlgi Alanlarım</p>
+            {employeerSkills.length === 0 ? 'İlgi Alanı Yok' : ''}
+            {employeerSkills.map((employeerSkill) => (
+              <Tooltip title="Çıkar">
+                <button
+                  className="m-1 rounded-md border p-4 transition hover:bg-red-400"
+                  onClick={(event) => {
+                    handleDelete(event, employeerSkill.id)
+                  }}
+                  value={employeerSkill.service_id}
+                  key={employeerSkill.service_id}
+                >
+                  {employeerSkill.name}
+                </button>
+              </Tooltip>
+            ))}
+          </div>
         </div>
 
+        {/* User Settings */}
         <form
           onSubmit={onSubmit}
           className="flex  min-h-[100%] flex-col gap-8  rounded-md bg-white p-2 dark:bg-dark-900 lg:flex-row"
         >
-          <div className="flex flex-col gap-4  rounded-md bg-white p-4 text-dark-800 dark:bg-dark-900 dark:text-light-50">
-            <label className="flex flex-col items-center justify-between gap-4 lg:w-96 lg:flex-row">
+          <div className="flex flex-col gap-4 rounded-md bg-white p-4 text-dark-800 dark:bg-dark-900 dark:text-light-50 lg:w-[500px]">
+            <label className="flex flex-col items-center  gap-4 lg:w-96 lg:flex-row">
               <span>Adı</span>
               <input
                 className="rounded-md bg-light-50 p-4 dark:text-dark-800"
@@ -111,7 +255,7 @@ const EmployeeSettings = () => {
                 defaultValue=""
                 value={fullName}
                 onChange={(e) => {
-                  setfullName(e.target.value)
+                  setFullName(e.target.value)
                 }}
                 name="fullName"
               />
@@ -174,6 +318,7 @@ const EmployeeSettings = () => {
                 <input
                   className="rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none dark:text-dark-800"
                   value={email}
+                  disabled
                   onChange={(e) => {
                     setEmail(e.target.value)
                   }}
@@ -183,6 +328,7 @@ const EmployeeSettings = () => {
               <label className="flex flex-col items-center justify-between gap-4 lg:flex-row">
                 Telefon
                 <input
+                  disabled
                   className="rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none dark:text-dark-800"
                   value={phone}
                   onChange={(e) => {

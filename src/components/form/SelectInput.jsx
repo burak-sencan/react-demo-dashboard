@@ -51,7 +51,7 @@ const SelectInput = ({ data, activeStep }) => {
           onChange={handleChange}
         >
           {data.answers.map((opt) => (
-            <MenuItem key={opt.id} value={opt.id}>
+            <MenuItem key={opt.id} value={opt.value}>
               {opt.value}
             </MenuItem>
           ))}
