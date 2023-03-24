@@ -60,7 +60,6 @@ const EmployeeMyGetBids = () => {
   // const [data, setData] = useState([])
   useEffect(() => {
     api.getMyWonBids(token).then((response) => {
-      console.log(response)
       if (response.data.result) {
         setData(response.data.result)
       } else {

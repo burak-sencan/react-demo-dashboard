@@ -25,7 +25,7 @@ const RecipentAdvert = () => {
       maxSize: 20,
     },
     {
-      accessorKey: 'location_details.county.name',
+      accessorKey: 'location_details.countie.name',
       header: 'İlçe',
       maxSize: 20,
     },
@@ -77,8 +77,8 @@ const RecipentAdvert = () => {
   useEffect(() => {
     api.recipientsServiceRequests(token).then((response) => {
       if (response.data.result) {
-        console.log(response.data.result)
         setData(response.data.result)
+        console.log(response.data.result)
       } else setData([])
       setIsLoading(false)
     })
@@ -107,7 +107,6 @@ const RecipentAdvert = () => {
             <Box sx={{ display: 'flex', gap: '1rem' }}>
               <IconButton
                 onClick={() => {
-                  console.log(row)
                   navigate(`/recipentDashboard/advert/${row.original.id}`)
                 }}
                 sx={{

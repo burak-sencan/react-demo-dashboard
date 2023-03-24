@@ -119,7 +119,6 @@ const BudgetTransfer = () => {
   const [data, setData] = useState([])
   useEffect(() => {
     api.getBankAccounts(token).then((response) => {
-      console.log(response)
       setData(response.data.result)
       setIsLoading(false)
     })

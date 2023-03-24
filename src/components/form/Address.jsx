@@ -19,7 +19,13 @@ const MenuProps = {
 }
 
 const Address = ({ data, activeStep }) => {
-  const { formData, setFormData } = useContext(ServiceContext)
+  const {
+    formData,
+    setFormData,
+    setProvinceName,
+    setCountieName,
+    setDistrictName,
+  } = useContext(ServiceContext)
 
   const [provinceValue, setProvinceValue] = useState()
   const [countiesValue, setCountiesValue] = useState()
@@ -49,7 +55,6 @@ const Address = ({ data, activeStep }) => {
     api
       .getDistricts(provinceValue, countyId)
       .then((response) => {
-        console.log(response.data.result)
         setDistricts(response.data.result)
       })
       .catch((error) => {
@@ -79,11 +84,6 @@ const Address = ({ data, activeStep }) => {
     api.getProvinces().then((response) => {
       setProvinces(response.data.result)
     })
-    // if (formData[activeStep]?.answer !== null) {
-    //   setProvinceValue(formData[activeStep]?.answer[0])
-    //   setCountiesValue(formData[activeStep]?.answer[1])
-    //   setDistrictsValue(formData[activeStep]?.answer[2])
-    // }
   }, [])
 
   return (
@@ -100,7 +100,11 @@ const Address = ({ data, activeStep }) => {
           MenuProps={MenuProps}
         >
           {provinces.map((province) => (
-            <MenuItem key={province.id} value={province.id}>
+            <MenuItem
+              key={province.id}
+              value={province.id}
+              onClick={() => setProvinceName(province.name)}
+            >
               {province.name}
             </MenuItem>
           ))}
@@ -118,7 +122,11 @@ const Address = ({ data, activeStep }) => {
             MenuProps={MenuProps}
           >
             {counties.map((county) => (
-              <MenuItem key={county.id} value={county.id}>
+              <MenuItem
+                key={county.id}
+                value={county.id}
+                onClick={() => setCountieName(county.name)}
+              >
                 {county.name}
               </MenuItem>
             ))}
@@ -137,7 +145,11 @@ const Address = ({ data, activeStep }) => {
             MenuProps={MenuProps}
           >
             {districts.map((district) => (
-              <MenuItem key={district.id} value={district.id}>
+              <MenuItem
+                key={district.id}
+                value={district.id}
+                onClick={() => setDistrictName(district.name)}
+              >
                 {district.name}
               </MenuItem>
             ))}

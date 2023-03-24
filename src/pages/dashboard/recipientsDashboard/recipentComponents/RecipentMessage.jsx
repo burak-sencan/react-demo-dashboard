@@ -19,7 +19,7 @@ const RecipentMessage = () => {
   const columns = useMemo(
     () => [
       {
-        accessorKey: 'recipient_name',
+        accessorKey: 'recipient_details.full_name',
         header: 'Alıcı',
       },
       {
@@ -29,6 +29,7 @@ const RecipentMessage = () => {
     ],
     []
   )
+  const handleDeleteMessage = (data) => {}
 
   useEffect(() => {
     api.getSelfMessages(token).then((response) => {
@@ -77,11 +78,11 @@ const RecipentMessage = () => {
                   <DraftsIcon />
                 </Tooltip>
               </IconButton>
-              <IconButton onClick={() => console.log(row.original.request_id)}>
+              {/* <IconButton onClick={() => handleDeleteMessage(row.original)}>
                 <Tooltip title="Mesajı sil">
                   <ClearIcon />
                 </Tooltip>
-              </IconButton>
+              </IconButton> */}
             </Box>
           )}
         />

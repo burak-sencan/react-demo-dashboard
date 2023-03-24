@@ -15,8 +15,6 @@ const RecipentShowAdvert = () => {
 
   useEffect(() => {
     api.recipientsServiceRequest(token, id).then((response) => {
-      console.log(response.data.result)
-
       setData(response.data.result)
       setIsLoading(false)
     })
@@ -32,10 +30,10 @@ const RecipentShowAdvert = () => {
         </Link>
         <Divider sx={{ marginY: 2 }} />
 
-        <div className=" flex flex-col  overflow-auto  bg-white p-2 shadow-md dark:bg-dark-900 dark:text-dark-900 lg:p-4">
+        <div className=" flex flex-col  gap-4 overflow-auto bg-white p-2 shadow-md dark:bg-dark-900 dark:text-dark-900 lg:p-4">
           {/* User Info -- Service Name */}
           <div className="flex w-full flex-col gap-4 lg:flex-row">
-            <div className="flex w-full flex-col rounded-md shadow-md">
+            <div className="flex w-full  flex-col rounded-md  shadow-md transition hover:shadow-slate-400 dark:hover:shadow-slate-500">
               <p className=" rounded-t-md bg-light-50 p-4  dark:text-dark-800">
                 Kullanıcı Bilgisi
               </p>
@@ -44,7 +42,7 @@ const RecipentShowAdvert = () => {
               </p>
             </div>
 
-            <div className="flex w-full flex-col rounded-md shadow-md">
+            <div className="flex w-full  flex-col rounded-md  shadow-md transition hover:shadow-slate-400 dark:hover:shadow-slate-500">
               <p className=" rounded-t-md bg-light-50 p-4  dark:text-dark-800">
                 Hizmet Türü
               </p>
@@ -56,7 +54,7 @@ const RecipentShowAdvert = () => {
 
           {/* Budget Duration Location  */}
           <div className="mt-4 flex w-full flex-col gap-4  lg:flex-row">
-            <div className="flex w-full flex-col rounded-md shadow-md">
+            <div className="flex w-full flex-col  rounded-md  shadow-md transition hover:shadow-slate-400 dark:hover:shadow-slate-500">
               <p className="rounded-t-md bg-light-50 p-4  dark:text-dark-800">
                 Bütçe
               </p>
@@ -65,7 +63,7 @@ const RecipentShowAdvert = () => {
               </p>
             </div>
 
-            <div className="flex w-full flex-col rounded-md shadow-md">
+            <div className="flex w-full flex-col  rounded-md shadow-md transition hover:shadow-slate-400 dark:hover:shadow-slate-500">
               <p className="rounded-t-md bg-light-50 p-4  dark:text-dark-800">
                 Süre
               </p>
@@ -74,7 +72,7 @@ const RecipentShowAdvert = () => {
               </p>
             </div>
 
-            <div className="flex w-full flex-col rounded-md shadow-md">
+            <div className="flex w-full  flex-col rounded-md  shadow-md transition hover:shadow-slate-400 dark:hover:shadow-slate-500">
               <p className="rounded-t-md bg-light-50 p-4  dark:text-dark-800">
                 Lokasyon Bilgisi
               </p>
@@ -92,7 +90,7 @@ const RecipentShowAdvert = () => {
           </p>
           {data.questions_and_values.map((question, idx) => (
             <div className="flex flex-col gap-4 rounded-md" key={idx}>
-              <div className="my-2 flex flex-col  rounded-md  shadow-md">
+              <div className="my-2 flex  flex-col rounded-md  shadow-md transition  hover:shadow-slate-400  dark:hover:shadow-slate-500">
                 <p className=" rounded-t-md bg-light-50 p-4 dark:bg-white dark:text-dark-800">
                   {question.question}
                 </p>
@@ -113,7 +111,7 @@ const RecipentShowAdvert = () => {
 
           {/* Details */}
           <Divider sx={{ marginY: 2 }} />
-          <div className="flex flex-col rounded-md shadow-md">
+          <div className="flex flex-col  rounded-md shadow-md  transition hover:shadow-slate-400 dark:hover:shadow-slate-500">
             <p className="rounded-t-md bg-light-50 p-4 dark:text-dark-800">
               Detaylar
             </p>

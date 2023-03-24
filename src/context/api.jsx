@@ -184,6 +184,16 @@ const api = {
       },
     })
   },
+  getMyBid: (token, id) => {
+    return axios.get(
+      process.env.REACT_APP_API_URL + `/employers/my_bids/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+  },
   getMyWonBids: (token) => {
     return axios.get(process.env.REACT_APP_API_URL + `/employers/my_won_bids`, {
       headers: {

@@ -12,7 +12,6 @@ const ProtectedEmployeeRoute = ({ children }) => {
     api.getSelfClient(token).then((response) => {
       setSelfData(response)
       setLoading(false)
-      console.log('ProtecteEmployeeRoute: ' + response.data.result.account_type)
     })
   }
 

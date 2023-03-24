@@ -9,9 +9,15 @@ const EmployeeShowMyGetBids = () => {
   return (
     <DashboardContent>
       <div>
-        <Link to="/employeeDashboard/getBids/">
-          <ArrowBackIcon className="text-dark-900 dark:text-light-50" />
-        </Link>
+        <div className="flex gap-2">
+          <Link to="/employeeDashboard/getBids/">
+            <ArrowBackIcon className="text-dark-900 dark:text-light-50" />
+          </Link>
+          <p className="text-dark-900 dark:text-light-50">
+            Kazandığım Teklifler
+          </p>
+        </div>
+
         <div className="m-2">
           <Divider />
         </div>

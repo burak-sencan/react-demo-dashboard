@@ -14,20 +14,6 @@ import CanSeeNumber from './form/CanSeeNumber'
 const QuestionType = ({ activeStep }) => {
   const { formData } = useContext(ServiceContext)
   
-  console.log('activeStep: ', activeStep)
-  console.log('formData: ', formData[activeStep])
-  
-  // const { selfData } = useContext(AuthContext)
-  // console.log(selfData.data.result.id)
-  // if (selfData.data.result.account_type === '2') {
-  //   return (
-  //     <div>
-  //       <p>Sadece Hizmet Alanlar Talep Oluşturabilir</p>
-  //       <Link to="/">Anasayfa</Link>
-  //     </div>
-  //   )
-  // }
-
   // Loading
   if (formData.lenght === 0) return <p>Loading</p>
 

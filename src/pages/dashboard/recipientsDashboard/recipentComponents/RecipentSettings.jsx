@@ -5,6 +5,8 @@ import AuthContext from '../../../../context/authContext'
 import api from '../../../../context/api'
 import { useNavigate } from 'react-router-dom'
 import DashboardContent from '../../utils/DashboardContent'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 
 const RecipentSettings = () => {
   const { token, setToken, selfData, setSelfData } = useContext(AuthContext)
@@ -15,6 +17,7 @@ const RecipentSettings = () => {
   const [accountType, setAccountType] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
+  const [showPass, setShowPass] = useState(false) //hide show password
   const [password, setPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [newPasswordRepeat, setNewPasswordRepeat] = useState('')
@@ -74,7 +77,6 @@ const RecipentSettings = () => {
   }
 
   useEffect(() => {
-    console.log(selfData)
     setfullName(selfData.data.result.full_name)
     setAccountType(selfData.data.result.account_type)
     setEmail(selfData.data.result.email)
@@ -89,10 +91,10 @@ const RecipentSettings = () => {
     <DashboardContent>
       <form
         onSubmit={onSubmit}
-        className="flex  min-h-[100%] flex-col justify-between gap-8 rounded-md"
+        className="flex min-h-[100%] flex-col justify-around gap-8  rounded-md bg-white dark:bg-dark-900 lg:flex-row lg:p-2"
       >
-        <div className="flex flex-col gap-4  rounded-md bg-white p-4 text-dark-800 shadow-md dark:bg-dark-900 dark:text-light-50">
-          <label className="flex flex-col items-center justify-between gap-4 lg:w-96 lg:flex-row">
+        <div className="flex flex-col gap-8 rounded-md bg-white p-2 text-dark-800 dark:bg-dark-900 dark:text-light-50 lg:w-[500px] lg:gap-4 lg:p-4">
+          <label className="flex flex-col items-center justify-between gap-4 lg:flex-row">
             <span>Adı</span>
             <input
               className="rounded-md bg-light-50 p-4 dark:text-dark-800"
@@ -105,14 +107,14 @@ const RecipentSettings = () => {
               name="fullName"
             />
           </label>
-          <div className="flex justify-center gap-4 lg:justify-start">
+          <div className="flex flex-col items-center justify-between gap-4 lg:flex-row">
             <label
               htmlFor="account_type"
               className="flex flex-col items-center gap-4 lg:flex-row"
             >
               <span>Hizmet Tipiniz</span>
               {selfData?.data?.result?.account_type === '1' ? (
-                <span className=" rounded-md bg-slate-100 p-4 dark:text-dark-800">
+                <span className="rounded-md  bg-light-50 p-4 dark:text-dark-800">
                   Hizmet Alan
                 </span>
               ) : selfData?.data?.result?.account_type === '2' ? (
@@ -125,7 +127,7 @@ const RecipentSettings = () => {
             </label>
             <div className="flex flex-col gap-4">
               <label
-                className={`center rounded-md py-2 px-4 shadow-md ${
+                className={`m-1 rounded-md border p-4 transition hover:cursor-pointer hover:bg-lime-600/50 dark:text-light-50 ${
                   accountType === '1' ? 'bg-lime-600' : ''
                 }`}
               >
@@ -140,7 +142,7 @@ const RecipentSettings = () => {
                 Hizmet Alan
               </label>
               <label
-                className={`center rounded-md py-2 px-4 shadow-md transition ${
+                className={`m-1 rounded-md border p-4 transition hover:cursor-pointer hover:bg-lime-600/50 dark:text-light-50 ${
                   accountType === '2' ? 'bg-lime-600' : ''
                 }`}
               >
@@ -156,8 +158,8 @@ const RecipentSettings = () => {
               </label>
             </div>
           </div>
-          <div className="flex flex-col gap-4 lg:w-96">
-            <label className="flex flex-col items-center justify-between gap-4 lg:flex-row">
+          <div className="flex flex-col items-center justify-between gap-4">
+            <label className="flex  w-full flex-col items-center justify-between gap-4 lg:flex-row">
               E-posta
               <input
                 className=" rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none dark:text-dark-800"
@@ -169,7 +171,7 @@ const RecipentSettings = () => {
                 name="email"
               />
             </label>
-            <label className="flex flex-col items-center justify-between gap-4 lg:flex-row">
+            <label className="flex  w-full flex-col items-center justify-between gap-4 lg:flex-row">
               Telefon
               <input
                 disabled
@@ -184,24 +186,37 @@ const RecipentSettings = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4  rounded-md bg-white p-4 text-dark-800 shadow-md dark:bg-dark-900 dark:text-light-50">
+        {/* Custom dividerF */}
+        <div className="h-[1px] w-full rounded-md bg-gray-400 opacity-40 lg:block lg:h-auto lg:w-[1px]"></div>
+
+        <div className="flex flex-col justify-between gap-4 rounded-md bg-white p-2 text-dark-800 dark:bg-dark-900  dark:text-light-50 lg:p-4">
           <div className="flex flex-col gap-4 lg:w-96">
             <label className="flex flex-col items-center justify-between gap-4 lg:flex-row">
               Şifre
-              <input
-                type={'password'}
-                className=" rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none dark:text-dark-800"
-                name="password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value)
-                }}
-              />
+              <div className="flex items-center gap-2">
+                <input
+                  type={showPass ? 'text' : 'password'}
+                  className=" rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none dark:text-dark-800"
+                  name="password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value)
+                  }}
+                />
+                <div
+                  className="dark:text-white"
+                  onClick={() => {
+                    setShowPass(!showPass)
+                  }}
+                >
+                  {showPass ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                </div>
+              </div>
             </label>
             <label className="flex flex-col items-center justify-between gap-4 lg:flex-row">
               Yeni Şifre
               <input
-                type={'password'}
+                type={showPass ? 'text' : 'password'}
                 className=" rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none dark:text-dark-800"
                 name="newPassword"
                 value={newPassword}
@@ -213,7 +228,7 @@ const RecipentSettings = () => {
             <label className="flex flex-col items-center justify-between gap-4 lg:flex-row">
               Yeni Şifre Tekrar
               <input
-                type={'password'}
+                type={showPass ? 'text' : 'password'}
                 className=" rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none dark:text-dark-800"
                 name="newPasswordRepeat"
                 value={newPasswordRepeat}
@@ -223,8 +238,6 @@ const RecipentSettings = () => {
               />
             </label>
           </div>
-        </div>
-        <div className="lg:px-4">
           <button
             className="w-full rounded-md bg-lime-600 py-4 px-8 text-slate-200 shadow-md transition hover:text-white lg:w-96"
             type="submit"

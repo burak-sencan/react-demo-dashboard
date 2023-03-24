@@ -8,17 +8,19 @@ import { Box, Button, Divider, Tooltip } from '@mui/material'
 import Spinner from '../components/Spinner'
 import { toast, ToastContainer } from 'react-toastify'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import FormSummary from '../components/form/FormSummary'
 
 const Service = () => {
   const [activeStep, setActiveStep] = useState(0)
   const { formData, prepareFormData } = useContext(ServiceContext)
+  const { selfData } = useContext(AuthContext)
+
   const { token } = useContext(AuthContext)
   const navigate = useNavigate()
   let { id } = useParams()
 
   useEffect(() => {
     api.getServiceAndDetails(id).then((response) => {
-      console.log(response)
       prepareFormData(response.data.result)
     })
   }, [])
@@ -44,7 +46,6 @@ const Service = () => {
     let budget
 
     formData.forEach((item) => {
-      console.log(item)
       if (item.question_id != null) {
         service_id = item.service_id
         questions_and_values.push({
@@ -53,6 +54,7 @@ const Service = () => {
         })
       } else {
         if (item.type_id === 'adress') {
+          service_id = item.service_id
           city_id = item.answer[0]
           countie_id = item.answer[1]
           district_id = item.answer[2]
@@ -98,7 +100,6 @@ const Service = () => {
       service_id: `${service_id}`,
     }
 
-    console.log(data)
     postFormData(token, data)
   }
 
@@ -111,8 +112,7 @@ const Service = () => {
       }, 5000)
     })
   }
-  const { selfData } = useContext(AuthContext)
-  console.log(selfData.data.result.id)
+
   if (selfData.data.result.account_type === '2') {
     return (
       <div className="flex h-96 flex-col justify-center gap-4 ">
@@ -139,7 +139,7 @@ const Service = () => {
         ) : activeStep < formData.length ? (
           <QuestionType activeStep={activeStep} />
         ) : (
-          <p>Gönderme ekranı?</p>
+          <FormSummary />
         )}
 
         <Box sx={{ flex: '1 1 auto' }} />

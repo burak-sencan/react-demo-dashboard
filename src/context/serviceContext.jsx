@@ -1,5 +1,4 @@
 /* eslint-disable array-callback-return */
-import axios from 'axios'
 import { createContext, useState } from 'react'
 
 const ServiceContext = createContext()
@@ -7,74 +6,80 @@ const ServiceContext = createContext()
 export const ServiceProvider = ({ children }) => {
   const [services, setServices] = useState([])
   const [formData, setFormData] = useState([])
+  const [provinceName, setProvinceName] = useState('')
+  const [countieName, setCountieName] = useState('')
+  const [districtName, setDistrictName] = useState('')
 
   const prepareFormData = (data) => {
-    console.log(data)
     let idx = 0
     const tempFormData = []
-    data.questions.map((question) => {
-      if (question.type_id === 6) {
-        let tempJson = {
-          activeStep: idx,
-          service_id: data.id,
-          question_id: question.id,
-          type_id: question.type_id,
-          question: question.label,
-          answers: question.answers,
-          answer: null,
+
+    //if questions not empty
+    if (data.questions !== null) {
+      data.questions.map((question) => {
+        if (question.type_id === 6) {
+          let tempJson = {
+            activeStep: idx,
+            service_id: data.id,
+            question_id: question.id,
+            type_id: question.type_id,
+            question: question.label,
+            answers: question.answers,
+            answer: null,
+          }
+          tempFormData.push(tempJson)
+        } else if (question.type_id === 5) {
+          let tempJson = {
+            activeStep: idx,
+            service_id: data.id,
+            question_id: question.id,
+            type_id: question.type_id,
+            question: question.label,
+            answers: question.answers,
+            answer: [],
+          }
+          tempFormData.push(tempJson)
+        } else if (question.type_id === 1) {
+          let tempJson = {
+            activeStep: idx,
+            service_id: data.id,
+            question_id: question.id,
+            type_id: question.type_id,
+            question: question.label,
+            answers: question.answers,
+            answer: null,
+          }
+          tempFormData.push(tempJson)
+        } else if (question.type_id === 2) {
+          let tempJson = {
+            activeStep: idx,
+            service_id: data.id,
+            type_id: question.type_id,
+            question: question.label,
+            answer: null,
+          }
+          tempFormData.push(tempJson)
         }
-        console.log(tempJson)
-        tempFormData.push(tempJson)
-      } else if (question.type_id === 5) {
-        let tempJson = {
-          activeStep: idx,
-          service_id: data.id,
-          question_id: question.id,
-          type_id: question.type_id,
-          question: question.label,
-          answers: question.answers,
-          answer: [],
+        //plus minus olacakmış
+        else if (question.type_id === 'textarea') {
+          let tempJson = {
+            activeStep: idx,
+            service_id: data.id,
+            type_id: question.type_id,
+            question: question.label,
+            answers: question.answers,
+            answer: null,
+          }
+          tempFormData.push(tempJson)
         }
-        tempFormData.push(tempJson)
-      } else if (question.type_id === 1) {
-        let tempJson = {
-          activeStep: idx,
-          service_id: data.id,
-          question_id: question.id,
-          type_id: question.type_id,
-          question: question.label,
-          answers: question.answers,
-          answer: null,
-        }
-        tempFormData.push(tempJson)
-      } else if (question.type_id === 2) {
-        let tempJson = {
-          activeStep: idx,
-          service_id: data.id,
-          type_id: question.type_id,
-          question: question.label,
-          answer: null,
-        }
-        tempFormData.push(tempJson)
-      }
-      //plus minus olacakmış
-      else if (question.type_id === 'textarea') {
-        let tempJson = {
-          activeStep: idx,
-          service_id: data.id,
-          type_id: question.type_id,
-          question: question.label,
-          answers: question.answers,
-          answer: null,
-        }
-        tempFormData.push(tempJson)
-      }
-      idx++
-    })
+        idx++
+      })
+    }
 
     //Static
     tempFormData.push({
       activeStep: idx,
+      service_id: data.id,
       type_id: 'adress',
       question: 'Adres',
       answer: null,
@@ -83,6 +88,7 @@ export const ServiceProvider = ({ children }) => {
     idx++
     tempFormData.push({
       activeStep: idx,
+      service_id: data.id,
       type_id: 'duration',
       question: 'Ne kadar Zaman Alacak',
       answer: null,
@@ -90,6 +96,7 @@ export const ServiceProvider = ({ children }) => {
     idx++
     tempFormData.push({
       activeStep: idx,
+      service_id: data.id,
       type_id: 'showBudget',
       question: 'Bütçe',
       answer: null,
@@ -97,6 +104,7 @@ export const ServiceProvider = ({ children }) => {
     idx++
     tempFormData.push({
       activeStep: idx,
+      service_id: data.id,
       type_id: 'workDetail',
       question: 'İş Detayi',
       answer: null,
@@ -104,18 +112,30 @@ export const ServiceProvider = ({ children }) => {
     idx++
     tempFormData.push({
       activeStep: idx,
+      service_id: data.id,
       type_id: 'canSeeNumber',
       question: 'Numaran Gösterilsin mi',
       answer: '1',
     })
 
     setFormData(tempFormData)
-    console.log('tempFormData : ', tempFormData)
   }
 
   return (
     <ServiceContext.Provider
-      value={{ services, formData, setServices, prepareFormData, setFormData }}
+      value={{
+        services,
+        formData,
+        provinceName,
+        countieName,
+        districtName,
+        prepareFormData,
+        setServices,
+        setFormData,
+        setProvinceName,
+        setCountieName,
+        setDistrictName,
+      }}
     >
       {children}
     </ServiceContext.Provider>

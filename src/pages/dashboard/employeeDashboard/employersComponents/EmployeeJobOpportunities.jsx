@@ -19,17 +19,17 @@ const EmployeeJobOpportunities = () => {
       header: 'Servis Adı',
     },
     {
-      accessorKey: 'location_details.city_name',
+      accessorKey: 'location_details.city.name',
       header: 'İl',
       maxSize: 20,
     },
     {
-      accessorKey: 'location_details.countie_name',
+      accessorKey: 'location_details.countie.name',
       header: 'İlçe',
       maxSize: 20,
     },
     {
-      accessorKey: 'location_details.district_name',
+      accessorKey: 'location_details.district.name',
       header: 'Mahalle',
       maxSize: 20,
     },
@@ -50,12 +50,12 @@ const EmployeeJobOpportunities = () => {
   const [data, setData] = useState([])
   useEffect(() => {
     api.getOpportunities(token).then((response) => {
-      console.log(response)
       if (response.data.status === false) {
         // no data
         setData([])
       } else {
         setData(response.data.result)
+        console.log(response)
       }
       setIsLoading(false)
     })

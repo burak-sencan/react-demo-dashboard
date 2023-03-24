@@ -10,7 +10,7 @@ import { toast, ToastContainer } from 'react-toastify'
 
 const EmployeeShowJobOpportunities = () => {
   const { id } = useParams()
-  const { token, selfData } = useContext(AuthContext)
+  const { token } = useContext(AuthContext)
 
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState([])
@@ -46,7 +46,6 @@ const EmployeeShowJobOpportunities = () => {
 
   useEffect(() => {
     api.getOpportunitie(token, id).then((response) => {
-      console.log(response.data.result)
       setData(response.data.result)
       setIsLoading(false)
     })
@@ -57,15 +56,18 @@ const EmployeeShowJobOpportunities = () => {
   return (
     <DashboardContent>
       <div>
-        <Link to="/employeeDashboard/jobOpportunities/">
-          <ArrowBackIcon className="text-dark-900 dark:text-light-50" />
-        </Link>
+        <div className="flex gap-2">
+          <Link to="/employeeDashboard/jobOpportunities/">
+            <ArrowBackIcon className="text-dark-900 dark:text-light-50" />
+          </Link>
+          <p className="text-dark-900 dark:text-light-50">İş Fırsatları</p>
+        </div>
 
         <Divider sx={{ margin: 2 }} />
-        <div className=" flex flex-col  overflow-auto  bg-white p-2 shadow-md dark:bg-dark-900 dark:text-dark-900 lg:p-4">
+        <div className=" flex flex-col  gap-4 overflow-auto  bg-white p-2 shadow-md dark:bg-dark-900 dark:text-dark-900 lg:p-4">
           {/* User Info -- Service Name */}
-          <div className="flex w-full flex-col gap-4 lg:flex-row">
-            <div className="flex w-full flex-col rounded-md shadow-md">
+          <div className="flex w-full flex-col  gap-4 lg:flex-row">
+            <div className="flex w-full flex-col rounded-md shadow-md  transition hover:shadow-slate-400 dark:hover:shadow-slate-500">
               <p className=" rounded-t-md bg-light-50 p-4  dark:text-dark-800">
                 Kullanıcı Bilgisi
               </p>
@@ -74,7 +76,7 @@ const EmployeeShowJobOpportunities = () => {
               </p>
             </div>
 
-            <div className="flex w-full flex-col rounded-md shadow-md">
+            <div className="flex w-full  flex-col rounded-md  shadow-md transition hover:shadow-slate-400 dark:hover:shadow-slate-500">
               <p className=" rounded-t-md bg-light-50 p-4  dark:text-dark-800">
                 Hizmet Türü
               </p>
@@ -85,8 +87,8 @@ const EmployeeShowJobOpportunities = () => {
           </div>
 
           {/* Budget Duration Location  */}
-          <div className="mt-4 flex w-full flex-col gap-4  lg:flex-row">
-            <div className="flex w-full flex-col rounded-md shadow-md">
+          <div className="mt-4  flex w-full flex-col gap-4  lg:flex-row">
+            <div className="flex  w-full flex-col  rounded-md shadow-md transition hover:shadow-slate-400 dark:hover:shadow-slate-500">
               <p className="rounded-t-md bg-light-50 p-4  dark:text-dark-800">
                 Bütçe
               </p>
@@ -95,7 +97,7 @@ const EmployeeShowJobOpportunities = () => {
               </p>
             </div>
 
-            <div className="flex w-full flex-col rounded-md shadow-md">
+            <div className="flex  w-full flex-col  rounded-md shadow-md transition hover:shadow-slate-400 dark:hover:shadow-slate-500">
               <p className="rounded-t-md bg-light-50 p-4  dark:text-dark-800">
                 Süre
               </p>
@@ -104,7 +106,7 @@ const EmployeeShowJobOpportunities = () => {
               </p>
             </div>
 
-            <div className="flex w-full flex-col rounded-md shadow-md">
+            <div className="flex  w-full flex-col  rounded-md shadow-md transition hover:shadow-slate-400 dark:hover:shadow-slate-500">
               <p className="rounded-t-md bg-light-50 p-4  dark:text-dark-800">
                 Lokasyon Bilgisi
               </p>
@@ -122,7 +124,7 @@ const EmployeeShowJobOpportunities = () => {
           </p>
           {data.questions_and_values.map((question, idx) => (
             <div className="flex flex-col gap-4 rounded-md" key={idx}>
-              <div className="my-2 flex flex-col  rounded-md  shadow-md">
+              <div className="my-2 flex  dark:hover:shadow-slate-500 hover:shadow-slate-400  transition flex-col  rounded-md  shadow-md">
                 <p className=" rounded-t-md bg-light-50 p-4 dark:bg-white dark:text-dark-800">
                   {question.question}
                 </p>
@@ -143,7 +145,7 @@ const EmployeeShowJobOpportunities = () => {
 
           {/* Details */}
           <Divider sx={{ marginY: 2 }} />
-          <div className="flex flex-col rounded-md shadow-md">
+          <div className="flex  dark:hover:shadow-slate-500 hover:shadow-slate-400  transition flex-col rounded-md shadow-md">
             <p className="rounded-t-md bg-light-50 p-4 dark:text-dark-800">
               Detaylar
             </p>
@@ -204,17 +206,17 @@ const EmployeeShowJobOpportunities = () => {
           </form>
         </div>
         <ToastContainer
-        position="bottom-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
+          position="bottom-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </div>
     </DashboardContent>
   )

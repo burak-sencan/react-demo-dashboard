@@ -19,7 +19,7 @@ const EmployeeMessage = () => {
   const columns = useMemo(
     () => [
       {
-        accessorKey: 'recipient_name',
+        accessorKey: 'recipient_details.full_name',
         header: 'Alıcı',
       },
       {
@@ -68,7 +68,6 @@ const EmployeeMessage = () => {
                   navigate(
                     `/employeeDashboard/message/${row.original.request_id}/${row.original.recipient_id}`
                   )
-                  // console.log(row.original)
                 }}
                 sx={{
                   cursor: 'pointer',
@@ -78,11 +77,11 @@ const EmployeeMessage = () => {
                   <DraftsIcon />
                 </Tooltip>
               </IconButton>
-              <IconButton onClick={() => console.log(row.original.id)}>
-                <Tooltip title="İlanı Durdur">
+              {/* <IconButton onClick={() => console.log(row.original)}>
+                <Tooltip title="İlanı Sil">
                   <ClearIcon />
                 </Tooltip>
-              </IconButton>
+              </IconButton> */}
             </Box>
           )}
         />

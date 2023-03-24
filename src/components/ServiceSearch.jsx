@@ -49,7 +49,6 @@ const ServiceSearch = () => {
           value={value}
           onChange={handleResult}
         />
-
         <div className="flex items-center p-2 text-gray-500">
           {value === '' ? (
             <SearchIcon />
@@ -69,17 +68,17 @@ const ServiceSearch = () => {
 
       {results.length > 0 && value.length > 0 && (
         <Paper className="mt-2">
-          <List className="max-h-64 overflow-auto">
+          <List className="max-h-60 overflow-auto">
             {results.map((result) => (
               <ListItem key={result.id} disablePadding>
-                <ListItemButton>
-                  <Link
-                    className="w-full"
-                    to={selfData !== '' ? `service/${result.id}` : 'login'}
-                  >
+                <Link
+                  className="w-full"
+                  to={selfData !== '' ? `service/${result.id}` : 'login'}
+                >
+                  <ListItemButton>
                     <ListItemText primary={result.name} />
-                  </Link>
-                </ListItemButton>
+                  </ListItemButton>
+                </Link>
               </ListItem>
             ))}
           </List>

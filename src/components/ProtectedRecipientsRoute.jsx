@@ -12,7 +12,6 @@ const ProtectedRecipientsRoute = ({ children }) => {
     api.getSelfClient(token).then((response) => {
       setSelfData(response)
       setLoading(false)
-      console.log('ProtecteRecipientsRoute: ' + response.data.result.account_type)
     })
   }
 

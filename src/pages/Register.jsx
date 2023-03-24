@@ -1,13 +1,17 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Footer from '../components/Footer'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 
 const Register = () => {
   const navigate = useNavigate()
+  const [showPass, setShowPass] = useState(false) //hide show password
+
   const [formData, setformData] = useState({
     full_name: '',
     email: '',
@@ -60,6 +64,10 @@ const Register = () => {
       toast(error)
     }
   }
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+  }, [])
 
   return (
     <section className="w-full">
@@ -159,15 +167,25 @@ const Register = () => {
                 >
                   Şifre
                 </label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={onChange}
-                  name="password"
-                  id="password"
-                  className="w-full rounded-md border border-gray-300 bg-gray-50 p-2.5 text-gray-900 transition focus:bg-slate-200 focus:outline-none dark:border-gray-600  dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:bg-slate-100 dark:focus:text-slate-900 dark:focus:ring-blue-500 sm:text-sm"
-                  required=""
-                />
+                <div className="flex items-center gap-2">
+                  <input
+                    type={showPass ? 'text' : 'password'}
+                    value={password}
+                    onChange={onChange}
+                    name="password"
+                    id="password"
+                    className="w-full rounded-md border border-gray-300 bg-gray-50 p-2.5 text-gray-900 transition focus:bg-slate-200 focus:outline-none dark:border-gray-600  dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:bg-slate-100 dark:focus:text-slate-900 dark:focus:ring-blue-500 sm:text-sm"
+                    required=""
+                  />
+                  <div
+                    className="dark:text-white"
+                    onClick={() => {
+                      setShowPass(!showPass)
+                    }}
+                  >
+                    {showPass ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                  </div>
+                </div>
               </div>
               <div>
                 <label
@@ -177,7 +195,7 @@ const Register = () => {
                   Şifre Tekrar
                 </label>
                 <input
-                  type="password"
+                  type={showPass ? 'password' : 'text'}
                   value={password_repeat}
                   onChange={onChange}
                   name="password_repeat"
@@ -212,7 +230,7 @@ const Register = () => {
                 Hesap Oluştur
               </button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                <span className='mr-1'>Bir hesabınız var ise,</span>
+                <span className="mr-1">Bir hesabınız var ise,</span>
                 <Link
                   to="/login"
                   className="text-primary-600   dark:text-primary-500 font-medium hover:underline"

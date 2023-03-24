@@ -1,6 +1,8 @@
 import { useState, useEffect, useContext } from 'react'
-import { FaSignInAlt, FaUser } from 'react-icons/fa'
-import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs'
+import LoginIcon from '@mui/icons-material/Login'
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt'
+import LightModeIcon from '@mui/icons-material/LightMode'
+import NightlightRoundIcon from '@mui/icons-material/NightlightRound'
 import { logo } from '../assets'
 import { Link } from 'react-router-dom'
 import AccountMenu from './AccountMenu'
@@ -37,21 +39,21 @@ const Header = () => {
   }, [])
 
   return (
-    <header className="flex h-12  items-center justify-between  p-4 text-dark-800 dark:text-light-50">
+    <header className="flex h-12  items-center justify-between p-4  text-dark-800 dark:text-light-50">
       <Link to="/" className="rounded-md py-1 px-4 dark:bg-white">
         <img src={logo} className="w-16" alt="biderya-logo" />
       </Link>
 
-      <ul className=" flex items-center gap-4">
+      <ul className=" flex items-center gap-4 ">
         <li>
           <Tooltip
             title={`${theme === 'light' ? 'Karanlık Mod' : 'Aydınlık Mod'}`}
           >
             <button
-              className="rounded-full p-2 transition hover:bg-gray-400 hover:text-white"
+              className="m-0 flex items-center rounded-full p-1 transition hover:bg-gray-400 hover:text-white"
               onClick={toggleTheme}
             >
-              {theme === 'light' ? <BsFillMoonFill /> : <BsFillSunFill />}
+              {theme === 'light' ? <NightlightRoundIcon /> : <LightModeIcon />}
             </button>
           </Tooltip>
         </li>
@@ -60,22 +62,22 @@ const Header = () => {
         ) : (
           <>
             <li>
-              <Tooltip title="Giriş Yap">
-                <button className="rounded-full p-2 transition hover:bg-gray-400 hover:text-white">
-                  <Link to="/login">
-                    <FaSignInAlt />
-                  </Link>
-                </button>
-              </Tooltip>
+              <Link to="/login">
+                <Tooltip title="Giriş Yap">
+                  <button className="flex items-center justify-center rounded-full p-1 transition hover:bg-gray-400 hover:text-white">
+                    <LoginIcon />
+                  </button>
+                </Tooltip>
+              </Link>
             </li>
             <li>
-              <Tooltip title="Kayıt Ol">
-                <button className="rounded-full p-2 transition hover:bg-gray-400 hover:text-white">
-                  <Link to="/register">
-                    <FaUser />
-                  </Link>
-                </button>
-              </Tooltip>
+              <Link to="/register">
+                <Tooltip title="Kayıt Ol">
+                  <button className="flex items-center justify-center rounded-full p-1 transition hover:bg-gray-400 hover:text-white">
+                    <PersonAddAltIcon />
+                  </button>
+                </Tooltip>
+              </Link>
             </li>
           </>
         )}

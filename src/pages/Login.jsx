@@ -6,11 +6,13 @@ import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios'
 import api from '../context/api'
 import Footer from '../components/Footer'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 
 const Login = () => {
   const { token, setToken, setSelfData } = useContext(AuthContext)
   const navigate = useNavigate()
-
+  const [showPass, setShowPass] = useState(false) //hide show password
   const [formData, setformData] = useState({
     email: '',
     password: '',
@@ -54,7 +56,7 @@ const Login = () => {
         toast(response.data.message)
         setTimeout(() => {
           navigate('/')
-        }, 1000)
+        }, 1200)
       } else {
         toast(response.data.message)
       }
@@ -96,15 +98,25 @@ const Login = () => {
                 <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
                   Şifre
                 </label>
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  value={password}
-                  onChange={onChange}
-                  className="w-full rounded-md border border-gray-300 bg-gray-50 p-2.5 text-gray-900 transition focus:bg-slate-200 focus:outline-none dark:border-gray-600  dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:bg-slate-100 dark:focus:text-slate-900 dark:focus:ring-blue-500 sm:text-sm"
-                  required="required"
-                />
+                <div className="flex items-center gap-2">
+                  <input
+                    type={showPass ? 'text' : 'password'}
+                    name="password"
+                    id="password"
+                    value={password}
+                    onChange={onChange}
+                    className="w-full rounded-md border border-gray-300 bg-gray-50 p-2.5  text-gray-900 transition focus:bg-slate-200  focus:outline-none  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:bg-slate-100 dark:focus:text-slate-900 dark:focus:ring-blue-500 sm:text-sm "
+                    required="required"
+                  />
+                  <div
+                    className="dark:text-white"
+                    onClick={() => {
+                      setShowPass(!showPass)
+                    }}
+                  >
+                    {showPass ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                  </div>
+                </div>
               </div>
               <div className="flex items-center justify-between">
                 <Link
@@ -135,7 +147,7 @@ const Login = () => {
       </div>
       <ToastContainer
         position="bottom-right"
-        autoClose={1000}
+        autoClose={500}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

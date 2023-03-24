@@ -14,6 +14,10 @@ import {
   Paper,
   Tooltip,
 } from '@mui/material'
+import SearchIcon from '@mui/icons-material/Search'
+import ClearIcon from '@mui/icons-material/Clear'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 
 const EmployeeSettings = () => {
   const { token, setToken, selfData, setSelfData } = useContext(AuthContext)
@@ -30,6 +34,7 @@ const EmployeeSettings = () => {
   const [accountType, setAccountType] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
+  const [showPass, setShowPass] = useState(false) //hide show password
   const [password, setPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [newPasswordRepeat, setNewPasswordRepeat] = useState('')
@@ -96,7 +101,6 @@ const EmployeeSettings = () => {
       }
     })
     setResults(tempData.slice(0, 20)) //limit
-    // console.log(tempData.slice(0, 20))
   }
   const handleChangeRadio = (e) => {
     setAccountType(e.target.value)
@@ -130,13 +134,22 @@ const EmployeeSettings = () => {
   }
 
   const handleSaveInterested = (data) => {
-    console.log(data)
     api
       .updateClientInterestedServices(token, { service_id: data.id })
       .then((response) => {
         toast(response.data.message)
         setValue('')
       })
+      .then(
+        api.getClientInterestedServices(token).then((response) => {
+          if (response.data.result) {
+            setEmployeerSkills(response.data.result)
+          } else {
+            setEmployeerSkills([])
+          }
+          setIsLoading(false)
+        })
+      )
   }
 
   const handleDelete = (event, id) => {
@@ -145,10 +158,22 @@ const EmployeeSettings = () => {
       (employeerSkill) => employeerSkill.service_id !== +deletedItemId
     )
 
-    api.deletelientInterestedServices(token, id).then((response) => {
-      toast(response.data.message)
-      setEmployeerSkills(newEmployeerSkills)
-    })
+    api
+      .deletelientInterestedServices(token, id)
+      .then((response) => {
+        toast(response.data.message)
+        setEmployeerSkills(newEmployeerSkills)
+      })
+      .then(
+        api.getClientInterestedServices(token).then((response) => {
+          if (response.data.result) {
+            setEmployeerSkills(response.data.result)
+          } else {
+            setEmployeerSkills([])
+          }
+          setIsLoading(false)
+        })
+      )
   }
 
   useEffect(() => {
@@ -166,7 +191,6 @@ const EmployeeSettings = () => {
         api.getClientInterestedServices(token).then((response) => {
           if (response.data.result) {
             setEmployeerSkills(response.data.result)
-            console.log(response.data.result)
           } else {
             setEmployeerSkills([])
           }
@@ -186,48 +210,59 @@ const EmployeeSettings = () => {
         <div className="flex min-h-[50vh] flex-col justify-between gap-8 rounded-md  bg-white p-2 dark:bg-dark-900 lg:flex-row ">
           <div className="flex flex-col justify-between gap-4">
             <div>
-              <p className="p-4">İlgi Alanı Ekle</p>
-              <div className="mt-1 w-full lg:w-[500px]">
-                <Paper
-                  component="form"
-                  sx={{ padding: 0, display: 'flex', alignItems: 'center' }}
-                >
-                  <input
-                    className="h-12 w-full rounded-md p-4 focus:outline-none"
-                    placeholder="Hizmet Ara"
-                    value={value}
-                    onChange={handleResult}
-                  />
-                </Paper>
-                {results.length > 0 && value.length > 0 && (
-                  <Paper className="relative mt-1 ">
-                    <List className="max-h-80 overflow-auto">
-                      {results.map((result) => (
-                        <Tooltip title="Ekle">
-                          <ListItem key={result.id} disablePadding>
-                            <ListItemButton
-                              onClick={(e) => {
-                                handleEmployeeSkill(result)
-                              }}
-                            >
-                              <ListItemText primary={result.name} />
-                            </ListItemButton>
-                          </ListItem>
-                        </Tooltip>
-                      ))}
-                    </List>
-                  </Paper>
-                )}
+              <p className="p-4 dark:text-light-50 ">İlgi Alanı Ekle</p>
+              <div className="flex w-full rounded-md bg-white shadow-md lg:w-[500px]">
+                <input
+                  className="h-12 w-full rounded-md p-4 focus:outline-none"
+                  placeholder="Hizmet Ara"
+                  value={value}
+                  onChange={handleResult}
+                />
+                <div className="flex items-center p-2 text-gray-500">
+                  {value === '' ? (
+                    <SearchIcon />
+                  ) : (
+                    <Tooltip title="Temizle">
+                      <button
+                        onClick={(e) => {
+                          setValue('')
+                        }}
+                      >
+                        <ClearIcon />
+                      </button>
+                    </Tooltip>
+                  )}
+                </div>
               </div>
+
+              {results.length > 0 && value.length > 0 && (
+                <Paper className="relative mt-1 ">
+                  <List className="max-h-80 overflow-auto">
+                    {results.map((result) => (
+                      <Tooltip title="Ekle">
+                        <ListItem key={result.id} disablePadding>
+                          <ListItemButton
+                            onClick={(e) => {
+                              handleEmployeeSkill(result)
+                            }}
+                          >
+                            <ListItemText primary={result.name} />
+                          </ListItemButton>
+                        </ListItem>
+                      </Tooltip>
+                    ))}
+                  </List>
+                </Paper>
+              )}
             </div>
           </div>
           <div className="w-full">
-            <p className="p-4">İlgi Alanlarım</p>
+            <p className="p-4 dark:text-light-50">İlgi Alanlarım</p>
             {employeerSkills.length === 0 ? 'İlgi Alanı Yok' : ''}
             {employeerSkills.map((employeerSkill) => (
               <Tooltip title="Çıkar">
                 <button
-                  className="m-1 rounded-md border p-4 transition hover:bg-red-400"
+                  className="m-1 rounded-md border p-4 transition hover:bg-red-400 dark:text-light-50"
                   onClick={(event) => {
                     handleDelete(event, employeerSkill.id)
                   }}
@@ -244,10 +279,10 @@ const EmployeeSettings = () => {
         {/* User Settings */}
         <form
           onSubmit={onSubmit}
-          className="flex  min-h-[100%] flex-col gap-8  rounded-md bg-white p-2 dark:bg-dark-900 lg:flex-row"
+          className="flex min-h-[100%] flex-col justify-around gap-8  rounded-md bg-white dark:bg-dark-900 lg:flex-row lg:p-2"
         >
-          <div className="flex flex-col gap-4 rounded-md bg-white p-4 text-dark-800 dark:bg-dark-900 dark:text-light-50 lg:w-[500px]">
-            <label className="flex flex-col items-center  gap-4 lg:w-96 lg:flex-row">
+          <div className="flex flex-col gap-8 rounded-md bg-white p-2 text-dark-800 dark:bg-dark-900 dark:text-light-50 lg:w-[500px] lg:gap-4 lg:p-4">
+            <label className="flex flex-col items-center justify-between gap-4 lg:flex-row">
               <span>Adı</span>
               <input
                 className="rounded-md bg-light-50 p-4 dark:text-dark-800"
@@ -261,7 +296,7 @@ const EmployeeSettings = () => {
               />
             </label>
 
-            <div className="flex justify-center gap-4 lg:justify-start">
+            <div className="flex flex-col items-center justify-between gap-4 lg:flex-row">
               <label
                 htmlFor="account_type"
                 className="flex flex-col items-center gap-4 lg:flex-row"
@@ -281,7 +316,7 @@ const EmployeeSettings = () => {
               </label>
               <div className="flex flex-col gap-4">
                 <label
-                  className={`center rounded-md py-2 px-4 shadow-md ${
+                  className={`m-1 rounded-md border p-4 transition hover:cursor-pointer hover:bg-lime-600/50  dark:text-light-50 ${
                     accountType === '1' ? 'bg-lime-600' : ''
                   }`}
                 >
@@ -296,7 +331,7 @@ const EmployeeSettings = () => {
                   Hizmet Alan
                 </label>
                 <label
-                  className={`center rounded-md py-2 px-4 shadow-md transition ${
+                  className={`m-1 rounded-md border p-4 transition hover:cursor-pointer hover:bg-lime-600/50 dark:text-light-50 ${
                     accountType === '2' ? 'bg-lime-600' : ''
                   }`}
                 >
@@ -312,8 +347,8 @@ const EmployeeSettings = () => {
                 </label>
               </div>
             </div>
-            <div className="flex flex-col gap-4 lg:w-96">
-              <label className="flex flex-col items-center justify-between gap-4 lg:flex-row">
+            <div className="flex flex-col items-center justify-between gap-4">
+              <label className="flex  w-full flex-col items-center justify-between gap-4 lg:flex-row">
                 E-posta
                 <input
                   className="rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none dark:text-dark-800"
@@ -325,7 +360,7 @@ const EmployeeSettings = () => {
                   name="email"
                 />
               </label>
-              <label className="flex flex-col items-center justify-between gap-4 lg:flex-row">
+              <label className="flex  w-full flex-col items-center justify-between gap-4 lg:flex-row">
                 Telefon
                 <input
                   disabled
@@ -340,26 +375,38 @@ const EmployeeSettings = () => {
             </div>
           </div>
 
+          {/* Custom dividerF */}
           <div className="h-[1px] w-full rounded-md bg-gray-400 opacity-40 lg:block lg:h-auto lg:w-[1px]"></div>
 
-          <div className="flex flex-col justify-between gap-4 rounded-md bg-white p-4 text-dark-800  dark:bg-dark-900 dark:text-light-50">
+          <div className="flex flex-col justify-between gap-4 rounded-md bg-white p-2 text-dark-800 dark:bg-dark-900  dark:text-light-50 lg:p-4">
             <div className="flex flex-col gap-4 lg:w-96">
               <label className="flex flex-col items-center justify-between gap-4 lg:flex-row">
                 Şifre
-                <input
-                  type={'password'}
-                  className="rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none"
-                  name="password"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value)
-                  }}
-                />
+                <div className="flex items-center gap-2">
+                  <input
+                    type={showPass ? 'text' : 'password'}
+                    className="rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none"
+                    name="password"
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value)
+                    }}
+                  />
+                  <div
+                    className="dark:text-white"
+                    onClick={() => {
+                      setShowPass(!showPass)
+                    }}
+                  >
+                    {showPass ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                  </div>
+                </div>
               </label>
+              
               <label className="flex flex-col items-center justify-between gap-4 lg:flex-row">
                 Yeni Şifre
                 <input
-                  type={'password'}
+                  type={showPass ? 'text' : 'password'}
                   className="rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none dark:text-dark-800"
                   name="newPassword"
                   value={newPassword}
@@ -371,7 +418,7 @@ const EmployeeSettings = () => {
               <label className="flex flex-col items-center justify-between gap-4 lg:flex-row">
                 Yeni Şifre Tekrar
                 <input
-                  type={'password'}
+                  type={showPass ? 'text' : 'password'}
                   className="rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none dark:text-dark-800"
                   name="newPasswordRepeat"
                   value={newPasswordRepeat}

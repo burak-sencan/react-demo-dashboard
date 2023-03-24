@@ -8,6 +8,12 @@ import Register from './pages/Register'
 import Welcome from './pages/Welcome'
 import Service from './pages/Service'
 import NotFound from './pages/NotFound'
+import Blog from './pages/Blog'
+import BlogPage from './components/BlogPage'
+import HowWorks from './pages/infoPages/HowWorks'
+import Help from './pages/infoPages/Help'
+import AboutUs from './pages/infoPages/AboutUs'
+
 import {
   EmployeeAddToYourSite,
   EmployeeJobOpportunities,
@@ -36,8 +42,6 @@ import EmployeeDashboard from './pages/dashboard/employeeDashboard/EmployeeDashb
 import RecipentDashboard from './pages/dashboard/recipientsDashboard/RecipentDashboard'
 import ProtectedEmployeeRoute from './components/ProtectedEmployeeRoute'
 import ProtectedRecipientsRoute from './components/ProtectedRecipientsRoute'
-import Blog from './pages/Blog'
-import BlogPage from './components/BlogPage'
 
 function App() {
   return (
@@ -56,6 +60,9 @@ function App() {
                 <Route path="register" element={<Register />} />
                 <Route path="blog" element={<Blog />} />
                 <Route path="/blog/:id" element={<BlogPage />} />
+                <Route path="/howWorks" element={<HowWorks />} />
+                <Route path="/help" element={<Help />} />
+                <Route path="/aboutUs" element={<AboutUs />} />
 
                 {/* ///////////////employeeDashboard///////////////////// */}
                 <Route

@@ -5,8 +5,12 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      backgroundImage: {
+        // hero: "url('/assets/hero_back_image.jpg')",
+        "hero":"url('/src/assets/hero_back_image.jpg')"
+      },
       fontFamily: {
-        'poppins': ['Poppins', 'sans-serif']
+        poppins: ['Poppins', 'sans-serif'],
       },
       colors: {
         dark: {

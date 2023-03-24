@@ -60,7 +60,6 @@ const EmployeeMyBids = () => {
   // const [data, setData] = useState([])
   useEffect(() => {
     api.getMyBids(token).then((response) => {
-      console.log(response)
       if (response.data.result) {
         setData(response.data.result)
       } else {
@@ -94,9 +93,7 @@ const EmployeeMyBids = () => {
             <Box sx={{ display: 'flex', gap: '1rem' }}>
               <IconButton
                 onClick={() =>
-                  navigate(
-                    `/employeeDashboard/myBids/${row.original.request_id}`
-                  )
+                  navigate(`/employeeDashboard/myBids/${row.original.id}`)
                 }
                 sx={{
                   cursor: 'pointer',
