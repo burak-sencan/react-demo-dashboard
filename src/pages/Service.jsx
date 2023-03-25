@@ -5,10 +5,13 @@ import AuthContext from '../context/authContext'
 import QuestionType from '../components/QuestionType'
 import api from '../context/api'
 import { Box, Button, Divider, Tooltip } from '@mui/material'
-import Spinner from '../components/Spinner'
 import { toast, ToastContainer } from 'react-toastify'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import FormSummary from '../components/form/FormSummary'
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
+import SendIcon from '@mui/icons-material/Send'
+import Loading from './dashboard/utils/Loading'
 
 const Service = () => {
   const [activeStep, setActiveStep] = useState(0)
@@ -135,7 +138,7 @@ const Service = () => {
     <Box className=" flex w-full items-center justify-center p-2 ">
       <Box className="flex h-[500px]  w-[600px] flex-col justify-between gap-4 rounded-md bg-zinc-50 p-4 capitalize shadow-md">
         {formData.length === 0 ? (
-          <Spinner />
+          <Loading />
         ) : activeStep < formData.length ? (
           <QuestionType activeStep={activeStep} />
         ) : (
@@ -152,10 +155,13 @@ const Service = () => {
               color="inherit"
               disabled={activeStep === 0}
               onClick={handleBack}
+              startIcon={<KeyboardArrowLeftIcon />}
             >
-              Back
+              Geri
             </Button>
-            <Button onClick={handleSubmit}> Submit </Button>
+            <Button onClick={handleSubmit} endIcon={<SendIcon />}>
+              Gönder
+            </Button>
           </Box>
         ) : (
           <Box className="flex justify-between">
@@ -163,8 +169,9 @@ const Service = () => {
               color="inherit"
               disabled={activeStep === 0}
               onClick={handleBack}
+              startIcon={<KeyboardArrowLeftIcon />}
             >
-              Back
+              Geri
             </Button>
             <Button
               variant="contained"
@@ -174,8 +181,9 @@ const Service = () => {
                 formData[activeStep].answer === null ||
                 formData[activeStep].answer.length === 0
               }
+              endIcon={<KeyboardArrowRightIcon />}
             >
-              Next
+              İleri
             </Button>
           </Box>
         )}

@@ -80,6 +80,7 @@ const RecipentShowMessage = () => {
                     ) : (
                       <p>{message.recipient_name}</p>
                     )}
+                    <p>{message.created_at}</p>
                   </div>
                 </div>
               </div>

@@ -76,10 +76,19 @@ const RecipentShowAdvert = () => {
               <p className="rounded-t-md bg-light-50 p-4  dark:text-dark-800">
                 Lokasyon Bilgisi
               </p>
+
               <div className="flex flex-col gap-2 rounded-md  p-4 text-dark-800 dark:bg-dark-900 dark:text-light-50">
-                <p>Şehir Adı: {data.location_details.city.name}</p>
-                <p>İlçe Adı: {data.location_details.countie.name}</p>
-                <p>Mahalle Adı: {data.location_details.district.name}</p>
+                <p className="flex justify-between gap-4 rounded-md">
+                  <span>İl</span> <span>{data.location_details.city.name}</span>
+                </p>
+                <p className="flex justify-between gap-4 rounded-md">
+                  <span>İlçe</span>
+                  <span> {data.location_details.countie.name}</span>
+                </p>
+                <p className="flex justify-between gap-4 rounded-md">
+                  <span>Mahalle</span>
+                  <span>{data.location_details.district.name}</span>
+                </p>
               </div>
             </div>
           </div>

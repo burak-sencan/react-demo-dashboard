@@ -105,15 +105,25 @@ const EmployeeShowJobOpportunities = () => {
                 {data.duration}
               </p>
             </div>
-
-            <div className="flex  w-full flex-col  rounded-md shadow-md transition hover:shadow-slate-400 dark:hover:shadow-slate-500">
+            
+            <div className="flex w-full  flex-col rounded-md  shadow-md transition hover:shadow-slate-400 dark:hover:shadow-slate-500">
               <p className="rounded-t-md bg-light-50 p-4  dark:text-dark-800">
                 Lokasyon Bilgisi
               </p>
+
               <div className="flex flex-col gap-2 rounded-md  p-4 text-dark-800 dark:bg-dark-900 dark:text-light-50">
-                <p>Şehir Adı: {data.location_details.city.name}</p>
-                <p>İlçe Adı: {data.location_details.countie.name}</p>
-                <p>Mahalle Adı: {data.location_details.district.name}</p>
+                <p className="flex justify-between gap-4 rounded-md">
+                  <span>İl</span>
+                  <span>{data.location_details.city.name}</span>
+                </p>
+                <p className="flex justify-between gap-4 rounded-md">
+                  <span>İlçe</span>
+                  <span>{data.location_details.countie.name}</span>
+                </p>
+                <p className="flex justify-between gap-4 rounded-md">
+                  <span>Mahalle</span>
+                  <span>{data.location_details.district.name}</span>
+                </p>
               </div>
             </div>
           </div>
@@ -124,7 +134,7 @@ const EmployeeShowJobOpportunities = () => {
           </p>
           {data.questions_and_values.map((question, idx) => (
             <div className="flex flex-col gap-4 rounded-md" key={idx}>
-              <div className="my-2 flex  dark:hover:shadow-slate-500 hover:shadow-slate-400  transition flex-col  rounded-md  shadow-md">
+              <div className="my-2 flex  flex-col rounded-md  shadow-md transition  hover:shadow-slate-400  dark:hover:shadow-slate-500">
                 <p className=" rounded-t-md bg-light-50 p-4 dark:bg-white dark:text-dark-800">
                   {question.question}
                 </p>
@@ -145,7 +155,7 @@ const EmployeeShowJobOpportunities = () => {
 
           {/* Details */}
           <Divider sx={{ marginY: 2 }} />
-          <div className="flex  dark:hover:shadow-slate-500 hover:shadow-slate-400  transition flex-col rounded-md shadow-md">
+          <div className="flex  flex-col rounded-md  shadow-md transition hover:shadow-slate-400 dark:hover:shadow-slate-500">
             <p className="rounded-t-md bg-light-50 p-4 dark:text-dark-800">
               Detaylar
             </p>

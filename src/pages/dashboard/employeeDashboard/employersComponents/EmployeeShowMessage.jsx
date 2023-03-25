@@ -75,13 +75,13 @@ const EmployeeShowMessage = () => {
             {data.map((message, idx) => (
               <div
                 key={idx}
-                className={`${
+                className={`hide-scrollbar-f hide-scrollbar-c min-h-[8rem] w-full shrink-0 overflow-auto rounded-md p-4 shadow-md lg:h-48 lg:w-96 2xl:w-[32rem] ${
                   selfData.data.result.id === message.sender_id
                     ? 'self-end bg-light-50 dark:bg-green-500/100'
                     : 'self-start dark:bg-gray-100'
-                } hide-scrollbar-f hide-scrollbar-c min-h-[8rem] w-full shrink-0 overflow-auto rounded-md p-4 shadow-md  lg:h-48  lg:w-96 2xl:w-[32rem]`}
+                }`}
               >
-                <div className="flex h-full flex-col justify-between ">
+                <div className="flex h-full flex-grow flex-col justify-between">
                   <p>{message.message}</p>
                   <div className="self-end text-xs text-gray-400">
                     {selfData.data.result.id !== message.sender_id ? (
@@ -89,6 +89,7 @@ const EmployeeShowMessage = () => {
                     ) : (
                       <p>{message.recipient_name}</p>
                     )}
+                    <p>{message.created_at}</p>
                   </div>
                 </div>
               </div>

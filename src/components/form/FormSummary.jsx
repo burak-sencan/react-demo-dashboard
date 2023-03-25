@@ -80,9 +80,17 @@ const FormSummary = () => {
         <div className="flex w-full flex-col gap-4 ">
           <div className="flex w-full  rounded-md shadow-md">
             <p className="w-32 bg-light-50 p-4  dark:text-dark-800">Adres</p>
-            <p className="rounded-md p-4 text-dark-800 ">{provinceName}</p>
-            <p className="rounded-md p-4 text-dark-800 ">{countieName}</p>
-            <p className="rounded-md p-4 text-dark-800 ">{districtName}</p>
+            <div className="flex flex-col gap-2 p-4">
+              <p className="flex w-full justify-between gap-4 rounded-md text-dark-800 ">
+                <span>İl</span> <span>{provinceName}</span>
+              </p>
+              <p className="flex w-full justify-between gap-4 rounded-md text-dark-800 ">
+                <span>İlçe</span> <span>{countieName}</span>
+              </p>
+              <p className="flex w-full justify-between gap-4 rounded-md text-dark-800 ">
+                <span>Mahalle</span> <span>{districtName}</span>
+              </p>
+            </div>
           </div>
           <div className="flex w-full  rounded-md shadow-md">
             <p className="w-32 bg-light-50 p-4  dark:text-dark-800">Süre</p>
@@ -110,25 +118,31 @@ const FormSummary = () => {
           </div>
         </div>
 
-        <p className=" mt-4 rounded-md bg-light-50 p-4 text-center text-lg dark:text-dark-800">
-          İlana Verilen Cevaplar
-        </p>
-        {data?.questions_and_values?.map((question, idx) => (
-          <div className="flex flex-col gap-4 rounded-md" key={idx}>
-            <div className=" flex  rounded-md  shadow-md">
-              <p className=" w-32 flex-shrink-0  bg-light-50 p-4 dark:text-dark-800">
-                {question.question}
-              </p>
-              <p className="p-4 text-dark-800">
-                {typeof question.answer === 'string' ? (
-                  <span>{question.answer}</span>
-                ) : (
-                  question.answer.map((item, idx) => <p key={idx}>{item}</p>)
-                )}
-              </p>
-            </div>
-          </div>
-        ))}
+        {data?.questions_and_values?.length !== 0 && (
+          <>
+            <p className=" mt-4 rounded-md bg-light-50 p-4 text-center text-lg dark:text-dark-800">
+              İlana Verilen Cevaplar
+            </p>
+            {data?.questions_and_values?.map((question, idx) => (
+              <div className="flex flex-col gap-4 rounded-md" key={idx}>
+                <div className=" flex  rounded-md  shadow-md">
+                  <p className=" w-32 flex-shrink-0  bg-light-50 p-4 dark:text-dark-800">
+                    {question.question}
+                  </p>
+                  <p className="p-4 text-dark-800">
+                    {typeof question.answer === 'string' ? (
+                      <span>{question.answer}</span>
+                    ) : (
+                      question.answer.map((item, idx) => (
+                        <p key={idx}>{item}</p>
+                      ))
+                    )}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </>
+        )}
       </div>
     </div>
   )
