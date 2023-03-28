@@ -6,7 +6,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { Divider, Tooltip } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send'
-import Loading from '../../utils/Loading'
+import Loading from '../../../../components/Loading'
 import { toast, ToastContainer } from 'react-toastify'
 
 const EmployeeShowMessage = () => {
@@ -67,9 +67,7 @@ const EmployeeShowMessage = () => {
               </Link>
               <p className="dark:text-light-50">Mesaj</p>
             </div>
-            <div className="m-2">
-              <Divider />
-            </div>
+            <Divider sx={{ margin: 2 }} />
           </>
           <div className=" flex max-h-[60vh] flex-col gap-4 overflow-auto rounded-md bg-white p-2 shadow-md dark:bg-dark-900 dark:text-dark-900">
             {data.map((message, idx) => (
@@ -77,14 +75,16 @@ const EmployeeShowMessage = () => {
                 key={idx}
                 className={`hide-scrollbar-f hide-scrollbar-c min-h-[8rem] w-full shrink-0 overflow-auto rounded-md p-4 shadow-md lg:h-48 lg:w-96 2xl:w-[32rem] ${
                   selfData.data.result.id === message.sender_id
-                    ? 'self-end bg-light-50 dark:bg-green-500/100'
-                    : 'self-start dark:bg-gray-100'
+                    ? 'self-end bg-light-50 dark:bg-neutral-700'
+                    : 'self-start dark:bg-neutral-600'
                 }`}
               >
-                <div className="flex h-full flex-grow flex-col justify-between">
-                  <p>{message.message}</p>
-                  <div className="self-end text-xs text-gray-400">
-                    {selfData.data.result.id !== message.sender_id ? (
+                <div className="flex h-full flex-grow flex-col justify-between text-gray-500 dark:text-white">
+                  <p className="text-dark-900 dark:text-white">
+                    {message.message}
+                  </p>
+                  <div className="self-end text-xs ">
+                    {selfData.data.result.id === message.sender_id ? (
                       <p>{message.employer_details.full_name}</p>
                     ) : (
                       <p>{message.recipient_name}</p>

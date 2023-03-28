@@ -30,7 +30,7 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Chart.js Line Chart',
+      text: 'Son 6 ay Yaptırılan İş',
     },
   },
 }
@@ -60,20 +60,20 @@ const RecipentPanel = () => {
     <DashboardContent>
       <div className="flex w-full flex-col justify-between gap-4 lg:flex-row">
         <div className="flex h-44 w-full flex-col  items-center justify-center rounded-md bg-white text-zinc-400 shadow-md dark:bg-dark-900 dark:text-light-50 lg:w-1/4  2xl:h-96">
-          <p>Post</p>
+          <p className="text-lg 2xl:text-2xl">İlan</p>
           <h1 className="text-3xl text-orange-300">12</h1>
         </div>
         <div className="flex h-44 w-full flex-col  items-center justify-center rounded-md bg-white text-zinc-400 shadow-md dark:bg-dark-900 dark:text-light-50 lg:w-1/4  2xl:h-96">
-          <p>Pages</p>
+          <p className="text-lg 2xl:text-2xl">Mesaj</p>
           <h1 className="text-3xl text-red-400 ">182</h1>
         </div>
         <div className="flex h-44 w-full flex-col  items-center justify-center rounded-md bg-white text-zinc-400 shadow-md dark:bg-dark-900 dark:text-light-50 lg:w-1/4  2xl:h-96">
-          <p>Comments</p>
-          <h1 className="text-3xl text-blue-400 ">1820</h1>
+          <p className="text-lg 2xl:text-2xl">Yaptırılmış İş</p>
+          <h1 className="text-3xl text-blue-400 ">12</h1>
         </div>
         <div className="flex h-44 w-full flex-col  items-center justify-center rounded-md bg-white text-zinc-400 shadow-md dark:bg-dark-900 dark:text-light-50 lg:w-1/4 2xl:h-96">
-          <p>Messages</p>
-          <h1 className="text-3xl text-purple-400">102</h1>
+          <p className="text-lg 2xl:text-2xl">Bakiye</p>
+          <h1 className="text-3xl text-purple-400">1020 ₺</h1>
         </div>
       </div>
       <div className="flex w-full flex-col justify-between gap-4 xl:flex-row ">

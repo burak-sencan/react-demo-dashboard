@@ -83,9 +83,9 @@ const RecipentSettings = () => {
     setPhone(selfData.data.result.phone)
   }, [])
 
-  const handleChangeRadio = (e) => {
-    setAccountType(e.target.value)
-  }
+  // const handleChangeRadio = (e) => {
+  //   setAccountType(e.target.value)
+  // }
 
   return (
     <DashboardContent>
@@ -107,57 +107,30 @@ const RecipentSettings = () => {
               name="fullName"
             />
           </label>
-          <div className="flex flex-col items-center justify-between gap-4 lg:flex-row">
-            <label
-              htmlFor="account_type"
-              className="flex flex-col items-center gap-4 lg:flex-row"
-            >
-              <span>Hizmet Tipiniz</span>
-              {selfData?.data?.result?.account_type === '1' ? (
-                <span className="rounded-md  bg-light-50 p-4 dark:text-dark-800">
-                  Hizmet Alan
-                </span>
-              ) : selfData?.data?.result?.account_type === '2' ? (
-                <span className=" rounded-md bg-slate-100  p-4 dark:text-dark-800">
-                  Hizmet Veren
-                </span>
-              ) : (
-                <span>Hesap Tipi Yok</span>
-              )}
-            </label>
-            <div className="flex flex-col gap-4">
-              <label
-                className={`m-1 rounded-md border p-4 transition hover:cursor-pointer hover:bg-lime-600/50 dark:text-light-50 ${
-                  accountType === '1' ? 'bg-lime-600' : ''
-                }`}
-              >
-                <input
-                  className="hidden"
-                  checked={accountType === '1'}
-                  type="radio"
-                  name="account_type"
-                  value="1"
-                  onChange={handleChangeRadio}
-                />
-                Hizmet Alan
-              </label>
-              <label
-                className={`m-1 rounded-md border p-4 transition hover:cursor-pointer hover:bg-lime-600/50 dark:text-light-50 ${
-                  accountType === '2' ? 'bg-lime-600' : ''
-                }`}
-              >
-                <input
-                  className="hidden"
-                  checked={accountType === '2'}
-                  type="radio"
-                  name="account_type"
-                  value="2"
-                  onChange={handleChangeRadio}
-                />
-                Hizmet Veren
-              </label>
-            </div>
-          </div>
+          <label className="flex flex-col items-center justify-between gap-4 lg:flex-row">
+            <span>Hizmet Tipiniz</span>
+
+            {selfData.data.result.account_type === '1' ? (
+              <input
+                disabled
+                value="Hizmet Alan"
+                className="rounded-md bg-slate-100 p-4 dark:text-dark-800"
+              />
+            ) : selfData.data.result.account_type === '2' ? (
+              <input
+                disabled
+                value="Hizmet Veren"
+                className="rounded-md bg-slate-100 p-4 dark:text-dark-800"
+              />
+            ) : (
+              <input
+                disabled
+                value="Hizmet Tipi Belirsiz"
+                className="rounded-md bg-slate-100 p-4 dark:text-dark-800"
+              />
+            )}
+          </label>
+
           <div className="flex flex-col items-center justify-between gap-4">
             <label className="flex  w-full flex-col items-center justify-between gap-4 lg:flex-row">
               E-posta

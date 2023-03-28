@@ -10,7 +10,7 @@ import './TrendSwiper.css'
 
 import { Navigation } from 'swiper'
 import { Divider } from '@mui/material'
-import Loading from '../pages/dashboard/utils/Loading'
+import Loading from '../components/Loading'
 
 const TrendServices = ({ title, url }) => {
   const { services } = useContext(ServiceContext)

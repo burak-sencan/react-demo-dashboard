@@ -5,7 +5,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { useContext, useEffect, useState } from 'react'
 import AuthContext from '../../../../context/authContext'
 import api from '../../../../context/api'
-import Loading from '../../utils/Loading'
+import Loading from '../../../../components/Loading'
 
 const RecipentShowAdvert = () => {
   const { id } = useParams()
@@ -59,7 +59,9 @@ const RecipentShowAdvert = () => {
                 Bütçe
               </p>
               <p className="rounded-md p-4 text-dark-800 dark:bg-dark-900 dark:text-light-50">
-                {data.budget}
+              {data.budget === 0
+                  ? 'Bütçe Belirtilmedi'
+                  : data.budget}
               </p>
             </div>
 

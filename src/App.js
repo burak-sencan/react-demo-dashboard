@@ -27,6 +27,7 @@ import {
   EmployeeShowJobOpportunities,
   EmployeeShowMyBids,
   EmployeeShowMyGetBids,
+  EmployeeShowBudgetTransfer,
 } from './pages/dashboard/employeeDashboard/employersComponents'
 import {
   RecipentAdvert,
@@ -100,6 +101,7 @@ function App() {
                     element={<EmployeeAddToYourSite />}
                   />
                   <Route path="wallet" element={<EmployeeWallet />} />
+                  <Route path="wallet/transfer/:id" element={<EmployeeShowBudgetTransfer />} />
                   <Route path="settings" element={<EmployeeSettings />} />
                 </Route>
 

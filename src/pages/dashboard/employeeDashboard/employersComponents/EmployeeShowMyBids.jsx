@@ -5,7 +5,7 @@ import { Divider } from '@mui/material'
 import { useContext, useEffect, useState } from 'react'
 import api from '../../../../context/api'
 import AuthContext from '../../../../context/authContext'
-import Loading from '../../utils/Loading'
+import Loading from '../../../../components/Loading'
 
 const EmployeeShowMyBids = () => {
   const { id } = useParams()
@@ -64,7 +64,9 @@ const EmployeeShowMyBids = () => {
                 Bütçe
               </p>
               <p className="rounded-md p-4 text-dark-800 dark:bg-dark-900 dark:text-light-50">
-                {data.request_details.budget}
+                {data.request_details.budget === 0
+                  ? 'Bütçe Belirtilmedi'
+                  : data.request_details.budget}
               </p>
             </div>
 

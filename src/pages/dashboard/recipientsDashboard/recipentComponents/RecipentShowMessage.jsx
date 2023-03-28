@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import api from '../../../../context/api'
 import AuthContext from '../../../../context/authContext'
 import DashboardContent from '../../utils/DashboardContent'
-import Loading from '../../utils/Loading'
+import Loading from '../../../../components/Loading'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { Divider, Tooltip } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send'
@@ -68,17 +68,19 @@ const RecipentShowMessage = () => {
                 key={idx}
                 className={`${
                   selfData.data.result.id === message.sender_id
-                    ? 'self-end bg-light-50 dark:bg-green-500/100'
-                    : 'self-start dark:bg-gray-100'
+                    ? 'self-end bg-light-50 dark:bg-neutral-700'
+                    : 'self-start dark:bg-neutral-600'
                 } hide-scrollbar-f hide-scrollbar-c mb-2 min-h-[8rem] w-full shrink-0 overflow-auto rounded-md p-4 shadow-md  lg:h-48  lg:w-96 2xl:w-[32rem]`}
               >
                 <div className="flex h-full flex-col justify-between ">
-                  <p>{message.message}</p>
-                  <div className="self-end text-xs text-gray-400">
-                    {selfData.data.result.id !== message.sender_id ? (
-                      <p>{message.employer_details.full_name}</p>
-                    ) : (
+                  <p className="text-dark-900 dark:text-white">
+                    {message.message}
+                  </p>
+                  <div className="self-end text-xs text-gray-400 dark:text-white">
+                    {selfData.data.result.id === message.sender_id ? (
                       <p>{message.recipient_name}</p>
+                    ) : (
+                      <p>{message.employer_details.full_name}</p>
                     )}
                     <p>{message.created_at}</p>
                   </div>

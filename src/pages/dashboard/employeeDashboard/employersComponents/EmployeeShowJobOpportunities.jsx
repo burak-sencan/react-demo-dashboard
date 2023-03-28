@@ -1,19 +1,21 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import DashboardContent from '../../utils/DashboardContent'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { Divider } from '@mui/material'
 import { useContext, useEffect, useState } from 'react'
 import api from '../../../../context/api'
 import AuthContext from '../../../../context/authContext'
-import Loading from '../../utils/Loading'
+import Loading from '../../../../components/Loading'
 import { toast, ToastContainer } from 'react-toastify'
 
 const EmployeeShowJobOpportunities = () => {
   const { id } = useParams()
+  const navigate = useNavigate()
   const { token } = useContext(AuthContext)
 
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState([])
+  const [isSubmit, setIsSubmit] = useState(false)
 
   const [formData, setformData] = useState({
     quotePrice: '',
@@ -40,6 +42,14 @@ const EmployeeShowJobOpportunities = () => {
       quote_message: quoteMessage,
     }
     api.sendBid(token, tempFormData, data.id).then((response) => {
+      // Eğer başarılı ise
+      if (response.status) {
+        toast(response.data.message)
+        setIsSubmit(true)
+        setTimeout(() => {
+          navigate('/employeeDashboard/jobOpportunities/')
+        }, 3000)
+      }
       toast(response.data.message)
     })
   }
@@ -93,7 +103,7 @@ const EmployeeShowJobOpportunities = () => {
                 Bütçe
               </p>
               <p className="rounded-md p-4 text-dark-800 dark:bg-dark-900 dark:text-light-50">
-                {data.budget}
+                {data.budget === 0 ? 'Bütçe Belirtilmedi' : data.budget}
               </p>
             </div>
 
@@ -105,7 +115,7 @@ const EmployeeShowJobOpportunities = () => {
                 {data.duration}
               </p>
             </div>
-            
+
             <div className="flex w-full  flex-col rounded-md  shadow-md transition hover:shadow-slate-400 dark:hover:shadow-slate-500">
               <p className="rounded-t-md bg-light-50 p-4  dark:text-dark-800">
                 Lokasyon Bilgisi
@@ -198,7 +208,7 @@ const EmployeeShowJobOpportunities = () => {
                 </label>
                 <input
                   id="liras"
-                  type="text"
+                  type="number"
                   name="quotePrice"
                   value={quotePrice}
                   onChange={onChange}
@@ -208,6 +218,7 @@ const EmployeeShowJobOpportunities = () => {
               </div>
             </div>
             <button
+              disabled={isSubmit}
               type="submit"
               className="flex h-10 w-full items-center justify-center rounded-md   bg-lime-600 p-4 text-lime-300 transition hover:cursor-pointer  hover:text-white lg:w-32 lg:self-end"
             >

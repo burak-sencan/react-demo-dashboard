@@ -8,7 +8,7 @@ import { MRT_Localization_TR } from 'material-react-table/locales/tr'
 import MaterialReactTable from 'material-react-table'
 import DraftsIcon from '@mui/icons-material/Drafts'
 import ClearIcon from '@mui/icons-material/Clear'
-import Loading from '../../utils/Loading'
+import Loading from '../../../../components/Loading'
 
 const EmployeeMessage = () => {
   const navigate = useNavigate()

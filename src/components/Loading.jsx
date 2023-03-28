@@ -1,4 +1,4 @@
-import { loading } from '../../../assets/'
+import { loading } from '../assets'
 
 const Loading = () => {
   return (

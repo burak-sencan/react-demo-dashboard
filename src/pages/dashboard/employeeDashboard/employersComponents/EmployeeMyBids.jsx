@@ -7,7 +7,7 @@ import DashboardContent from '../../utils/DashboardContent'
 import MaterialReactTable from 'material-react-table'
 import { Box, Divider, IconButton, Tooltip } from '@mui/material'
 import LocalOfferIcon from '@mui/icons-material/LocalOffer'
-import Loading from '../../utils/Loading'
+import Loading from '../../../../components/Loading'
 
 const EmployeeMyBids = () => {
   const { token } = useContext(AuthContext)
@@ -45,6 +45,9 @@ const EmployeeMyBids = () => {
       accessorKey: 'request_details.budget',
       header: 'Bütçe',
       maxSize: 20,
+      Cell: ({ cell }) => (
+        <p>{`${cell.getValue() === 0 ? 'Belirtilmedi' : cell.getValue()}`} </p>
+      ),
     },
     {
       accessorKey: 'quote_message',

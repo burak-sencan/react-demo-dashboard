@@ -2,10 +2,10 @@ import { Navigate } from 'react-router-dom'
 import { useContext, useEffect, useState } from 'react'
 import AuthContext from '../context/authContext'
 import api from '../context/api'
-import Loading from '../pages/dashboard/utils/Loading'
+import Loading from '../components/Loading'
 
 const ProtectedRecipientsRoute = ({ children }) => {
-  const { token, selfData, setSelfData } = useContext(AuthContext)
+  const { token, setSelfData, selfData } = useContext(AuthContext)
   const [loading, setLoading] = useState(true)
 
   const getSelfData = async (token) => {
@@ -20,9 +20,10 @@ const ProtectedRecipientsRoute = ({ children }) => {
   }, [])
 
   if (loading) {
-    return <Loading/>
+    return <Loading />
   } else {
-    if (selfData.data.result.account_type === '1') {
+    if (selfData === '') return <Loading />
+    if (selfData?.data?.result?.account_type === '1') {
       return children
     } else {
       return <Navigate to={'/'} replace />

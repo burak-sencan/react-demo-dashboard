@@ -16,22 +16,6 @@ const CheckboxInput = ({ data, activeStep }) => {
       setValue([...value, val])
       handleInput(val)
     } else {
-      // map filter //
-      // const updatedFormData = formData.map((obj) =>
-      //   obj.activeStep === activeStep
-      //     ? { ...obj, answer: obj.answer.filter((item) => item !== val) }
-      //     : obj
-      // )
-
-      // const updatedValues = formData
-      //   .filter((obj) => obj.activeStep === activeStep)
-      //   .map((obj) => obj.answer.filter((item) => item !== val))
-      //   .flat()
-
-      // setFormData(updatedFormData)
-      // setValue(...updatedValues)
-      // map filter //
-
       formData.forEach((obj) => {
         if (obj.activeStep === activeStep) {
           let temp = []
@@ -44,7 +28,6 @@ const CheckboxInput = ({ data, activeStep }) => {
           const x = formData.map((item) =>
             item.activeStep === activeStep ? { ...item, answer: temp } : item
           )
-          // setValue(...value, ...temp)
           setValue(...temp)
           setFormData(x)
         }
@@ -69,10 +52,10 @@ const CheckboxInput = ({ data, activeStep }) => {
   return (
     <>
       <Question data={data} />
-      <FormGroup className=" overflow-auto">
+      <FormGroup className=" overflow-auto p-2 ">
         {data.answers.map((opt) => (
           <FormControlLabel
-            className="hover:bg-slate-100"
+            className="rounded-md hover:bg-slate-100 p-1"
             key={opt.id}
             value={opt.value}
             onChange={handleChange}

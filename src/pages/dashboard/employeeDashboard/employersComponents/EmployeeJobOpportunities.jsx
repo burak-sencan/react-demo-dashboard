@@ -7,7 +7,7 @@ import DashboardContent from '../../utils/DashboardContent'
 import MaterialReactTable from 'material-react-table'
 import { Box, Divider, IconButton, Tooltip } from '@mui/material'
 import LocalOfferIcon from '@mui/icons-material/LocalOffer'
-import Loading from '../../utils/Loading'
+import Loading from '../../../../components/Loading'
 
 const EmployeeJobOpportunities = () => {
   const { token } = useContext(AuthContext)

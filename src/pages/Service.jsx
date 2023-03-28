@@ -11,7 +11,7 @@ import FormSummary from '../components/form/FormSummary'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import SendIcon from '@mui/icons-material/Send'
-import Loading from './dashboard/utils/Loading'
+import Loading from '../components/Loading'
 
 const Service = () => {
   const [activeStep, setActiveStep] = useState(0)
@@ -116,9 +116,11 @@ const Service = () => {
     })
   }
 
+  if (selfData === '') return <Loading />
+
   if (selfData.data.result.account_type === '2') {
     return (
-      <div className="flex h-96 flex-col justify-center gap-4 ">
+      <div className="flex h-96 p-4 flex-col justify-center gap-4 dark:text-white ">
         <p>Sadece Hizmet Alanlar Talep Oluşturabilir. </p>
         <p>
           Talep Oluşturabilmeniz İçin Hizmet Alan Tipinde Bir Hesap İle Giriş

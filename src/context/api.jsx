@@ -97,13 +97,23 @@ const api = {
       }
     )
   },
-  //yapılacak
   getBankAccounts: (token) => {
-    return axios.get(process.env.REACT_APP_API_URL + '/getBankAccounts', {
+    return axios.get(process.env.REACT_APP_API_URL + '/bank_accounts', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
+  },
+  paymentNotification: (token, data) => {
+    return axios.post(
+      process.env.REACT_APP_API_URL + `/bank_accounts/payment_notification`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
   },
   getSelfBalanceHistory: (token) => {
     return axios.get(process.env.REACT_APP_API_URL + '/getSelfBalanceHistory', {
@@ -132,7 +142,6 @@ const api = {
       }
     )
   },
-
   // get client interested services
   getClientInterestedServices: (token) => {
     return axios.get(process.env.REACT_APP_API_URL + `/client_services`, {

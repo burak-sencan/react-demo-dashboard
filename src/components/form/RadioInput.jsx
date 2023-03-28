@@ -25,16 +25,6 @@ const RadioInput = ({ data, activeStep }) => {
 
   return (
     <>
-      {/* <div className="relative flex justify-center">
-        <p className="p-4 text-2xl text-green-600">{data.question}</p>
-        <div className="absolute top-0 right-0 ">
-          <Link to="/">
-            <IconButton aria-label="delete">
-              <CloseIcon />
-            </IconButton>
-          </Link>
-        </div>
-      </div> */}
       <Question data={data} />
       <FormControl className=" overflow-auto">
         <RadioGroup
@@ -46,7 +36,7 @@ const RadioInput = ({ data, activeStep }) => {
         >
           {data.answers.map((opt) => (
             <FormControlLabel
-              className=" gap-2 hover:bg-slate-100"
+              className=" gap-2 hover:bg-slate-100 rounded-md !m-0 px-2 py-1"
               labelPlacement="end"
               key={opt.id}
               value={opt.value}

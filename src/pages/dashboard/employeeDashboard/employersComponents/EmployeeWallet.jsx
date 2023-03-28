@@ -4,6 +4,10 @@ import DashboardContent from '../../utils/DashboardContent'
 import AuthContext from '../../../../context/authContext'
 import MaterialReactTable from 'material-react-table'
 import { MRT_Localization_TR } from 'material-react-table/locales/tr'
+import { Box, IconButton, Modal, Tooltip } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+import PaymentIcon from '@mui/icons-material/Payment'
+import EmployeeShowBudgetTransfer from './EmployeeShowBudgetTransfer'
 
 const EmployeeWallet = () => {
   const [index, setIndex] = useState('0')
@@ -92,12 +96,28 @@ const EmployeeWallet = () => {
 }
 
 const BudgetTransfer = () => {
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    // width: '60%',
+    // height: '80%',
+    bgcolor: 'background.paper',
+    // border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  }
+
   const { token } = useContext(AuthContext)
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
 
   const columns = useMemo(
     () => [
       {
-        accessorKey: 'customer_name',
+        accessorKey: 'name',
         header: 'Müşteri Adı',
       },
       {
@@ -111,6 +131,9 @@ const BudgetTransfer = () => {
       {
         accessorKey: 'state',
         header: 'Durumu',
+        Cell: ({ cell }) => (
+          <p>{`${cell.getValue() === '0' ? 'Kapalı' : 'Açık'}`} </p>
+        ),
       },
     ],
     []
@@ -140,7 +163,39 @@ const BudgetTransfer = () => {
             overflow: 'hidden',
           },
         }}
+        renderRowActions={({ row }) => (
+          <Box sx={{ display: 'flex', gap: '1rem' }}>
+            <IconButton
+              onClick={
+                // navigate(
+                //   `/employeeDashboard/wallet/transfer/${row.original.id}`
+                // )
+                handleOpen
+              }
+              sx={{
+                cursor: 'pointer',
+              }}
+            >
+              <Tooltip title="Ödeme Yaptım">
+                <PaymentIcon />
+              </Tooltip>
+            </IconButton>
+          </Box>
+        )}
       />
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={style}
+          className="h-full rounded-md w-full dark:bg-dark-800 lg:h-[90vh] lg:w-2/3"
+        >
+          <EmployeeShowBudgetTransfer handleClose={handleClose} />
+        </Box>
+      </Modal>
     </div>
   )
 }
