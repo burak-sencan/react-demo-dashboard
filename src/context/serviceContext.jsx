@@ -15,7 +15,6 @@ export const ServiceProvider = ({ children }) => {
     const tempFormData = []
 
     //if questions not empty
-    console.log(data)
     if (data.questions !== null) {
       data.questions.map((question) => {
         /*------------- */

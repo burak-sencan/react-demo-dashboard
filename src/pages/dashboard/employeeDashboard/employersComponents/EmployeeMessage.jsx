@@ -22,6 +22,7 @@ const EmployeeMessage = () => {
       {
         accessorKey: 'recipient_details.full_name',
         header: 'Alıcı',
+        maxSize: 50,
       },
       {
         accessorKey: 'message',
@@ -58,6 +59,7 @@ const EmployeeMessage = () => {
         </div>
         <Divider />
         <MaterialReactTable
+          enableColumnResizing
           columns={columns}
           data={data}
           enableRowActions

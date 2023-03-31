@@ -3,10 +3,9 @@ import CloseIcon from '@mui/icons-material/Close'
 import { Link } from 'react-router-dom'
 
 const Question = ({ data }) => {
-  console.log(data)
   return (
     <div className="relative">
-      <div className="flex w-full flex-col items-center rounded bg-white p-4 shadow-md">
+      <div className="flex w-full flex-col items-center rounded bg-white/60 p-4 shadow-md">
         <p className="text-base text-gray-700">Releated Service Name</p>
         <div className="flex w-full justify-between text-sm text-gray-400">
           <p>Ortalama Fiyat Aralığı</p>

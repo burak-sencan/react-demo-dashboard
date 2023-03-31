@@ -22,21 +22,24 @@ const EmployeeJobOpportunities = () => {
     {
       accessorKey: 'location_details.city.name',
       header: 'İl',
-      maxSize: 20,
     },
     {
       accessorKey: 'location_details.countie.name',
       header: 'İlçe',
-      maxSize: 20,
     },
     {
       accessorKey: 'location_details.district.name',
       header: 'Mahalle',
-      maxSize: 20,
     },
     {
       accessorKey: 'duration',
       header: 'Süre',
+      Cell: ({ cell }) => (
+        <p>
+          {cell.getValue().slice(8, 10)}/{cell.getValue().slice(5, 7)}/
+          {cell.getValue().slice(0, 4)}
+        </p>
+      ),
     },
     {
       accessorKey: 'budget',
@@ -56,7 +59,6 @@ const EmployeeJobOpportunities = () => {
         setData([])
       } else {
         setData(response.data.result)
-        console.log(response)
       }
       setIsLoading(false)
     })
@@ -68,7 +70,13 @@ const EmployeeJobOpportunities = () => {
     <DashboardContent>
       <div className="rounded-md bg-white shadow-md">
         <div className="p-4">
-          İş Fırsatları <Info title={'İş Fırsatları'} text={'Ayarlar bölümündeki ilgi alanlarınıza göre size gösterilen iş fırsatları ekranı.'} />
+          İş Fırsatları{' '}
+          <Info
+            title={'İş Fırsatları'}
+            text={
+              'Ayarlar bölümündeki ilgi alanlarınıza göre size gösterilen iş fırsatları ekranı.'
+            }
+          />
         </div>
         <Divider />
         <MaterialReactTable

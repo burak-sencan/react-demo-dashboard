@@ -9,8 +9,6 @@ const Plus = ({ data, activeStep }) => {
   const { formData, setFormData } = useContext(ServiceContext)
   const [idx, setIdx] = useState(0)
 
-  console.log(data)
-
   const handleIncrement = () => {
     if (idx < data.answers.length - 1) {
       setIdx(idx + 1)

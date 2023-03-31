@@ -37,6 +37,12 @@ const RecipentAdvert = () => {
     {
       accessorKey: 'duration',
       header: 'Süre',
+      Cell: ({ cell }) => (
+        <p>
+          {cell.getValue().slice(8, 10)}/{cell.getValue().slice(5, 7)}/
+          {cell.getValue().slice(0, 4)}
+        </p>
+      ),
     },
     {
       accessorKey: 'budget',
@@ -78,7 +84,6 @@ const RecipentAdvert = () => {
     api.recipientsServiceRequests(token).then((response) => {
       if (response.data.result) {
         setData(response.data.result)
-        console.log(response.data.result)
       } else setData([])
       setIsLoading(false)
     })
@@ -113,7 +118,7 @@ const RecipentAdvert = () => {
                   cursor: 'pointer',
                 }}
               >
-                <Tooltip title="Gelen Teklifler">
+                <Tooltip title="İlan Detayı">
                   <LocalOfferIcon />
                 </Tooltip>
               </IconButton>

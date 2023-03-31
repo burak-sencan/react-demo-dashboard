@@ -215,16 +215,16 @@ const EmployeeSettings = () => {
         <div className="flex min-h-[50vh] flex-col justify-between gap-8 rounded-md  bg-white p-4 dark:bg-dark-900 lg:flex-row ">
           <div className="flex flex-col justify-between gap-4">
             <div>
-              <p className="text-lg dark:text-light-50">
-                İlgi Alanı Ekle
+              <div className="flex">
+                <p className="text-lg dark:text-light-50">İlgi Alanı Ekle</p>
                 <Info
                   text={
                     'Hizmet alan kişiler tarafından verilen ilanların, Hizmet veren kişilere, iş fırsatları bölümünde gözükmesi için çalıştığınız, ilgilendiğiniz veya yapabileceğiniz işleri buradan bularak ekleme işlemini yapabilirsiniz. En fazla 10 adet ilgi alanı eklenebilir. '
                   }
                   title={'İlgi Alanı Ekleme'}
                 />
-              </p>
-              <Divider sx={{ marginY: 1 }} className='dark:border-white/40' />
+              </div>
+              <Divider sx={{ marginY: 1 }} className="dark:border-white/40" />
               <div className="mt-1 flex w-full rounded-md bg-white shadow-md lg:w-[500px]">
                 <input
                   className="m-1 h-12 w-full rounded-md  p-4 focus:outline-none"
@@ -253,8 +253,8 @@ const EmployeeSettings = () => {
                 <Paper className="relative mt-1 ">
                   <List className="max-h-80 overflow-auto">
                     {results.map((result) => (
-                      <Tooltip title="Ekle">
-                        <ListItem key={result.id} disablePadding>
+                      <Tooltip title="Ekle" key={result.id}>
+                        <ListItem disablePadding>
                           <ListItemButton
                             onClick={(e) => {
                               handleEmployeeSkill(result)
@@ -270,27 +270,26 @@ const EmployeeSettings = () => {
               )}
             </div>
           </div>
-          <div className="w-full">
-            <p className="text-lg dark:text-light-50">
-              İlgi Alanlarım
+          <div className=" w-full">
+            <div className="flex">
+              <p className="text-lg dark:text-light-50">İlgi Alanlarım</p>
               <Info
                 text={
                   'Hizmet alan kişiler tarafından verilen ilanların, Hizmet veren kişilere, iş fırsatları bölümünde gözükmesi için çalıştığınız, ilgilendiğiniz veya yapabileceğiniz işleri eklemelisiniz. En fazla 10 adet ilgi alanı eklenebilir. '
                 }
                 title={'İlgi Alanlarım'}
               />
-            </p>
-            <Divider sx={{ marginY: 1 }} className='dark:border-white/40' />
+            </div>
+            <Divider sx={{ marginY: 1 }} className="dark:border-white/40" />
             {employeerSkills.length === 0 ? 'İlgi Alanı Yok' : ''}
             {employeerSkills.map((employeerSkill) => (
-              <Tooltip title="Çıkar">
+              <Tooltip title="Çıkar" key={employeerSkill.service_id}>
                 <button
                   className="m-1 rounded-md  bg-gradient-to-r from-lime-600 to-lime-500 p-4 text-white transition-all hover:from-red-500 hover:to-red-700 "
                   onClick={(event) => {
                     handleDelete(event, employeerSkill.id)
                   }}
                   value={employeerSkill.service_id}
-                  key={employeerSkill.service_id}
                 >
                   {employeerSkill.name}
                 </button>
@@ -310,7 +309,6 @@ const EmployeeSettings = () => {
               <input
                 className="rounded-md bg-light-50 p-4 dark:text-dark-800"
                 disabled
-                defaultValue=""
                 value={fullName}
                 onChange={(e) => {
                   setFullName(e.target.value)

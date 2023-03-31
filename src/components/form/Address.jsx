@@ -30,9 +30,9 @@ const Address = ({ data, activeStep }) => {
     districtName,
   } = useContext(ServiceContext)
 
-  const [provinceValue, setProvinceValue] = useState()
-  const [countiesValue, setCountiesValue] = useState()
-  const [districtsValue, setDistrictsValue] = useState()
+  const [provinceValue, setProvinceValue] = useState('')
+  const [countiesValue, setCountiesValue] = useState('')
+  const [districtsValue, setDistrictsValue] = useState('')
 
   const [provinces, setProvinces] = useState([])
   const [counties, setCounties] = useState([])
@@ -62,7 +62,7 @@ const Address = ({ data, activeStep }) => {
   const handleCountyChance = (e) => {
     const countyId = e.target.value
     setCountiesValue(countyId)
-    
+
     ////////// Reset //////////
     setDistricts([])
     setDistrictName('')
@@ -131,6 +131,7 @@ const Address = ({ data, activeStep }) => {
           ))}
         </Select>
       </FormControl>
+
       {counties.length > 0 && (
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">İlçe</InputLabel>
@@ -139,6 +140,7 @@ const Address = ({ data, activeStep }) => {
             id="demo-simple-select"
             label="İlçe"
             onChange={handleCountyChance}
+            value={countiesValue}
             MenuProps={MenuProps}
           >
             {counties.map((county) => (
@@ -153,6 +155,7 @@ const Address = ({ data, activeStep }) => {
           </Select>
         </FormControl>
       )}
+
       {districts.length > 0 && (
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Mahalle</InputLabel>
@@ -161,6 +164,7 @@ const Address = ({ data, activeStep }) => {
             id="demo-simple-select"
             label="Mahalle"
             onChange={handleDistricChance}
+            value={districtsValue}
             MenuProps={MenuProps}
           >
             {districts.map((district) => (
@@ -175,6 +179,7 @@ const Address = ({ data, activeStep }) => {
           </Select>
         </FormControl>
       )}
+
       {provinceName !== '' && countieName !== '' && districtName !== '' && (
         <div className="p-2">
           {/* <p className="text-base">Lokasyon Bilgisi</p> */}

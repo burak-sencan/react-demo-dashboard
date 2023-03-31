@@ -1,14 +1,13 @@
 import { useContext, useEffect, useRef, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import api from '../../../../context/api'
 import AuthContext from '../../../../context/authContext'
 import DashboardContent from '../../utils/DashboardContent'
 import Loading from '../../../../components/Loading'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import { Divider, Tooltip } from '@mui/material'
+import { Tooltip } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send'
 import { toast, ToastContainer } from 'react-toastify'
-
+import TopNav from '../../utils/TopNav'
 const RecipentShowMessage = () => {
   const { reqid, recid } = useParams()
   const { token, selfData } = useContext(AuthContext)
@@ -21,7 +20,6 @@ const RecipentShowMessage = () => {
   useEffect(() => {
     api.getSelfRequestMessages(token, reqid, recid).then((response) => {
       setData(response.data.result)
-      console.log(response.data.result)
 
       setIsLoading(false)
     })
@@ -61,14 +59,7 @@ const RecipentShowMessage = () => {
     <>
       <DashboardContent>
         <div>
-          <div className="flex gap-2">
-            <Link to="/recipentDashboard/message/">
-              <ArrowBackIcon className="text-dark-900 dark:text-light-50" />
-            </Link>
-            <p className="text-dark-900 dark:text-light-50">Mesaj</p>
-          </div>
-          <Divider sx={{ margin: 2 }} />
-
+          <TopNav url={'/recipentDashboard/message'} text={'Mesaj'} />
           <div className=" flex h-[50vh] flex-col gap-2 overflow-auto rounded-md bg-white p-2 shadow-md dark:bg-dark-900 dark:text-dark-900">
             {data.map((message, idx) => (
               <div
@@ -76,7 +67,7 @@ const RecipentShowMessage = () => {
                 className={`${
                   selfData.data.result.id === message.sender_id
                     ? 'self-end bg-light-50 dark:bg-neutral-700'
-                    : 'self-start dark:bg-neutral-600'
+                    : 'self-start dark:bg-neutral-500'
                 } mb-2 w-full shrink-0 overflow-auto rounded-md p-2 shadow-md  lg:w-96 2xl:w-[32rem]`}
               >
                 <div className="flex h-full flex-col justify-between ">
@@ -84,11 +75,11 @@ const RecipentShowMessage = () => {
                     {message.message}
                   </p>
                   <div className="self-end text-xs text-gray-400 dark:text-white">
-                    {/* {selfData.data.result.id === message.sender_id ? (
+                    {selfData.data.result.id === message.sender_id ? (
                       <p>{message.recipient_name}</p>
                     ) : (
                       <p>{message.employer_details.full_name}</p>
-                    )} */}
+                    )}
                     <p>{message.created_at.slice(10)}</p>
                     {/* <p>
                       {message.created_at.slice(8, 10)}/

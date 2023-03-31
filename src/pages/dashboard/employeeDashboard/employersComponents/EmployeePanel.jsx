@@ -68,7 +68,7 @@ const EmployeePanel = () => {
           <h1 className="text-3xl 2xl:text-5xl text-red-400 ">182</h1>
         </div>
         <div className="flex h-44 w-full flex-col  items-center justify-center rounded-md bg-white text-zinc-400 shadow-md dark:bg-dark-900 dark:text-light-50 lg:w-1/4  2xl:h-96">
-          <p className='text-lg 2xl:text-2xl' >TamamLanan İş</p>
+          <p className='text-lg 2xl:text-2xl' >Tamamlanan İş</p>
           <h1 className="text-3xl 2xl:text-5xl text-blue-400 ">10</h1>
         </div>
         <div className="flex h-44 w-full flex-col  items-center justify-center rounded-md bg-white text-zinc-400 shadow-md dark:bg-dark-900 dark:text-light-50 lg:w-1/4 2xl:h-96">

@@ -83,9 +83,6 @@ const RecipentSettings = () => {
     setPhone(selfData.data.result.phone)
   }, [])
 
-  // const handleChangeRadio = (e) => {
-  //   setAccountType(e.target.value)
-  // }
 
   return (
     <DashboardContent>
@@ -99,7 +96,6 @@ const RecipentSettings = () => {
             <input
               className="rounded-md bg-light-50 p-4 dark:text-dark-800"
               disabled
-              defaultValue=""
               value={fullName}
               onChange={(e) => {
                 setfullName(e.target.value)

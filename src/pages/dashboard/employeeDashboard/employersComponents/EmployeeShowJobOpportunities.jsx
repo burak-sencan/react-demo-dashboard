@@ -138,7 +138,7 @@ const EmployeeShowJobOpportunities = () => {
                 {question.question}
               </p>
               <Divider orientation="vertical" flexItem sx={{ marginY: 1 }} />
-              <p className="w-1/2 bg-white  p-4 text-dark-800  lg:p-4 ">
+              <div className="w-1/2 bg-white  p-4 text-dark-800  lg:p-4 ">
                 {typeof question.answer === 'string' ? (
                   <p>
                     <CircleIcon className="mr-2 !text-[0.5rem] text-dark-800" />
@@ -146,15 +146,15 @@ const EmployeeShowJobOpportunities = () => {
                   </p>
                 ) : (
                   question.answer.map((item) => (
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2" key={item}>
                       <p>
                         <CircleIcon className="mr-2 !text-[0.5rem] text-dark-800" />
-                        <span key={item}>{item}</span>
+                        <span>{item}</span>
                       </p>
                     </div>
                   ))
                 )}
-              </p>
+              </div>
             </div>
           ))}
 

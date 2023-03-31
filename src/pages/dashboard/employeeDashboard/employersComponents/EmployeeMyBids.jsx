@@ -20,32 +20,40 @@ const EmployeeMyBids = () => {
     {
       accessorKey: 'request_details.service_details.name',
       header: 'Servis Adı',
-      maxSize: 20,
+      maxSize: 10,
     },
     {
       accessorKey: 'request_details.location_details.city.name',
       header: 'İl',
-      maxSize: 20,
+      maxSize: 10,
     },
     {
       accessorKey: 'request_details.location_details.countie.name',
       header: 'İlçe',
-      maxSize: 20,
+      maxSize: 10,
     },
     {
       accessorKey: 'request_details.location_details.district.name',
       header: 'Mahalle',
-      maxSize: 20,
+      maxSize: 10,
     },
     {
       accessorKey: 'request_details.duration',
       header: 'Süre',
-      maxSize: 20,
+      maxSize: 10,
+
+      Cell: ({ cell }) => (
+        <p>
+          {cell.getValue().slice(8, 10)}/{cell.getValue().slice(5, 7)}/
+          {cell.getValue().slice(0, 4)}
+        </p>
+      ),
     },
     {
       accessorKey: 'request_details.budget',
       header: 'Bütçe',
-      maxSize: 20,
+      maxSize: 10,
+
       Cell: ({ cell }) => (
         <p>{`${cell.getValue() === 0 ? 'Belirtilmedi' : cell.getValue()}`} </p>
       ),
@@ -57,11 +65,10 @@ const EmployeeMyBids = () => {
     {
       accessorKey: 'quote_price',
       header: 'Teklif Fiyatı',
-      maxSize: 20,
+      maxSize: 10,
     },
   ])
 
-  // const [data, setData] = useState([])
   useEffect(() => {
     api.getMyBids(token).then((response) => {
       if (response.data.result) {
@@ -78,12 +85,15 @@ const EmployeeMyBids = () => {
   return (
     <DashboardContent>
       <div className="rounded-md bg-white shadow-md">
-        <div className="p-4">Teklif Verdiklerim    <Info
+        <div className="p-4">
+          Teklif Verdiklerim{' '}
+          <Info
             title={'Teklif Verdiklerim'}
             text={
               'İş fırsatları bölümünden verilen tekliflerin listelendiği ekran.'
             }
-          /></div>
+          />
+        </div>
         <Divider />
         <MaterialReactTable
           columns={columns}

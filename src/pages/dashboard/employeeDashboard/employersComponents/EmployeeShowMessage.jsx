@@ -21,7 +21,6 @@ const EmployeeShowMessage = () => {
   useEffect(() => {
     api.getSelfRequestMessages(token, reqid, recid).then((response) => {
       setData(response.data.result)
-      console.log(response.data)
       setIsLoading(false)
     })
   }, [])
@@ -69,7 +68,7 @@ const EmployeeShowMessage = () => {
                 className={`w-full shrink-0 overflow-auto rounded-md p-2 shadow-md lg:w-96 2xl:w-[32rem] ${
                   selfData.data.result.id === message.sender_id
                     ? 'self-end bg-light-50 dark:bg-neutral-700'
-                    : 'self-start dark:bg-neutral-600'
+                    : 'self-start dark:bg-neutral-500'
                 }`}
               >
                 <div className="flex h-full flex-grow flex-col justify-between text-gray-500 dark:text-white">
@@ -77,11 +76,11 @@ const EmployeeShowMessage = () => {
                     {message.message}
                   </p>
                   <div className="self-end text-xs ">
-                    {/* {selfData.data.result.id === message.sender_id ? (
+                    {selfData.data.result.id === message.sender_id ? (
                       <p>{message.employer_details.full_name}</p>
                     ) : (
                       <p>{message.recipient_name}</p>
-                    )} */}
+                    )}
                     <p>{message.created_at.slice(10)}</p>
                   </div>
                 </div>

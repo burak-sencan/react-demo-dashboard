@@ -1,5 +1,3 @@
-import { useContext, useEffect, useState } from 'react'
-import ServiceContext from '../context/serviceContext'
 import {
   batchroomCabinet,
   carpetClean,
@@ -8,7 +6,6 @@ import {
   movingCompany,
   paintHouse,
   plumber,
-  worker,
 } from '../assets'
 import { Link } from 'react-router-dom'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -73,7 +70,7 @@ const TrendServices = ({ title, url }) => {
     <div className=" h-[32rem] bg-light-50 p-8 dark:bg-dark-800 ">
       <div className="p-4">
         <p className="text-2xl  dark:text-light-50">Trend Hizmetler</p>
-        <Divider className="!my-1 dark:border-white/40"/>
+        <Divider className="!my-1 dark:border-white/40" />
       </div>
       <Swiper
         breakpoints={{

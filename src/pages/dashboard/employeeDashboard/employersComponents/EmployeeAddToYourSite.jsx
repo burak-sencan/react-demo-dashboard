@@ -13,9 +13,6 @@ const EmployeeAddToYourSite = () => {
     navigator.clipboard.writeText(
       `<a href="https://biderya.com/register?ref=${cryptedData}"></a>`
     )
-    console.log(
-      `<a href="https://biderya.com/register?ref=${cryptedData}"></a>`
-    )
     toast('Link Kopyalandı')
   }
 
@@ -33,7 +30,6 @@ const EmployeeAddToYourSite = () => {
         'Afndkflas1abt5pas2g'
       ).toString()
     )
-    console.log(cryptedData)
   }, [])
 
   return (

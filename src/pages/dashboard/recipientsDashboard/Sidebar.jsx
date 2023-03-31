@@ -31,7 +31,7 @@ const Sidebar = ({ toggle, isOpen }) => {
         } mb-2  !text-dark-900  dark:!text-lime-50`}
       />
       <Stack
-        gap={0.5}
+        gap={0.6}
         divider={
           <Divider
             orientation="horizontal"
