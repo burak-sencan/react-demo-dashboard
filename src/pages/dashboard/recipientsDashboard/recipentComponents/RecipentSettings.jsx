@@ -159,25 +159,26 @@ const RecipentSettings = () => {
           </div>
         </div>
 
-        {/* Custom dividerF */}
+        {/* Custom divider */}
         <div className="h-[1px] w-full rounded-md bg-gray-400 opacity-40 lg:block lg:h-auto lg:w-[1px]"></div>
 
         <div className="flex flex-col justify-between gap-4 rounded-md bg-white p-2 text-dark-800 dark:bg-dark-900  dark:text-light-50 lg:p-4">
           <div className="flex flex-col gap-4 lg:w-96">
             <label className="flex flex-col items-center justify-between gap-4 lg:flex-row">
               Şifre
-              <div className="flex items-center gap-2">
+              <div className="flex w-56 items-center rounded-md bg-slate-100 dark:text-dark-800">
                 <input
                   type={showPass ? 'text' : 'password'}
-                  className=" rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none dark:text-dark-800"
+                  className="w-48 rounded-l-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none dark:text-dark-800"
                   name="password"
                   value={password}
                   onChange={(e) => {
                     setPassword(e.target.value)
                   }}
                 />
+
                 <div
-                  className="dark:text-white"
+                  className="p-1 dark:text-dark-800"
                   onClick={() => {
                     setShowPass(!showPass)
                   }}
@@ -190,7 +191,7 @@ const RecipentSettings = () => {
               Yeni Şifre
               <input
                 type={showPass ? 'text' : 'password'}
-                className=" rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none dark:text-dark-800"
+                className="w-56 rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none dark:text-dark-800"
                 name="newPassword"
                 value={newPassword}
                 onChange={(e) => {
@@ -202,7 +203,7 @@ const RecipentSettings = () => {
               Yeni Şifre Tekrar
               <input
                 type={showPass ? 'text' : 'password'}
-                className=" rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none dark:text-dark-800"
+                className="w-56  rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none dark:text-dark-800"
                 name="newPasswordRepeat"
                 value={newPasswordRepeat}
                 onChange={(e) => {

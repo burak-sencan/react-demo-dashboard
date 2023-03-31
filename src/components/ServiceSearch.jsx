@@ -13,7 +13,14 @@ import ClearIcon from '@mui/icons-material/Clear'
 import { Tooltip } from '@mui/material'
 
 const ServiceSearch = () => {
-  const { services, setServices, setFormData } = useContext(ServiceContext)
+  const {
+    services,
+    setServices,
+    setFormData,
+    setProvinceName,
+    setCountieName,
+    setDistrictName,
+  } = useContext(ServiceContext)
   const { selfData } = useContext(AuthContext)
   const [value, setValue] = useState('')
   const [results, setResults] = useState([])
@@ -26,6 +33,9 @@ const ServiceSearch = () => {
     }
 
     setFormData([]) //Resetting form data for new search
+    setProvinceName('')
+    setCountieName('')
+    setDistrictName('')
   }, [])
 
   const handleResult = (e) => {

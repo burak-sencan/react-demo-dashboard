@@ -1,12 +1,13 @@
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import DashboardContent from '../../utils/DashboardContent'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { Divider } from '@mui/material'
 import { useContext, useEffect, useState } from 'react'
 import api from '../../../../context/api'
 import AuthContext from '../../../../context/authContext'
 import Loading from '../../../../components/Loading'
 import { toast, ToastContainer } from 'react-toastify'
+import CircleIcon from '@mui/icons-material/Circle'
+import TopNav from '../../utils/TopNav'
 
 const EmployeeShowJobOpportunities = () => {
   const { id } = useParams()
@@ -66,166 +67,165 @@ const EmployeeShowJobOpportunities = () => {
   return (
     <DashboardContent>
       <div>
-        <div className="flex gap-2">
-          <Link to="/employeeDashboard/jobOpportunities/">
-            <ArrowBackIcon className="text-dark-900 dark:text-light-50" />
-          </Link>
-          <p className="text-dark-900 dark:text-light-50">İş Fırsatları</p>
-        </div>
+        <TopNav
+          url="/employeeDashboard/jobOpportunities"
+          text="İş Fırsatları"
+        />
 
-        <Divider sx={{ margin: 2 }} />
-        <div className=" flex flex-col  gap-4 overflow-auto  bg-white p-2 shadow-md dark:bg-dark-900 dark:text-dark-900 lg:p-4">
-          {/* User Info -- Service Name */}
-          <div className="flex w-full flex-col  gap-4 lg:flex-row">
-            <div className="flex w-full flex-col rounded-md shadow-md  transition hover:shadow-slate-400 dark:hover:shadow-slate-500">
-              <p className=" rounded-t-md bg-light-50 p-4  dark:text-dark-800">
-                Kullanıcı Bilgisi
-              </p>
-              <p className="rounded-md p-4 text-dark-800 dark:bg-dark-900 dark:text-light-50">
+        <div className=" flex flex-col gap-8 overflow-auto pb-8 dark:bg-dark-800">
+          <div className="flex w-full flex-col justify-between gap-4 lg:flex-row">
+            <div className="relative flex h-40 w-full flex-col items-center justify-start gap-1 rounded-md bg-white  py-8 text-zinc-400 shadow-md transition hover:shadow-lg dark:bg-dark-900 dark:text-light-50 lg:h-44 lg:w-1/4  2xl:h-96">
+              <div className="absolute left-0 top-0 h-full w-2 rounded-l-md  bg-orange-300"></div>
+              <p className="text-base "> Kullanıcı Bilgisi</p>
+              <h1 className="text-xl text-orange-300">
                 {data.client_details.name}
-              </p>
+              </h1>
             </div>
-
-            <div className="flex w-full  flex-col rounded-md  shadow-md transition hover:shadow-slate-400 dark:hover:shadow-slate-500">
-              <p className=" rounded-t-md bg-light-50 p-4  dark:text-dark-800">
-                Hizmet Türü
-              </p>
-              <p className="rounded-md p-4 text-dark-800 dark:bg-dark-900 dark:text-light-50">
+            <div className="relative flex h-40 w-full flex-col items-center justify-start gap-1 rounded-md bg-white  py-8 text-zinc-400 shadow-md transition hover:shadow-lg dark:bg-dark-900 dark:text-light-50 lg:h-44 lg:w-1/4  2xl:h-96">
+              <div className="absolute left-0 top-0 h-full w-2 rounded-l-md  bg-red-400"></div>
+              <p className="text-base">Hizmet Türü</p>
+              <h1 className="text-xl text-red-400 ">
                 {data.service_details.name}
-              </p>
+              </h1>
             </div>
-          </div>
-
-          {/* Budget Duration Location  */}
-          <div className="mt-4  flex w-full flex-col gap-4  lg:flex-row">
-            <div className="flex  w-full flex-col  rounded-md shadow-md transition hover:shadow-slate-400 dark:hover:shadow-slate-500">
-              <p className="rounded-t-md bg-light-50 p-4  dark:text-dark-800">
-                Bütçe
-              </p>
-              <p className="rounded-md p-4 text-dark-800 dark:bg-dark-900 dark:text-light-50">
-                {data.budget === 0 ? 'Bütçe Belirtilmedi' : data.budget}
-              </p>
+            <div className="relative flex h-40 w-full flex-col items-center justify-start gap-1 rounded-md bg-white  py-8 text-zinc-400 shadow-md transition hover:shadow-lg dark:bg-dark-900 dark:text-light-50 lg:h-44 lg:w-1/4  2xl:h-96">
+              <div className="absolute left-0 top-0 h-full w-2 rounded-l-md  bg-blue-400"></div>
+              <p className="text-base"> Bütçe</p>
+              <h1 className="text-xl text-blue-400 ">
+                {data.budget === 0
+                  ? 'Bütçe Belirtilmedi'
+                  : `${data.budget} Lira`}
+              </h1>
             </div>
-
-            <div className="flex  w-full flex-col  rounded-md shadow-md transition hover:shadow-slate-400 dark:hover:shadow-slate-500">
-              <p className="rounded-t-md bg-light-50 p-4  dark:text-dark-800">
-                Süre
-              </p>
-              <p className="rounded-md p-4 text-dark-800 dark:bg-dark-900 dark:text-light-50">
-                {data.duration}
-              </p>
+            <div className="relative flex h-40 w-full flex-col items-center justify-start gap-1 rounded-md bg-white  py-8 text-zinc-400 shadow-md transition hover:shadow-lg dark:bg-dark-900 dark:text-light-50 lg:h-44 lg:w-1/4 2xl:h-96">
+              <div className="absolute left-0 top-0 h-full w-2 rounded-l-md  bg-purple-400"></div>
+              <p className="text-base">Süre</p>
+              <h1 className="text-xl text-purple-400">
+                {data.duration.slice(8, 10)}/{data.duration.slice(5, 7)}/
+                {data.duration.slice(0, 4)}
+              </h1>
             </div>
-
-            <div className="flex w-full  flex-col rounded-md  shadow-md transition hover:shadow-slate-400 dark:hover:shadow-slate-500">
-              <p className="rounded-t-md bg-light-50 p-4  dark:text-dark-800">
-                Lokasyon Bilgisi
-              </p>
-
-              <div className="flex flex-col gap-2 rounded-md  p-4 text-dark-800 dark:bg-dark-900 dark:text-light-50">
-                <p className="flex justify-between gap-4 rounded-md">
-                  <span>İl</span>
-                  <span>{data.location_details.city.name}</span>
+            <div className="relative flex h-40 w-full flex-col items-center justify-start gap-1 rounded-md bg-white  py-8 text-zinc-400 shadow-md transition hover:shadow-lg dark:bg-dark-900 dark:text-light-50 lg:h-44 lg:w-1/4 2xl:h-96">
+              <div className="absolute left-0 top-0 h-full w-2 rounded-l-md  bg-lime-300"></div>
+              <p className="text-base">Lokasyon Bilgisi</p>
+              <h1 className="text-xl text-lime-300">
+                <p className="flex justify-between gap-8 rounded-md lg:gap-4">
+                  <span>İl</span> <span>{data.location_details.city.name}</span>
                 </p>
-                <p className="flex justify-between gap-4 rounded-md">
+                <p className="flex justify-between gap-8 rounded-md lg:gap-4">
                   <span>İlçe</span>
-                  <span>{data.location_details.countie.name}</span>
+                  <span> {data.location_details.countie.name}</span>
                 </p>
-                <p className="flex justify-between gap-4 rounded-md">
+                <p className="flex justify-between gap-8 rounded-md lg:gap-4">
                   <span>Mahalle</span>
                   <span>{data.location_details.district.name}</span>
                 </p>
-              </div>
+              </h1>
             </div>
           </div>
 
           {/* Answers */}
-          <p className=" mt-4 rounded-md bg-light-50 p-4 text-center text-lg dark:text-dark-800">
+          <p className="h-30 flex w-full items-center justify-center rounded-md  bg-white py-8  text-lg text-zinc-400 shadow-sm dark:bg-dark-900 dark:text-light-50 lg:h-24  2xl:h-96">
             İlana Verilen Cevaplar
           </p>
           {data.questions_and_values.map((question, idx) => (
-            <div className="flex flex-col gap-4 rounded-md" key={idx}>
-              <div className="my-2 flex  flex-col rounded-md  shadow-md transition  hover:shadow-slate-400  dark:hover:shadow-slate-500">
-                <p className=" rounded-t-md bg-light-50 p-4 dark:bg-white dark:text-dark-800">
-                  {question.question}
-                </p>
-                <p className="p-4 text-dark-800 dark:bg-dark-900 dark:text-light-50">
-                  {typeof question.answer === 'string' ? (
+            <div
+              className="relative flex w-full justify-between self-center rounded-md lg:w-2/3"
+              key={idx}
+            >
+              <div className="absolute left-0 top-0 h-full w-2 rounded-l-md  bg-neutral-200 dark:bg-black/30"></div>
+              <p className="w-1/2 bg-white p-4 dark:bg-dark-900 dark:text-light-50 lg:px-8 lg:py-4">
+                {question.question}
+              </p>
+              <Divider orientation="vertical" flexItem sx={{ marginY: 1 }} />
+              <p className="w-1/2 bg-white  p-4 text-dark-800  lg:p-4 ">
+                {typeof question.answer === 'string' ? (
+                  <p>
+                    <CircleIcon className="mr-2 !text-[0.5rem] text-dark-800" />
                     <span>{question.answer}</span>
-                  ) : (
-                    question.answer.map((item) => (
-                      <div className="m-2">
+                  </p>
+                ) : (
+                  question.answer.map((item) => (
+                    <div className="flex flex-col gap-2">
+                      <p>
+                        <CircleIcon className="mr-2 !text-[0.5rem] text-dark-800" />
                         <span key={item}>{item}</span>
-                      </div>
-                    ))
-                  )}
-                </p>
-              </div>
+                      </p>
+                    </div>
+                  ))
+                )}
+              </p>
             </div>
           ))}
 
           {/* Details */}
-          <Divider sx={{ marginY: 2 }} />
-          <div className="flex  flex-col rounded-md  shadow-md transition hover:shadow-slate-400 dark:hover:shadow-slate-500">
-            <p className="rounded-t-md bg-light-50 p-4 dark:text-dark-800">
+          <div className="relative flex w-full justify-between self-center  rounded-md  lg:w-2/3">
+            <div className="absolute left-0 top-0 h-full w-2 rounded-l-md  bg-neutral-200 dark:bg-black/30"></div>
+            <p className="w-1/2 bg-white p-4 dark:bg-dark-900 dark:text-light-50 lg:px-8 lg:py-4">
               Detaylar
             </p>
-            <p className="rounded-md p-4 text-dark-800 dark:bg-dark-900 dark:text-light-50">
-              {data.details}
+            <Divider orientation="vertical" flexItem sx={{ marginY: 1 }} />
+            <p className="w-1/2  bg-white p-4 text-dark-800 lg:p-4">
+              <CircleIcon className="mr-2 !text-[0.5rem] text-dark-800" />
+              <span> {data.details}</span>
             </p>
           </div>
 
           {/* Form */}
-          {/* <Divider sx={{ marginTop: 4 }} /> */}
-          <p className=" my-4 rounded-md bg-light-50 p-4 text-center text-lg dark:text-dark-800">
+          <p className="h-30 flex w-full items-center justify-center rounded-md  bg-white py-8  text-lg text-zinc-400 shadow-sm dark:bg-dark-900 dark:text-light-50 lg:h-24  2xl:h-96">
             Teklif Ver
           </p>
-          <form action="" onSubmit={onSubmit} className="flex flex-col gap-2">
-            <div className="flex flex-col gap-4">
-              <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="message"
-                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Mesaj
-                </label>
-                <textarea
-                  id="message"
-                  type="text"
-                  name="quoteMessage"
-                  value={quoteMessage}
-                  onChange={onChange}
-                  required="required"
-                  className="w-full rounded-md border border-gray-300 bg-gray-50 p-2 text-gray-900 transition focus:bg-slate-200 focus:outline-none dark:border-gray-600 dark:bg-gray-700  dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:bg-slate-100 dark:focus:text-slate-900 dark:focus:ring-blue-500 sm:text-sm lg:w-2/3"
-                />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="liras"
-                  className="mb-2  block text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Lira
-                </label>
-                <input
-                  id="liras"
-                  type="number"
-                  name="quotePrice"
-                  value={quotePrice}
-                  onChange={onChange}
-                  className="w-full rounded-md border border-gray-300 bg-gray-50 p-2 text-gray-900 transition focus:bg-slate-200 focus:outline-none dark:border-gray-600 dark:bg-gray-700  dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:bg-slate-100 dark:focus:text-slate-900 dark:focus:ring-blue-500 sm:text-sm lg:w-2/3"
-                  required="required"
-                />
-              </div>
+          <form
+            action=""
+            onSubmit={onSubmit}
+            className="flex w-full flex-col gap-8 self-center lg:w-2/3"
+          >
+            <div className="flex w-full flex-col gap-2">
+              <label
+                htmlFor="message"
+                className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Mesajınız Yaz
+              </label>
+              <textarea
+                id="message"
+                type="text"
+                name="quoteMessage"
+                value={quoteMessage}
+                onChange={onChange}
+                required="required"
+                className="h-32 w-full  rounded-md  bg-white p-4 text-gray-900 shadow-md transition focus:bg-slate-200 focus:outline-none  dark:bg-dark-900  dark:text-white dark:placeholder-gray-400  dark:focus:bg-slate-100 dark:focus:text-slate-900 dark:focus:ring-blue-500 sm:text-sm "
+              />
             </div>
+
+            <div className="flex w-full flex-col gap-2">
+              <label
+                htmlFor="liras"
+                className="mb-2  block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Bütçe Gir
+              </label>
+              <input
+                id="liras"
+                type="number"
+                name="quotePrice"
+                value={quotePrice}
+                onChange={onChange}
+                className="h-16 w-full rounded-md bg-white p-4 text-gray-900 shadow-md transition focus:bg-slate-200 focus:outline-none  dark:bg-dark-900  dark:text-white dark:placeholder-gray-400  dark:focus:bg-slate-100 dark:focus:text-slate-900 dark:focus:ring-blue-500 sm:text-sm "
+                required="required"
+              />
+            </div>
+
             <button
               disabled={isSubmit}
               type="submit"
-              className="flex h-10 w-full items-center justify-center rounded-md   bg-lime-600 p-4 text-lime-300 transition hover:cursor-pointer  hover:text-white lg:w-32 lg:self-end"
+              className="flex h-10 w-full items-center justify-center rounded-md   bg-lime-600 p-4 text-lime-300 transition hover:cursor-pointer  hover:text-white lg:w-32 lg:self-center"
             >
               Gönder
             </button>
           </form>
         </div>
+
         <ToastContainer
           position="bottom-right"
           autoClose={3000}

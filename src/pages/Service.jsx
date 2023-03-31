@@ -4,7 +4,7 @@ import ServiceContext from '../context/serviceContext'
 import AuthContext from '../context/authContext'
 import QuestionType from '../components/QuestionType'
 import api from '../context/api'
-import { Box, Button, Divider, Tooltip } from '@mui/material'
+import { Box, Button, Divider, MobileStepper, Tooltip } from '@mui/material'
 import { toast, ToastContainer } from 'react-toastify'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import FormSummary from '../components/form/FormSummary'
@@ -23,9 +23,12 @@ const Service = () => {
   let { id } = useParams()
 
   useEffect(() => {
-    api.getServiceAndDetails(id).then((response) => {
-      prepareFormData(response.data.result)
-    })
+    if (selfData === '') navigate('/login')
+    else {
+      api.getServiceAndDetails(id).then((response) => {
+        prepareFormData(response.data.result)
+      })
+    }
   }, [])
 
   const handleNext = () => {
@@ -116,17 +119,16 @@ const Service = () => {
     })
   }
 
-  if (selfData === '') return <Loading />
-
-  if (selfData.data.result.account_type === '2') {
+  if (selfData?.data?.result?.account_type === '2') {
     return (
-      <div className="flex h-96 p-4 flex-col justify-center gap-4 dark:text-white ">
+      <div className="flex h-96 flex-col justify-center gap-4 p-4 dark:text-white ">
         <p>Sadece Hizmet Alanlar Talep Oluşturabilir. </p>
         <p>
           Talep Oluşturabilmeniz İçin Hizmet Alan Tipinde Bir Hesap İle Giriş
           Yapmalısınız.
         </p>
-        <Divider />
+        
+        <Divider className="!my-1 !bg-gray-400" />
         <Link to="/">
           <Tooltip title="Anasayfa'ya Dön">
             <ArrowBackIcon className="text-dark-900 dark:text-light-50" />
@@ -137,8 +139,8 @@ const Service = () => {
   }
 
   return (
-    <Box className=" flex w-full items-center justify-center p-2 ">
-      <Box className="flex h-[500px]  w-[600px] flex-col justify-between gap-4 rounded-md bg-zinc-50 p-4 capitalize shadow-md">
+    <Box className=" flex w-full items-center justify-center overflow-auto p-2 ">
+      <Box className="flex h-[90vh] w-[600px] flex-col justify-between rounded-md bg-zinc-50 p-4 capitalize shadow-md">
         {formData.length === 0 ? (
           <Loading />
         ) : activeStep < formData.length ? (
@@ -146,13 +148,10 @@ const Service = () => {
         ) : (
           <FormSummary />
         )}
-
-        <Box sx={{ flex: '1 1 auto' }} />
-
         {formData.length === 0 ? (
           <></>
         ) : activeStep === formData.length ? (
-          <Box className="flex justify-between">
+          <Box className="flex h-14 justify-between rounded-md bg-white p-2">
             <Button
               color="inherit"
               disabled={activeStep === 0}
@@ -166,28 +165,37 @@ const Service = () => {
             </Button>
           </Box>
         ) : (
-          <Box className="flex justify-between">
-            <Button
-              color="inherit"
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              startIcon={<KeyboardArrowLeftIcon />}
-            >
-              Geri
-            </Button>
-            <Button
-              variant="contained"
-              color="success"
-              onClick={handleNext}
-              disabled={
-                formData[activeStep].answer === null ||
-                formData[activeStep].answer.length === 0
-              }
-              endIcon={<KeyboardArrowRightIcon />}
-            >
-              İleri
-            </Button>
-          </Box>
+          <MobileStepper
+            variant="progress"
+            steps={formData.length}
+            position="static"
+            activeStep={activeStep}
+            className="rounded-md !p-2"
+            nextButton={
+              <Button
+                variant="contained"
+                color="success"
+                onClick={handleNext}
+                disabled={
+                  formData[activeStep].answer === null ||
+                  formData[activeStep].answer.length === 0
+                }
+                endIcon={<KeyboardArrowRightIcon />}
+              >
+                İleri
+              </Button>
+            }
+            backButton={
+              <Button
+                color="inherit"
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                startIcon={<KeyboardArrowLeftIcon />}
+              >
+                Geri
+              </Button>
+            }
+          />
         )}
       </Box>
       <ToastContainer

@@ -23,7 +23,7 @@ const Text = ({ data, activeStep }) => {
   }, [activeStep])
 
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Question data={data} />
       <TextField
         id="outlined-multiline-static"
@@ -32,7 +32,7 @@ const Text = ({ data, activeStep }) => {
         value={value}
         onChange={handleText}
       />
-    </>
+    </div>
   )
 }
 

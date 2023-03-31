@@ -39,7 +39,7 @@ const Header = () => {
   }, [])
 
   return (
-    <header className="flex h-12  items-center justify-between p-4  text-dark-800 dark:text-light-50">
+    <header className="flex h-12  items-center justify-between  px-2 lg:px-8 py-4 text-dark-800 dark:text-light-50">
       <Link to="/" className="rounded-md py-1 px-4 dark:bg-white">
         <img src={logo} className="w-16" alt="biderya-logo" />
       </Link>

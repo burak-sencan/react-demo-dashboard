@@ -24,7 +24,7 @@ const RadioInput = ({ data, activeStep }) => {
   }, [activeStep])
 
   return (
-    <>
+    <div className="flex flex-col gap-2 overflow-auto">
       <Question data={data} />
       <FormControl className=" overflow-auto">
         <RadioGroup
@@ -36,7 +36,7 @@ const RadioInput = ({ data, activeStep }) => {
         >
           {data.answers.map((opt) => (
             <FormControlLabel
-              className=" gap-2 hover:bg-slate-100 rounded-md !m-0 px-2 py-1"
+              className=" !m-0 gap-2 rounded-md py-1 hover:bg-slate-100"
               labelPlacement="end"
               key={opt.id}
               value={opt.value}
@@ -46,7 +46,7 @@ const RadioInput = ({ data, activeStep }) => {
           ))}
         </RadioGroup>
       </FormControl>
-    </>
+    </div>
   )
 }
 export default RadioInput

@@ -8,6 +8,7 @@ import MaterialReactTable from 'material-react-table'
 import { Box, Divider, IconButton, Tooltip } from '@mui/material'
 import LocalOfferIcon from '@mui/icons-material/LocalOffer'
 import Loading from '../../../../components/Loading'
+import Info from '../../utils/Info'
 
 const EmployeeMyBids = () => {
   const { token } = useContext(AuthContext)
@@ -77,7 +78,12 @@ const EmployeeMyBids = () => {
   return (
     <DashboardContent>
       <div className="rounded-md bg-white shadow-md">
-        <div className="p-4">Teklif Verdiklerim</div>
+        <div className="p-4">Teklif Verdiklerim    <Info
+            title={'Teklif Verdiklerim'}
+            text={
+              'İş fırsatları bölümünden verilen tekliflerin listelendiği ekran.'
+            }
+          /></div>
         <Divider />
         <MaterialReactTable
           columns={columns}

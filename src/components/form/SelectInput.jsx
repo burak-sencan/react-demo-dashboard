@@ -37,7 +37,7 @@ const SelectInput = ({ data, activeStep }) => {
   }, [activeStep])
 
   return (
-    <>
+    <div className="flex flex-col gap-2 overflow-auto">
       <Question data={data} />
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">{data.question}</InputLabel>
@@ -57,7 +57,7 @@ const SelectInput = ({ data, activeStep }) => {
           ))}
         </Select>
       </FormControl>
-    </>
+    </div>
   )
 }
 

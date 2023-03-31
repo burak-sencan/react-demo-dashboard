@@ -15,8 +15,13 @@ export const ServiceProvider = ({ children }) => {
     const tempFormData = []
 
     //if questions not empty
+    console.log(data)
     if (data.questions !== null) {
       data.questions.map((question) => {
+        /*------------- */
+        //question.type_id : "text,radio,select...."
+        // 4 : plus
+        /*------------- */
         if (question.type_id === 6) {
           let tempJson = {
             activeStep: idx,
@@ -37,6 +42,17 @@ export const ServiceProvider = ({ children }) => {
             question: question.label,
             answers: question.answers,
             answer: [],
+          }
+          tempFormData.push(tempJson)
+        } else if (question.type_id === 4) {
+          let tempJson = {
+            activeStep: idx,
+            service_id: data.id,
+            question_id: question.id,
+            type_id: question.type_id,
+            question: question.label,
+            answers: question.answers,
+            answer: null,
           }
           tempFormData.push(tempJson)
         } else if (question.type_id === 1) {

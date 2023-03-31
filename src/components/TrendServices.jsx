@@ -1,6 +1,15 @@
 import { useContext, useEffect, useState } from 'react'
 import ServiceContext from '../context/serviceContext'
-import { worker } from '../assets'
+import {
+  batchroomCabinet,
+  carpetClean,
+  houseClean,
+  kitchenCabinet,
+  movingCompany,
+  paintHouse,
+  plumber,
+  worker,
+} from '../assets'
 import { Link } from 'react-router-dom'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
@@ -10,23 +19,61 @@ import './TrendSwiper.css'
 
 import { Navigation } from 'swiper'
 import { Divider } from '@mui/material'
-import Loading from '../components/Loading'
+// import Loading from '../components/Loading'
+
+const trendServicesData = [
+  {
+    id: 191,
+    name: 'Ev Temizliği',
+    image: houseClean,
+  },
+  {
+    id: 2,
+    name: 'Ev Taşıma',
+    image: movingCompany,
+  },
+  {
+    id: 32,
+    name: 'Boya Badana',
+    image: paintHouse,
+  },
+  {
+    id: 87,
+    name: 'Halı Yıkama',
+    image: carpetClean,
+  },
+  {
+    id: 111,
+    name: 'Mutfak Dolabı Yapımı',
+    image: kitchenCabinet,
+  },
+  {
+    id: 193,
+    name: 'Su Tesisatçısı',
+    image: plumber,
+  },
+  {
+    id: 124,
+    name: 'Banyo Dolabı Yapımı',
+    image: batchroomCabinet,
+  },
+]
 
 const TrendServices = ({ title, url }) => {
-  const { services } = useContext(ServiceContext)
-  const [data, setData] = useState([])
+  // const { services } = useContext(ServiceContext)
+  // const [data, setData] = useState([])
 
-  useEffect(() => {
-    setData(services.slice(0, 8))
-  }, [services])
+  // useEffect(() => {
+  //   setData(services.slice(0, 8))
+  // }, [services])
 
-  if (services.length === 0) return <Loading />
+  // if (services.length === 0) return <Loading />
 
   return (
     <div className=" h-[32rem] bg-light-50 p-8 dark:bg-dark-800 ">
       <div className="p-4">
         <p className="text-2xl  dark:text-light-50">Trend Hizmetler</p>
-        <Divider />
+        <Divider className="!my-1 dark:border-white/40"/>
       </div>
       <Swiper
         breakpoints={{
@@ -45,23 +92,18 @@ const TrendServices = ({ title, url }) => {
         navigation={true}
         modules={[Navigation]}
       >
-        {data.map((item) => (
-          <SwiperSlide
-            key={item.id}
-            onClick={() => {
-              console.log(item.id)
-            }}
-          >
+        {trendServicesData.map((item) => (
+          <SwiperSlide key={item.id}>
             <div
               className="flex h-full w-full flex-col justify-between bg-cover bg-no-repeat"
-              style={{ backgroundImage: 'url(' + worker + ')' }}
+              style={{ backgroundImage: 'url(' + item.image + ')' }}
             >
-              <div className="bg-white/20 p-4 text-lg backdrop-blur">
-                <p>{item.name}</p>
+              <div className="bg-white/80 p-4 text-lg backdrop-blur">
+                <p className="text-lg text-dark-900">{item.name}</p>
               </div>
               <div className=" flex w-full items-center">
                 <Link
-                  to="#"
+                  to={`/service/${item.id}`}
                   className=" bl w-full bg-lime-600/80 p-4 px-4 text-center text-white backdrop-blur  transition hover:bg-lime-600 hover:text-white hover:backdrop-blur-none"
                 >
                   Teklif Al

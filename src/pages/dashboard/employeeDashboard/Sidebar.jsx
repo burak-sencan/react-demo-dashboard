@@ -57,7 +57,7 @@ const Sidebar = ({ toggle, isOpen }) => {
           isOpen === false ? 'self-center' : 'self-end'
         } mb-2  !text-dark-900  dark:!text-lime-50`}
       />
-      <Stack gap={0.5} divider={<Divider orientation="horizontal" flexItem />}>
+      <Stack gap={0.5} divider={<Divider orientation="horizontal" flexItem className='dark:border-white/40' />}>
         {employers.map((item) => (
           <Link
             className="flex w-full justify-start"

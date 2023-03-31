@@ -13,7 +13,7 @@ const Footer = () => {
       <div className=" flex w-full flex-col items-center gap-4  p-8 lg:flex-row ">
         <div className="flex w-2/3 flex-col gap-1 px-8 py-4 lg:self-start">
           <p className="text-xl">Bilgi</p>
-          <Divider className="!my-1 !bg-gray-400"></Divider>
+          <Divider className="!my-1 !bg-gray-400" />
           <Link className="text-base hover:text-white" to="/howWorks">
             Nasıl Çalışır
           </Link>
@@ -29,7 +29,7 @@ const Footer = () => {
         </div>
         <div className="flex w-2/3 flex-col gap-1 px-8 py-4 lg:self-start">
           <p className="text-xl">Hizmetler</p>
-          <Divider className="!my-1 !bg-gray-400"></Divider>
+          <Divider className="!my-1 !bg-gray-400" />
           <Link className="text-base hover:text-white" to="#">
             Tadilat
           </Link>
@@ -42,7 +42,7 @@ const Footer = () => {
         </div>
         <div className="flex w-2/3 flex-col gap-1 px-8 py-4 lg:self-start ">
           <p className="text-xl">Fiyatlar</p>
-          <Divider className="!my-1 !bg-gray-400"></Divider>
+          <Divider className="!my-1 !bg-gray-400" />
           <Link className="text-base hover:text-white" to="#">
             Nasıl Çalışır
           </Link>
@@ -58,7 +58,7 @@ const Footer = () => {
         </div>
         <div className="flex w-2/3 flex-col gap-1 px-8 py-4 lg:self-start ">
           <p className="text-xl">İleşitim</p>
-          <Divider className="!my-1 !bg-gray-400"></Divider>
+          <Divider className="!my-1 !bg-gray-400" />
           <p className="flex ">
             <span className="mr-2">
               <LocationOnRoundedIcon />

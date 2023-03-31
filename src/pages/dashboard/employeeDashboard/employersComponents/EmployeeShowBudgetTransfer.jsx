@@ -31,18 +31,6 @@ const EmployeeShowBudgetTransfer = ({ handleClose }) => {
   const onSubmit = (e) => {
     e.preventDefault()
 
-    // const sending_date_time = date
-    //   .toLocaleString('tr-TR', {
-    //     year: 'numeric',
-    //     month: '2-digit',
-    //     day: '2-digit',
-    //     hour: '2-digit',
-    //     minute: '2-digit',
-    //     second: '2-digit',
-    //   })
-    //   .replace(/[.]/g, '-')
-    //   .replace(',', '')
-
     const formattedDate = date.toISOString().slice(0, 10)
     const formattedTime = date.toTimeString().slice(0, 8)
     const sending_datetime = `${formattedDate} ${formattedTime}`
@@ -60,7 +48,6 @@ const EmployeeShowBudgetTransfer = ({ handleClose }) => {
   }
 
   return (
-    // <DashboardContent>
     <div className="flex  w-full flex-col gap-4 dark:bg-dark-800">
       <div>
         <div className="flex justify-end gap-2">
@@ -111,6 +98,7 @@ const EmployeeShowBudgetTransfer = ({ handleClose }) => {
             Miktar
             <input
               type="number"
+              min="0"
               value={amount}
               onChange={onChange}
               name="amount"
@@ -129,7 +117,6 @@ const EmployeeShowBudgetTransfer = ({ handleClose }) => {
         </button>
       </form>
     </div>
-    // </DashboardContent>
   )
 }
 

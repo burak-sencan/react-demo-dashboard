@@ -9,6 +9,7 @@ import MaterialReactTable from 'material-react-table'
 import DraftsIcon from '@mui/icons-material/Drafts'
 import ClearIcon from '@mui/icons-material/Clear'
 import Loading from '../../../../components/Loading'
+import Info from '../../utils/Info'
 
 const EmployeeMessage = () => {
   const navigate = useNavigate()
@@ -46,7 +47,15 @@ const EmployeeMessage = () => {
   return (
     <DashboardContent>
       <div className="rounded-md bg-white shadow-md">
-        <div className="p-4">Mesajlar</div>
+        <div className="p-4">
+          Mesajlar
+          <Info
+            title={'Mesajlar'}
+            text={
+              'Hizmet alan ve Hizmet veren arasındaki mesajların gösterildiği ekran'
+            }
+          />
+        </div>
         <Divider />
         <MaterialReactTable
           columns={columns}

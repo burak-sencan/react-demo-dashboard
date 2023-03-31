@@ -98,18 +98,18 @@ const Login = () => {
                 <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
                   Şifre
                 </label>
-                <div className="flex items-center gap-2">
+                <div className="flex w-full items-center justify-between rounded-md border border-gray-300 bg-gray-50  text-gray-900 transition   dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 sm:text-sm ">
                   <input
                     type={showPass ? 'text' : 'password'}
                     name="password"
                     id="password"
                     value={password}
                     onChange={onChange}
-                    className="w-full rounded-md border border-gray-300 bg-gray-50 p-2.5  text-gray-900 transition focus:bg-slate-200  focus:outline-none  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:bg-slate-100 dark:focus:text-slate-900 dark:focus:ring-blue-500 sm:text-sm "
+                    className=" w-full rounded-l-md   bg-gray-50 p-2.5  text-gray-900 transition focus:bg-slate-200  focus:outline-none  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:bg-slate-100 dark:focus:text-slate-900 dark:focus:ring-blue-500 sm:text-sm"
                     required="required"
                   />
                   <div
-                    className="dark:text-white"
+                    className="mx-auto p-2 dark:text-white"
                     onClick={() => {
                       setShowPass(!showPass)
                     }}

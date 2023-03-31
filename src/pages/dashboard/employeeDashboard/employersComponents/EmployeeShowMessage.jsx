@@ -2,12 +2,12 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import api from '../../../../context/api'
 import AuthContext from '../../../../context/authContext'
 import DashboardContent from '../../utils/DashboardContent'
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import { Divider, Tooltip } from '@mui/material'
+import { useNavigate, useParams } from 'react-router-dom'
+import { Tooltip } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send'
 import Loading from '../../../../components/Loading'
 import { toast, ToastContainer } from 'react-toastify'
+import TopNav from '../../utils/TopNav'
 
 const EmployeeShowMessage = () => {
   const navigate = useNavigate()
@@ -60,20 +60,13 @@ const EmployeeShowMessage = () => {
     <>
       <DashboardContent>
         <div>
-          <>
-            <div className="flex gap-2">
-              <Link to="/employeeDashboard/message/">
-                <ArrowBackIcon className="text-dark-900 dark:text-light-50" />
-              </Link>
-              <p className="dark:text-light-50">Mesaj</p>
-            </div>
-            <Divider sx={{ margin: 2 }} />
-          </>
-          <div className=" flex max-h-[60vh] flex-col gap-4 overflow-auto rounded-md bg-white p-2 shadow-md dark:bg-dark-900 dark:text-dark-900">
+          <TopNav url="/employeeDashboard/message" text="Mesajlar" />
+
+          <div className=" flex h-[50vh] flex-col gap-4 overflow-auto rounded-md bg-white p-2 shadow-md dark:bg-dark-900 dark:text-dark-900">
             {data.map((message, idx) => (
               <div
                 key={idx}
-                className={`hide-scrollbar-f hide-scrollbar-c min-h-[8rem] w-full shrink-0 overflow-auto rounded-md p-4 shadow-md lg:h-48 lg:w-96 2xl:w-[32rem] ${
+                className={`w-full shrink-0 overflow-auto rounded-md p-2 shadow-md lg:w-96 2xl:w-[32rem] ${
                   selfData.data.result.id === message.sender_id
                     ? 'self-end bg-light-50 dark:bg-neutral-700'
                     : 'self-start dark:bg-neutral-600'
@@ -84,12 +77,12 @@ const EmployeeShowMessage = () => {
                     {message.message}
                   </p>
                   <div className="self-end text-xs ">
-                    {selfData.data.result.id === message.sender_id ? (
+                    {/* {selfData.data.result.id === message.sender_id ? (
                       <p>{message.employer_details.full_name}</p>
                     ) : (
                       <p>{message.recipient_name}</p>
-                    )}
-                    <p>{message.created_at}</p>
+                    )} */}
+                    <p>{message.created_at.slice(10)}</p>
                   </div>
                 </div>
               </div>

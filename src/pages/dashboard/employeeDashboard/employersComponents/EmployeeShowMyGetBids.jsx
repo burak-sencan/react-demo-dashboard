@@ -1,7 +1,7 @@
 import DashboardContent from '../../utils/DashboardContent'
-import { Link, useParams } from 'react-router-dom'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import { useParams } from 'react-router-dom'
 import { Divider } from '@mui/material'
+import TopNav from '../../utils/TopNav'
 
 const EmployeeShowMyGetBids = () => {
   const { id } = useParams()
@@ -9,14 +9,7 @@ const EmployeeShowMyGetBids = () => {
   return (
     <DashboardContent>
       <div>
-        <div className="flex gap-2">
-          <Link to="/employeeDashboard/getBids/">
-            <ArrowBackIcon className="text-dark-900 dark:text-light-50" />
-          </Link>
-          <p className="text-dark-900 dark:text-light-50">
-            Kazandığım Teklifler
-          </p>
-        </div>
+        <TopNav url="/employeeDashboard/getBids" text="Kazandığım Teklifler" />
 
         <div className="m-2">
           <Divider />

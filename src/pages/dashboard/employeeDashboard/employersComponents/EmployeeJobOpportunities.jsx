@@ -8,6 +8,7 @@ import MaterialReactTable from 'material-react-table'
 import { Box, Divider, IconButton, Tooltip } from '@mui/material'
 import LocalOfferIcon from '@mui/icons-material/LocalOffer'
 import Loading from '../../../../components/Loading'
+import Info from '../../utils/Info'
 
 const EmployeeJobOpportunities = () => {
   const { token } = useContext(AuthContext)
@@ -66,7 +67,9 @@ const EmployeeJobOpportunities = () => {
   return (
     <DashboardContent>
       <div className="rounded-md bg-white shadow-md">
-        <div className="p-4">İş Fırsatları</div>
+        <div className="p-4">
+          İş Fırsatları <Info title={'İş Fırsatları'} text={'Ayarlar bölümündeki ilgi alanlarınıza göre size gösterilen iş fırsatları ekranı.'} />
+        </div>
         <Divider />
         <MaterialReactTable
           columns={columns}

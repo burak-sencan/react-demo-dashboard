@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import DashboardContent from '../../utils/DashboardContent'
 import Loading from '../../../../components/Loading'
 import {
+  Divider,
   List,
   ListItem,
   ListItemButton,
@@ -18,6 +19,7 @@ import SearchIcon from '@mui/icons-material/Search'
 import ClearIcon from '@mui/icons-material/Clear'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+import Info from '../../utils/Info'
 
 const EmployeeSettings = () => {
   const { token, setToken, selfData, setSelfData } = useContext(AuthContext)
@@ -210,13 +212,22 @@ const EmployeeSettings = () => {
     <DashboardContent>
       <div className="flex flex-col gap-4">
         {/* İnterested */}
-        <div className="flex min-h-[50vh] flex-col justify-between gap-8 rounded-md  bg-white p-2 dark:bg-dark-900 lg:flex-row ">
+        <div className="flex min-h-[50vh] flex-col justify-between gap-8 rounded-md  bg-white p-4 dark:bg-dark-900 lg:flex-row ">
           <div className="flex flex-col justify-between gap-4">
             <div>
-              <p className="p-4 dark:text-light-50 ">İlgi Alanı Ekle</p>
-              <div className="flex w-full rounded-md bg-white shadow-md lg:w-[500px]">
+              <p className="text-lg dark:text-light-50">
+                İlgi Alanı Ekle
+                <Info
+                  text={
+                    'Hizmet alan kişiler tarafından verilen ilanların, Hizmet veren kişilere, iş fırsatları bölümünde gözükmesi için çalıştığınız, ilgilendiğiniz veya yapabileceğiniz işleri buradan bularak ekleme işlemini yapabilirsiniz. En fazla 10 adet ilgi alanı eklenebilir. '
+                  }
+                  title={'İlgi Alanı Ekleme'}
+                />
+              </p>
+              <Divider sx={{ marginY: 1 }} className='dark:border-white/40' />
+              <div className="mt-1 flex w-full rounded-md bg-white shadow-md lg:w-[500px]">
                 <input
-                  className="h-12 w-full rounded-md p-4 focus:outline-none"
+                  className="m-1 h-12 w-full rounded-md  p-4 focus:outline-none"
                   placeholder="Hizmet Ara"
                   value={value}
                   onChange={handleResult}
@@ -260,12 +271,21 @@ const EmployeeSettings = () => {
             </div>
           </div>
           <div className="w-full">
-            <p className="p-4 dark:text-light-50">İlgi Alanlarım</p>
+            <p className="text-lg dark:text-light-50">
+              İlgi Alanlarım
+              <Info
+                text={
+                  'Hizmet alan kişiler tarafından verilen ilanların, Hizmet veren kişilere, iş fırsatları bölümünde gözükmesi için çalıştığınız, ilgilendiğiniz veya yapabileceğiniz işleri eklemelisiniz. En fazla 10 adet ilgi alanı eklenebilir. '
+                }
+                title={'İlgi Alanlarım'}
+              />
+            </p>
+            <Divider sx={{ marginY: 1 }} className='dark:border-white/40' />
             {employeerSkills.length === 0 ? 'İlgi Alanı Yok' : ''}
             {employeerSkills.map((employeerSkill) => (
               <Tooltip title="Çıkar">
                 <button
-                  className="m-1 rounded-md border p-4 transition hover:bg-red-400 dark:text-light-50"
+                  className="m-1 rounded-md  bg-gradient-to-r from-lime-600 to-lime-500 p-4 text-white transition-all hover:from-red-500 hover:to-red-700 "
                   onClick={(event) => {
                     handleDelete(event, employeerSkill.id)
                   }}
@@ -358,10 +378,10 @@ const EmployeeSettings = () => {
             <div className="flex flex-col gap-4 lg:w-96">
               <label className="flex flex-col items-center justify-between gap-4 lg:flex-row">
                 Şifre
-                <div className="flex items-center gap-2">
+                <div className="flex w-56 items-center rounded-md bg-slate-100 dark:text-dark-800">
                   <input
                     type={showPass ? 'text' : 'password'}
-                    className="rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none"
+                    className="w-48 rounded-l-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none dark:text-dark-800"
                     name="password"
                     value={password}
                     onChange={(e) => {
@@ -369,7 +389,7 @@ const EmployeeSettings = () => {
                     }}
                   />
                   <div
-                    className="dark:text-white"
+                    className="p-1 dark:text-dark-800"
                     onClick={() => {
                       setShowPass(!showPass)
                     }}
@@ -383,7 +403,7 @@ const EmployeeSettings = () => {
                 Yeni Şifre
                 <input
                   type={showPass ? 'text' : 'password'}
-                  className="rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none dark:text-dark-800"
+                  className="w-56 rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none dark:text-dark-800"
                   name="newPassword"
                   value={newPassword}
                   onChange={(e) => {
@@ -395,7 +415,7 @@ const EmployeeSettings = () => {
                 Yeni Şifre Tekrar
                 <input
                   type={showPass ? 'text' : 'password'}
-                  className="rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none dark:text-dark-800"
+                  className="w-56 rounded-md bg-slate-100 p-4 focus:bg-slate-200 focus:outline-none dark:text-dark-800"
                   name="newPasswordRepeat"
                   value={newPasswordRepeat}
                   onChange={(e) => {

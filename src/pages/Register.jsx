@@ -167,18 +167,18 @@ const Register = () => {
                 >
                   Şifre
                 </label>
-                <div className="flex items-center gap-2">
+                <div className="flex w-full items-center justify-between rounded-md border border-gray-300 bg-gray-50  text-gray-900 transition   dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 sm:text-sm ">
                   <input
                     type={showPass ? 'text' : 'password'}
                     value={password}
                     onChange={onChange}
                     name="password"
                     id="password"
-                    className="w-full rounded-md border border-gray-300 bg-gray-50 p-2.5 text-gray-900 transition focus:bg-slate-200 focus:outline-none dark:border-gray-600  dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:bg-slate-100 dark:focus:text-slate-900 dark:focus:ring-blue-500 sm:text-sm"
+                    className=" w-full rounded-l-md   bg-gray-50 p-2.5  text-gray-900 transition focus:bg-slate-200  focus:outline-none  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:bg-slate-100 dark:focus:text-slate-900 dark:focus:ring-blue-500 sm:text-sm"
                     required=""
                   />
                   <div
-                    className="dark:text-white"
+                    className="mx-auto p-2 dark:text-white"
                     onClick={() => {
                       setShowPass(!showPass)
                     }}
@@ -195,7 +195,7 @@ const Register = () => {
                   Şifre Tekrar
                 </label>
                 <input
-                  type={showPass ? 'password' : 'text'}
+                  type={showPass ? 'text' : 'password'}
                   value={password_repeat}
                   onChange={onChange}
                   name="password_repeat"

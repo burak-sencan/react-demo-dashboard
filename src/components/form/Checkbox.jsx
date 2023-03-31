@@ -50,12 +50,12 @@ const CheckboxInput = ({ data, activeStep }) => {
   }, [value])
 
   return (
-    <>
+    <div className="flex flex-col gap-2 overflow-auto">
       <Question data={data} />
       <FormGroup className=" overflow-auto p-2 ">
         {data.answers.map((opt) => (
           <FormControlLabel
-            className="rounded-md hover:bg-slate-100 p-1"
+            className="rounded-md p-1 hover:bg-slate-100"
             key={opt.id}
             value={opt.value}
             onChange={handleChange}
@@ -69,7 +69,7 @@ const CheckboxInput = ({ data, activeStep }) => {
           />
         ))}
       </FormGroup>
-    </>
+    </div>
   )
 }
 export default CheckboxInput

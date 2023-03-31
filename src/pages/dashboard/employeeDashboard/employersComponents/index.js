@@ -10,7 +10,6 @@ import EmployeeShowMessage from './EmployeeShowMessage'
 import EmployeeShowJobOpportunities from './EmployeeShowJobOpportunities'
 import EmployeeShowMyBids from './EmployeeShowMyBids'
 import EmployeeShowMyGetBids from './EmployeeShowMyGetBids'
-import EmployeeShowBudgetTransfer from './EmployeeShowBudgetTransfer'
 
 export {
   EmployeeAddToYourSite,
@@ -25,5 +24,4 @@ export {
   EmployeeShowJobOpportunities,
   EmployeeShowMyBids,
   EmployeeShowMyGetBids,
-  EmployeeShowBudgetTransfer,
 }

@@ -25,6 +25,9 @@ const Address = ({ data, activeStep }) => {
     setProvinceName,
     setCountieName,
     setDistrictName,
+    provinceName,
+    countieName,
+    districtName,
   } = useContext(ServiceContext)
 
   const [provinceValue, setProvinceValue] = useState()
@@ -39,8 +42,17 @@ const Address = ({ data, activeStep }) => {
     const provinceId = e.target.value
 
     setProvinceValue(provinceId)
+    //////////// Reset //////////////
     setCounties([])
     setDistricts([])
+    setCountieName('')
+    setDistrictName('')
+    setFormData(
+      formData.map((item) =>
+        item.activeStep === activeStep ? { ...item, answer: null } : item
+      )
+    )
+    ////////// Reset //////////
 
     api.getCounties(provinceId).then((response) => {
       setCounties(response.data.result)
@@ -50,7 +62,16 @@ const Address = ({ data, activeStep }) => {
   const handleCountyChance = (e) => {
     const countyId = e.target.value
     setCountiesValue(countyId)
+    
+    ////////// Reset //////////
     setDistricts([])
+    setDistrictName('')
+    setFormData(
+      formData.map((item) =>
+        item.activeStep === activeStep ? { ...item, answer: null } : item
+      )
+    )
+    ////////// Reset //////////
 
     api
       .getDistricts(provinceValue, countyId)
@@ -87,7 +108,7 @@ const Address = ({ data, activeStep }) => {
   }, [])
 
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Question data={data} />
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Şehir</InputLabel>
@@ -110,7 +131,6 @@ const Address = ({ data, activeStep }) => {
           ))}
         </Select>
       </FormControl>
-
       {counties.length > 0 && (
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">İlçe</InputLabel>
@@ -133,7 +153,6 @@ const Address = ({ data, activeStep }) => {
           </Select>
         </FormControl>
       )}
-
       {districts.length > 0 && (
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Mahalle</InputLabel>
@@ -156,7 +175,26 @@ const Address = ({ data, activeStep }) => {
           </Select>
         </FormControl>
       )}
-    </>
+      {provinceName !== '' && countieName !== '' && districtName !== '' && (
+        <div className="p-2">
+          {/* <p className="text-base">Lokasyon Bilgisi</p> */}
+          <div className="text-base  text-green-600">
+            <p className="flex justify-between gap-8 rounded-md lg:gap-4">
+              <span>İl</span>
+              <span>{provinceName}</span>
+            </p>
+            <p className="flex justify-between gap-8 rounded-md lg:gap-4">
+              <span>İlçe</span>
+              <span>{countieName}</span>
+            </p>
+            <p className="flex justify-between gap-8 rounded-md lg:gap-4">
+              <span>Mahalle</span>
+              <span>{districtName}</span>
+            </p>
+          </div>
+        </div>
+      )}
+    </div>
   )
 }
 

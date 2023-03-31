@@ -1,19 +1,12 @@
-import { Link } from 'react-router-dom'
 import { logo } from '../assets'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import { Divider, Tooltip } from '@mui/material'
 import Footer from '../components/Footer'
+import TopNav from '../pages/dashboard/utils/TopNav'
 
 const BlogPage = () => {
   return (
     <div className="flex w-full flex-col items-center">
       <div className="flex w-2/3 flex-col gap-8 p-4 dark:text-light-50">
-        <Link to="/blog">
-          <Tooltip title="Blog">
-            <ArrowBackIcon className="text-dark-900 dark:text-light-50" />
-          </Tooltip>
-        </Link>
-        <Divider />
+        <TopNav url={'/blog'} text={'Blog'} />
         <h1>Header</h1>
         <article>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae commodi

@@ -35,7 +35,7 @@ const Duration = ({ data, activeStep }) => {
   }
 
   return (
-    <>
+    <div className="flex flex-col  overflow-auto">
       <Question data={data} />
 
       <DatePicker
@@ -45,7 +45,7 @@ const Duration = ({ data, activeStep }) => {
         selected={startDate}
         onChange={handleDate}
       />
-    </>
+    </div>
   )
 }
 

@@ -17,7 +17,7 @@ const WorkDetails = ({ data, activeStep }) => {
   }
 
   return (
-    <>
+    <div className="flex flex-col  overflow-auto">
       <Question data={data} />
       <TextField
         label={data.question}
@@ -35,7 +35,7 @@ const WorkDetails = ({ data, activeStep }) => {
         multiline
         rows={8}
       />
-    </>
+    </div>
   )
 }
 

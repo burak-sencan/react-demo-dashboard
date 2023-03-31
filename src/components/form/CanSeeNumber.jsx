@@ -29,7 +29,7 @@ const CanSeeNumber = ({ data, activeStep }) => {
   }, [activeStep])
 
   return (
-    <>
+    <div className="flex flex-col overflow-auto">
       <Question data={data} />
       <FormControl>
         {/* <FormLabel id="demo-controlled-radio-buttons-group">Cevabınız?</FormLabel> */}
@@ -48,7 +48,7 @@ const CanSeeNumber = ({ data, activeStep }) => {
           />
         </RadioGroup>
       </FormControl>
-    </>
+    </div>
   )
 }
 

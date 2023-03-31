@@ -24,14 +24,7 @@ const Welcome = () => {
         </Helmet>
         <Hero />
       </div>
-      <div>
-        {services !== [] && (
-          <>
-            <TrendServices />
-            <TrendServices />
-          </>
-        )}
-      </div>
+      <div>{services !== [] && <TrendServices />}</div>
 
       <Footer />
     </div>

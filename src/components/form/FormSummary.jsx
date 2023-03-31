@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import ServiceContext from '../../context/serviceContext'
+import Loading from '../Loading'
 
 const FormSummary = () => {
   const { formData, provinceName, countieName, districtName } =
@@ -75,9 +76,9 @@ const FormSummary = () => {
 
   return (
     <div className="h-full overflow-auto ">
-      <div className="flex  min-h-[100%] flex-col justify-between gap-8 rounded-md   lg:p-4">
+      <div className="flex  min-h-[100%] flex-col justify-between gap-8 rounded-md">
         {/* Buget Info */}
-        <div className="flex w-full flex-col gap-4 ">
+        <div className="flex w-full flex-col gap-4">
           <div className="flex w-full  rounded-md shadow-md">
             <p className="w-32 bg-light-50 p-4  dark:text-dark-800">Adres</p>
             <div className="flex flex-col gap-2 p-4">
@@ -120,7 +121,7 @@ const FormSummary = () => {
 
         {data?.questions_and_values?.length !== 0 && (
           <>
-            <p className=" mt-4 rounded-md bg-light-50 p-4 text-center text-lg dark:text-dark-800">
+            <p className="mt-4 rounded-md bg-light-50 p-4 text-center text-lg dark:text-dark-800">
               İlana Verilen Cevaplar
             </p>
             {data?.questions_and_values?.map((question, idx) => (

@@ -11,9 +11,10 @@ import {
   WorkDetail,
 } from './form'
 import CanSeeNumber from './form/CanSeeNumber'
+import Plus from './form/Plus'
 const QuestionType = ({ activeStep }) => {
   const { formData } = useContext(ServiceContext)
-  
+
   // Loading
   if (formData.lenght === 0) return <p>Loading</p>
 
@@ -27,10 +28,12 @@ const QuestionType = ({ activeStep }) => {
       return (
         <CheckboxInput data={formData[activeStep]} activeStep={activeStep} />
       )
-    if (type === 1)
-      return <SelectInput data={formData[activeStep]} activeStep={activeStep} />
+    if (type === 4)
+      return <Plus data={formData[activeStep]} activeStep={activeStep} />
     if (type === 2)
       return <TextInput data={formData[activeStep]} activeStep={activeStep} />
+    if (type === 1)
+      return <SelectInput data={formData[activeStep]} activeStep={activeStep} />
 
     //Statics
     if (type === 'adress')

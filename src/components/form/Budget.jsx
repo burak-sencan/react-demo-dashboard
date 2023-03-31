@@ -24,7 +24,7 @@ const Budget = ({ data, activeStep }) => {
   }
 
   return (
-    <>
+    <div className="flex flex-col  overflow-auto">
       <Question data={data} />
       <TextField
         id="outlined-multiline-static"
@@ -45,7 +45,7 @@ const Budget = ({ data, activeStep }) => {
           label="Belirtmek istemiyorum"
         />
       </FormGroup>
-    </>
+    </div>
   )
 }
 
