@@ -1,60 +1,46 @@
+import { useEffect, useState } from 'react'
 import { logo } from '../assets'
 import Footer from '../components/Footer'
 import TopNav from '../pages/dashboard/utils/TopNav'
+import api from '../context/api'
+import Loading from './Loading'
+import { useParams } from 'react-router-dom'
 
 const BlogPage = () => {
+  const { id } = useParams()
+  const [data, setData] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [formattedDate, setFormattedDate] = useState('')
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+
+    api.getBlog(id).then((response) => {
+      if (response.data.result) {
+        setData(response.data.result)
+        const date = new Date(response.data.result.created_at)
+        const day = date.getDate().toString().padStart(2, '0')
+        const month = (date.getMonth() + 1).toString().padStart(2, '0')
+        const year = date.getFullYear().toString()
+        setFormattedDate(`${day}/${month}/${year}`)
+      } else {
+        setData([])
+      }
+      setIsLoading(false)
+    })
+  }, [])
+
+  if (isLoading) return <Loading />
+
   return (
     <div className="flex w-full flex-col items-center">
       <div className="flex w-2/3 flex-col gap-8 p-4 dark:text-light-50">
         <TopNav url={'/blog'} text={'Blog'} />
-        <h1>Header</h1>
-        <article>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae commodi
-          reiciendis, iure ea architecto autem? Similique nihil est consequuntur
-          neque aliquam dolores, quo saepe quaerat doloribus quibusdam itaque,
-          minus nesciunt ea amet quae vitae dolorem tempore ad voluptas
-          molestias blanditiis possimus provident voluptate? Error magnam
-          perferendis fugit, id praesentium cupiutem error voluptate quam
-          perspiciatis ipsam accusantium laboriosam accusamus, nostrum impedit,
-          magnam non deleniti est saepe ab corporis ad totam. Dolor id
-          repellendus vitae sapiente possimus vel corporis tempora velit
-          perferendis ratione in veritatis quod sequi quibusdam ad molestiae
-          ipsum, impedit, reprehenderit ut. Illo odit illum reprehenderit beatae
-          excepturi, repellat nostrum mollitia! Cum, eligendi!
-        </article>
-        <img src={logo} alt="" />
-        <article>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae commodi
-          reiciendis, iure ea architecto autem? Similique nihil est consequuntur
-          neque aliquam dolores, quo saepe quaerat doloribus quibusdam itaque,
-          minus nesciunt ea amet qore ad non! Dolores quos, debitis, minima
-          laudantium repellat quae consectetur consequatur, magnam sunt odio
-          quaerat a provident impedit nihil. Laudantium totam impedit, enim,
-          dolorum odit dignissimos, reprehenderit aut nemo accusantium amet ad
-          cumque fuga veritatis mollitia tempore! Autem error voluptate quam
-          perspiciatis ipsam accusantium laboriosam accusamus, nostrum impedit,
-          magnam non deleniti est saepe ab corporis ad totam. Dolor id
-          repellendus vitae sapiente possimus vel corporis tempora velit
-          perferendis ratione in veritatis quod sequi quibusdam ad molestiae
-          ipsum, impedit, reprehenderit ut. Illo odit illum reprehenderit beatae
-          excepturi, repellat nostrum mollitia! Cum, eligendi!
-        </article>
-        <article>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae commodi
-          reiciendis, iure ea architecto autem? Similique nihil est consequuntur
-          neque aliquam dolores, quo saepe quaerat doloribus quibusdam itaque,
-          minus nesciunt ea amet qore ad non! Dolores quos, debitis, minima
-          laudantium repellat quae consectetur consequatur, magnam sunt odio
-          quaerat a provident impedit nihil. Laudantium totam impedit, enim,
-          dolorum odit dignissimos, reprehenderit aut nemo accusantium amet ad
-          cumque fuga veritatis mollitia tempore! Autem error voluptate quam
-          perspiciatis ipsam accusantium laboriosam accusamus, nostrum impedit,
-          magnam non deleniti est saepe ab corporis ad totam. Dolor id
-          repellendus vitae sapiente possimus vel corporis tempora velit
-          perferendis ratione in veritatis quod sequi quibusdam ad molestiae
-          ipsum, impedit, reprehenderit ut. Illo odit illum reprehenderit beatae
-          excepturi, repellat nostrum mollitia! Cum, eligendi!
-        </article>
+        <h1>{data.name}</h1>
+        <article>{data.description}</article>
+        <img src={data.image} alt="blog_image_alt" />
+        <article>{data.content}</article>
+        <p>{formattedDate} tarihinde oluşturuldu.</p>
       </div>
       <Footer />
     </div>

@@ -31,26 +31,30 @@ const RecipentShowMessage = () => {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    api
-      .sendRequestMessage(token, {
-        message: messageText,
-        recipient_id: selfData.data.result.id,
-        employer_id: recid,
-        request_id: reqid,
-        bid_id: data[0].bid_id,
-        sender_id: data[0].sender_id,
-      })
-      .then((response) => {
-        api.getSelfRequestMessages(token, reqid, recid).then((response) => {
-          setData(response.data.result)
-          setMessageText('')
-          toast('Mesaj Gönderildi.')
-          toast('Mesajlar bölümüne yönlendiriliyorsunuz.')
-          setTimeout(() => {
-            navigate('/recipentDashboard/message/')
-          }, 3000)
+    if (messageText !== '') {
+      api
+        .sendRequestMessage(token, {
+          message: messageText,
+          recipient_id: selfData.data.result.id,
+          employer_id: recid,
+          request_id: reqid,
+          bid_id: data[0].bid_id,
+          sender_id: data[0].sender_id,
         })
-      })
+        .then((response) => {
+          api.getSelfRequestMessages(token, reqid, recid).then((response) => {
+            setData(response.data.result)
+            setMessageText('')
+            toast('Mesaj Gönderildi.')
+            toast('Mesajlar bölümüne yönlendiriliyorsunuz.')
+            setTimeout(() => {
+              navigate('/recipentDashboard/message/')
+            }, 3000)
+          })
+        })
+    }else{
+      toast('Boş mesaj gönderilemez!')
+    }
   }
 
   if (isLoading) return <Loading />

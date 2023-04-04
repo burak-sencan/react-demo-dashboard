@@ -139,6 +139,7 @@ const BudgetTransfer = () => {
   )
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState([])
+  const [bankAcccountId, setBankAcccountId] = useState('')
   useEffect(() => {
     api.getBankAccounts(token).then((response) => {
       setData(response.data.result)
@@ -169,7 +170,10 @@ const BudgetTransfer = () => {
                 // navigate(
                 //   `/employeeDashboard/wallet/transfer/${row.original.id}`
                 // )
-                handleOpen
+                () => {
+                  setBankAcccountId(row.original.id)
+                  handleOpen()
+                }
               }
               sx={{
                 cursor: 'pointer',
@@ -182,6 +186,7 @@ const BudgetTransfer = () => {
           </Box>
         )}
       />
+
       <Modal
         open={open}
         onClose={handleClose}
@@ -190,9 +195,12 @@ const BudgetTransfer = () => {
       >
         <Box
           sx={style}
-          className="h-full rounded-md w-full dark:bg-dark-800 lg:h-[90vh] lg:w-2/3"
+          className="h-full w-full rounded-md dark:bg-dark-800 lg:h-[90vh] lg:w-2/3"
         >
-          <EmployeeShowBudgetTransfer handleClose={handleClose} />
+          <EmployeeShowBudgetTransfer
+            handleClose={handleClose}
+            bankAcccountId={bankAcccountId}
+          />
         </Box>
       </Modal>
     </div>
@@ -226,7 +234,7 @@ const BudgetHistory = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState([])
   useEffect(() => {
-    api.getSelfBalanceHistory(token).then((response) => {
+    api.getBalanceHistory(token).then((response) => {
       if (response.data.result) {
         setData(response.data.result)
       } else {

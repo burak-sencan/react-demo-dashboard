@@ -4,6 +4,7 @@ import { AuthProvider } from './context/authContext'
 import { ServiceProvider } from './context/serviceContext'
 import Header from './components/Header'
 import Login from './pages/Login'
+import ResetPassword from './pages/ResetPassword'
 import Register from './pages/Register'
 import Welcome from './pages/Welcome'
 import Service from './pages/Service'
@@ -41,6 +42,7 @@ import EmployeeDashboard from './pages/dashboard/employeeDashboard/EmployeeDashb
 import RecipentDashboard from './pages/dashboard/recipientsDashboard/RecipentDashboard'
 import ProtectedEmployeeRoute from './components/ProtectedEmployeeRoute'
 import ProtectedRecipientsRoute from './components/ProtectedRecipientsRoute'
+import Gdpr from './pages/infoPages/Gdpr'
 
 function App() {
   return (
@@ -48,7 +50,7 @@ function App() {
       <ServiceProvider>
         <BrowserRouter>
           <div className="bg-light-50 dark:bg-dark-800">
-            <div className="fixed z-50 w-full bg-white/80 shadow-md backdrop-blur-sm transition-all dark:bg-dark-900/80">
+            <div className="fixed z-50 w-full bg-white/80 shadow-md backdrop-blur-sm transition-all dark:bg-dark-800/80">
               <Header />
             </div>
             <div className="flex min-h-screen w-full justify-center pt-12">
@@ -56,12 +58,14 @@ function App() {
                 <Route path="/" element={<Welcome />} />
                 <Route path="service/:id" element={<Service />} />
                 <Route path="login" element={<Login />} />
+                <Route path="resetPassword" element={<ResetPassword />} />
                 <Route path="register" element={<Register />} />
                 <Route path="blog" element={<Blog />} />
                 <Route path="/blog/:id" element={<BlogPage />} />
                 <Route path="/howWorks" element={<HowWorks />} />
                 <Route path="/help" element={<Help />} />
                 <Route path="/aboutUs" element={<AboutUs />} />
+                <Route path="/gdpr" element={<Gdpr />} />
 
                 {/* ///////////////employeeDashboard///////////////////// */}
                 <Route

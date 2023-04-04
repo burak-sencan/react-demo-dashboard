@@ -1,18 +1,36 @@
+import { useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import BlogCard from '../components/BlogCard'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import { Helmet } from 'react-helmet'
 import Footer from '../components/Footer'
-import { useEffect } from 'react'
 import { Tooltip } from '@mui/material'
+import api from '../context/api'
+import Loading from '../components/Loading'
+import TopNav from './dashboard/utils/TopNav'
 
 const Blog = () => {
+  const [data, setData] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+
+    api.getBlogs().then((response) => {
+      if (response.data.result) {
+        setData(response.data.result)
+      } else {
+        setData([])
+      }
+      setIsLoading(false)
+    })
   }, [])
+
+  if (isLoading) return <Loading />
+
   return (
-    <div>
-      <div className="py-4">
+    <div className="w-full">
+      <div className="px-16 py-4">
         <Helmet>
           <title>Blog | Ev Tadilat, Tesisat ve Mobilya Hizmetleri</title>
           <meta
@@ -20,23 +38,15 @@ const Blog = () => {
             content="Ev tadilatı, tesisat işleri, mobilya tamiratı ve montajı gibi hizmetler için aradığınız tüm ustalar burada! Hizmetlerimiz hakkında daha fazla bilgi alın."
           />
         </Helmet>
-        <div className="w-full p-4  pl-8">
-          <Link to="/">
-            <Tooltip title="Anasayfa">
-              <ArrowBackIcon className="text-dark-900 dark:text-light-50" />
-            </Tooltip>
-          </Link>
-        </div>
+        
+        <TopNav url="/" text="Anasayfa" />
         <div className="inline-flex flex-wrap justify-center gap-8 p-4 pt-8 lg:px-16">
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
+          {data.map((blogData) => (
+            <BlogCard key={blogData.id} blogData={blogData} />
+          ))}
         </div>
       </div>
+
       <Footer />
     </div>
   )

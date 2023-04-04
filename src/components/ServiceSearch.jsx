@@ -54,12 +54,12 @@ const ServiceSearch = () => {
     <>
       <div className="flex w-full rounded-md bg-white shadow-md lg:w-[500px]">
         <input
-          className="h-12 w-full rounded-md p-4 focus:outline-none"
+          className="h-12 w-full rounded-l-md p-4 focus:outline-none dark:bg-stone-800 dark:text-white"
           placeholder="Hizmet Ara"
           value={value}
           onChange={handleResult}
         />
-        <div className="flex items-center p-2 text-gray-500">
+        <div className="flex items-center p-2 text-gray-500 dark:bg-stone-900">
           {value === '' ? (
             <SearchIcon />
           ) : (
@@ -77,12 +77,12 @@ const ServiceSearch = () => {
       </div>
 
       {results.length > 0 && value.length > 0 && (
-        <Paper className="mt-2">
+        <Paper className="mt-2 dark:bg-stone-800 dark:text-light-50 ">
           <List className="max-h-60 overflow-auto">
             {results.map((result) => (
               <ListItem key={result.id} disablePadding>
                 <Link
-                  className="w-full"
+                  className="w-full dark:hover:bg-stone-700 transition"
                   to={selfData !== '' ? `service/${result.id}` : 'login'}
                 >
                   <ListItemButton>

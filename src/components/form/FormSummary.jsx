@@ -74,43 +74,56 @@ const FormSummary = () => {
     })
   }, [])
 
+  if (data.length === 0) {
+    return <Loading />
+  }
+
   return (
     <div className="h-full overflow-auto ">
       <div className="flex  min-h-[100%] flex-col justify-between gap-8 rounded-md">
         {/* Buget Info */}
+        <p className="mt-4 rounded-md bg-light-50 p-4 text-center text-xl text-lime-600">
+              Talep Temel Cevapları
+            </p>
         <div className="flex w-full flex-col gap-4">
-          <div className="flex w-full  rounded-md shadow-md">
-            <p className="w-32 bg-light-50 p-4  dark:text-dark-800">Adres</p>
-            <div className="flex flex-col gap-2 p-4">
-              <p className="flex w-full justify-between gap-4 rounded-md text-dark-800 ">
-                <span>İl</span> <span>{provinceName}</span>
+          <div className="flex w-full  overflow-hidden rounded-md shadow-sm">
+            <p className="w-1/2 shrink-0 bg-light-50 p-4  dark:text-dark-800">
+              Adres
+            </p>
+            <div className="flex w-full flex-col gap-2 p-4">
+              <p className="flex  justify-between text-dark-800 ">
+                <span>İl</span> <span className="pr-3.5">{provinceName}</span>
               </p>
-              <p className="flex w-full justify-between gap-4 rounded-md text-dark-800 ">
-                <span>İlçe</span> <span>{countieName}</span>
+              <p className="flex  justify-between text-dark-800 ">
+                <span>İlçe</span> <span className="pr-3.5">{countieName}</span>
               </p>
-              <p className="flex w-full justify-between gap-4 rounded-md text-dark-800 ">
-                <span>Mahalle</span> <span>{districtName}</span>
+              <p className="flex  justify-between text-dark-800 ">
+                <span>Mahalle</span>
+                <span className="pr-3.5">{districtName}</span>
               </p>
             </div>
           </div>
-          <div className="flex w-full  rounded-md shadow-md">
-            <p className="w-32 bg-light-50 p-4  dark:text-dark-800">Süre</p>
-            <p className="rounded-md p-4 text-dark-800 ">{data.duration}</p>
+          <div className="flex w-full  rounded-md shadow-sm">
+            <p className="w-1/2 bg-light-50 p-4  dark:text-dark-800">Süre</p>
+            <p className="rounded-md p-4 text-dark-800 ">
+              {data.duration.slice(8, 10)}/{data.duration.slice(5, 7)}/
+              {data.duration.slice(0, 4)}
+            </p>
           </div>
-          <div className="flex w-full  rounded-md shadow-md">
-            <p className="w-32 bg-light-50 p-4  dark:text-dark-800">Bütçe</p>
+          <div className="flex w-full  rounded-md shadow-sm">
+            <p className="w-1/2 bg-light-50 p-4  dark:text-dark-800">Bütçe</p>
             <p className="rounded-md p-4  ">
               {data.show_budget === 0 ? 'Belirtmek İstemiyorum' : data.budget}
             </p>
           </div>
-          <div className="flex w-full  rounded-md shadow-md">
-            <p className="w-32 flex-shrink-0 bg-light-50 p-4  dark:text-dark-800">
+          <div className="flex w-full  rounded-md shadow-sm">
+            <p className="w-1/2 flex-shrink-0 bg-light-50 p-4  dark:text-dark-800">
               İş Detayı
             </p>
             <p className="rounded-md p-4 text-dark-800">{data.details}</p>
           </div>
-          <div className="flex w-full  rounded-md shadow-md">
-            <p className="w-32 bg-light-50 p-4  dark:text-dark-800">
+          <div className="flex w-full  rounded-md shadow-sm">
+            <p className="w-1/2 bg-light-50 p-4  dark:text-dark-800">
               Numaran Gösterilsin Mi
             </p>
             <p className="rounded-md p-4 text-dark-800 ">
@@ -121,13 +134,13 @@ const FormSummary = () => {
 
         {data?.questions_and_values?.length !== 0 && (
           <>
-            <p className="mt-4 rounded-md bg-light-50 p-4 text-center text-lg dark:text-dark-800">
-              İlana Verilen Cevaplar
+            <p className="mt-4 rounded-md bg-light-50 p-4 text-center text-xl text-lime-600">
+              Talep Detayları
             </p>
             {data?.questions_and_values?.map((question, idx) => (
               <div className="flex flex-col gap-4 rounded-md" key={idx}>
-                <div className=" flex  rounded-md  shadow-md">
-                  <p className=" w-32 flex-shrink-0  bg-light-50 p-4 dark:text-dark-800">
+                <div className=" flex  rounded-md  shadow-sm">
+                  <p className=" w-1/2 flex-shrink-0  bg-light-50 p-4 dark:text-dark-800">
                     {question.question}
                   </p>
                   <p className="p-4 text-dark-800">

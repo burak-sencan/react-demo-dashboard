@@ -120,7 +120,7 @@ const Login = () => {
               </div>
               <div className="flex items-center justify-between">
                 <Link
-                  to="/reset-password"
+                  to="/resetPassword"
                   className="text-primary-600 text-sm font-medium hover:underline dark:text-white"
                 >
                   Şifremi unuttum?

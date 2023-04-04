@@ -5,8 +5,9 @@ import DateTimePicker from 'react-datetime-picker'
 import CloseIcon from '@mui/icons-material/Close'
 import { Divider } from '@mui/material'
 import '../../utils/reactDatetime.css'
+import { ToastContainer, toast } from 'react-toastify'
 
-const EmployeeShowBudgetTransfer = ({ handleClose }) => {
+const EmployeeShowBudgetTransfer = ({ handleClose, bankAcccountId }) => {
   const { token } = useContext(AuthContext)
   const [date, setDate] = useState(new Date())
 
@@ -16,10 +17,10 @@ const EmployeeShowBudgetTransfer = ({ handleClose }) => {
 
   const [formData, setformData] = useState({
     full_name: '',
-    bank_account_id: '',
+
     amount: '',
   })
-  const { full_name, bank_account_id, amount } = formData
+  const { full_name, amount } = formData
 
   const onChange = (e) => {
     setformData((prevState) => ({
@@ -37,13 +38,12 @@ const EmployeeShowBudgetTransfer = ({ handleClose }) => {
 
     const data = {
       full_name,
-      bank_account_id,
+      bank_account_id: bankAcccountId,
       sending_datetime,
       amount,
     }
-
-    api.paymentNotification(token, data).then((response) => {
-      console.log(response)
+    api.bankTransferNotify(token, data).then((response) => {
+      toast(response?.data?.message)
     })
   }
 
@@ -116,6 +116,18 @@ const EmployeeShowBudgetTransfer = ({ handleClose }) => {
           Gönder
         </button>
       </form>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   )
 }

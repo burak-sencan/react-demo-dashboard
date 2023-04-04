@@ -70,7 +70,7 @@ const EmployeeJobOpportunities = () => {
     <DashboardContent>
       <div className="rounded-md bg-white shadow-md">
         <div className="p-4">
-          İş Fırsatları{' '}
+          İş Fırsatları
           <Info
             title={'İş Fırsatları'}
             text={

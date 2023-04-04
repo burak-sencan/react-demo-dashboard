@@ -6,13 +6,13 @@ const Question = ({ data }) => {
   return (
     <div className="relative">
       <div className="flex w-full flex-col items-center rounded bg-white/60 p-4 shadow-md">
-        <p className="text-base text-gray-700">Releated Service Name</p>
+        <p className="text-base text-gray-700">{data.service_name}</p>
         <div className="flex w-full justify-between text-sm text-gray-400">
-          <p>Ortalama Fiyat Aralığı</p>
-          <p>5000₺ - 7750₺</p>
+          {/* <p>Ortalama Fiyat Aralığı</p>
+          <p>5000₺ - 7750₺</p> */}
         </div>
       </div>
-      <div className="pt-4 px-2">
+      <div className="px-2 pt-4">
         <p className="text-2xl text-green-600">{data.question}</p>
       </div>
       <Divider sx={{ marginBottom: 2, marginTop: 1 }} />

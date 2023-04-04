@@ -11,6 +11,8 @@ import { useContext, useEffect, useState } from 'react'
 import AuthContext from '../context/authContext'
 import { Link, useNavigate } from 'react-router-dom'
 import api from '../context/api'
+import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize'
+import LogoutIcon from '@mui/icons-material/Logout'
 
 export default function AccountMenu() {
   const { token, setToken, setSelfData, selfData } = useContext(AuthContext)
@@ -58,12 +60,13 @@ export default function AccountMenu() {
           <IconButton
             onClick={handleClick}
             size="small"
-            className="lg:!ml-4"
             aria-controls={open ? 'account-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+            <Avatar sx={{ width: 32, height: 32 }}>
+              {selfData.data.result.full_name[0]}
+            </Avatar>
           </IconButton>
         </Tooltip>
       </Box>
@@ -84,7 +87,7 @@ export default function AccountMenu() {
               width: 32,
               height: 32,
               ml: -0.5,
-              mr: 1,
+              mr: 0.5,
             },
             '&:before': {
               content: '""',
@@ -113,14 +116,17 @@ export default function AccountMenu() {
           }
         >
           <MenuItem>
-            <Avatar /> Kullanıcı Paneli
+            <ListItemIcon>
+              <DashboardCustomizeIcon />
+            </ListItemIcon>
+            Kullanıcı Paneli
           </MenuItem>
         </Link>
 
         <Divider sx={{ marginY: 1 }} />
         <MenuItem onClick={handleLogOut}>
           <ListItemIcon>
-            <Logout fontSize="small" />
+            <LogoutIcon />
           </ListItemIcon>
           Logout
         </MenuItem>

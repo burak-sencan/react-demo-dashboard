@@ -25,6 +25,7 @@ export const ServiceProvider = ({ children }) => {
           let tempJson = {
             activeStep: idx,
             service_id: data.id,
+            service_name: data.name,
             question_id: question.id,
             type_id: question.type_id,
             question: question.label,
@@ -36,6 +37,7 @@ export const ServiceProvider = ({ children }) => {
           let tempJson = {
             activeStep: idx,
             service_id: data.id,
+            service_name: data.name,
             question_id: question.id,
             type_id: question.type_id,
             question: question.label,
@@ -47,6 +49,7 @@ export const ServiceProvider = ({ children }) => {
           let tempJson = {
             activeStep: idx,
             service_id: data.id,
+            service_name: data.name,
             question_id: question.id,
             type_id: question.type_id,
             question: question.label,
@@ -58,6 +61,7 @@ export const ServiceProvider = ({ children }) => {
           let tempJson = {
             activeStep: idx,
             service_id: data.id,
+            service_name: data.name,
             question_id: question.id,
             type_id: question.type_id,
             question: question.label,
@@ -69,6 +73,7 @@ export const ServiceProvider = ({ children }) => {
           let tempJson = {
             activeStep: idx,
             service_id: data.id,
+            service_name: data.name,
             type_id: question.type_id,
             question: question.label,
             answer: null,
@@ -80,6 +85,7 @@ export const ServiceProvider = ({ children }) => {
           let tempJson = {
             activeStep: idx,
             service_id: data.id,
+            service_name: data.name,
             type_id: question.type_id,
             question: question.label,
             answers: question.answers,
@@ -95,6 +101,7 @@ export const ServiceProvider = ({ children }) => {
     tempFormData.push({
       activeStep: idx,
       service_id: data.id,
+      service_name: data.name,
       type_id: 'adress',
       question: 'Adres',
       answer: null,
@@ -104,6 +111,7 @@ export const ServiceProvider = ({ children }) => {
     tempFormData.push({
       activeStep: idx,
       service_id: data.id,
+      service_name: data.name,
       type_id: 'duration',
       question: 'Ne kadar Zaman Alacak',
       answer: null,
@@ -112,6 +120,7 @@ export const ServiceProvider = ({ children }) => {
     tempFormData.push({
       activeStep: idx,
       service_id: data.id,
+      service_name: data.name,
       type_id: 'showBudget',
       question: 'Bütçe',
       answer: null,
@@ -120,6 +129,7 @@ export const ServiceProvider = ({ children }) => {
     tempFormData.push({
       activeStep: idx,
       service_id: data.id,
+      service_name: data.name,
       type_id: 'workDetail',
       question: 'İş Detayi',
       answer: null,
@@ -128,6 +138,7 @@ export const ServiceProvider = ({ children }) => {
     tempFormData.push({
       activeStep: idx,
       service_id: data.id,
+      service_name: data.name,
       type_id: 'canSeeNumber',
       question: 'Numaran Gösterilsin mi',
       answer: '1',

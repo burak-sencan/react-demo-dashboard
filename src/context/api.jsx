@@ -104,9 +104,9 @@ const api = {
       },
     })
   },
-  paymentNotification: (token, data) => {
+  bankTransferNotify: (token, data) => {
     return axios.post(
-      process.env.REACT_APP_API_URL + `/bank_accounts/payment_notification`,
+      process.env.REACT_APP_API_URL + `/employers/bank_transfer_notify`,
       data,
       {
         headers: {
@@ -115,13 +115,17 @@ const api = {
       }
     )
   },
-  getSelfBalanceHistory: (token) => {
-    return axios.get(process.env.REACT_APP_API_URL + '/getSelfBalanceHistory', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+  getBalanceHistory: (token) => {
+    return axios.get(
+      process.env.REACT_APP_API_URL + '/employers/balance_history',
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
   },
+
   getOpportunities: (token) => {
     return axios.get(
       process.env.REACT_APP_API_URL + '/employers/opportunities',
@@ -209,6 +213,13 @@ const api = {
         Authorization: `Bearer ${token}`,
       },
     })
+  },
+
+  getBlogs: () => {
+    return axios.get(process.env.REACT_APP_API_URL + `/blog`)
+  },
+  getBlog: (id) => {
+    return axios.get(process.env.REACT_APP_API_URL + `/blog/${id}`)
   },
 }
 

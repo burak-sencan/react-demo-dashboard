@@ -19,6 +19,7 @@ module.exports = {
         },
         light: {
           50: '#F5F6F8',
+          100: '#c4c5c6',
         },
       },
     },

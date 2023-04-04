@@ -7,7 +7,7 @@ import { logo } from '../assets'
 import { Link } from 'react-router-dom'
 import AccountMenu from './AccountMenu'
 import AuthContext from '../context/authContext'
-import { Tooltip } from '@mui/material'
+import { IconButton, Tooltip } from '@mui/material'
 
 const Header = () => {
   const [theme, setTheme] = useState(
@@ -39,8 +39,8 @@ const Header = () => {
   }, [])
 
   return (
-    <header className="flex h-12  items-center justify-between  px-2 lg:px-8 py-4 text-dark-800 dark:text-light-50">
-      <Link to="/" className="rounded-md py-1 px-4 dark:bg-white">
+    <header className="flex h-12  items-center justify-between  px-2 py-4 text-dark-800 dark:text-light-50 lg:px-8">
+      <Link to="/" className="rounded-md py-1 px-4 ">
         <img src={logo} className="w-16" alt="biderya-logo" />
       </Link>
 
@@ -49,12 +49,16 @@ const Header = () => {
           <Tooltip
             title={`${theme === 'light' ? 'Karanlık Mod' : 'Aydınlık Mod'}`}
           >
-            <button
-              className="m-0 flex items-center rounded-full p-1 transition hover:bg-gray-400 hover:text-white"
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 0.5 }}
               onClick={toggleTheme}
             >
               {theme === 'light' ? <NightlightRoundIcon /> : <LightModeIcon />}
-            </button>
+            </IconButton>
           </Tooltip>
         </li>
         {token !== '' ? (
@@ -64,18 +68,30 @@ const Header = () => {
             <li>
               <Link to="/login">
                 <Tooltip title="Giriş Yap">
-                  <button className="flex items-center justify-center rounded-full p-1 transition hover:bg-gray-400 hover:text-white">
+                  <IconButton
+                    size="large"
+                    edge="start"
+                    color="inherit"
+                    aria-label="menu"
+                    sx={{ mr: 0.5 }}
+                  >
                     <LoginIcon />
-                  </button>
+                  </IconButton>
                 </Tooltip>
               </Link>
             </li>
             <li>
               <Link to="/register">
                 <Tooltip title="Kayıt Ol">
-                  <button className="flex items-center justify-center rounded-full p-1 transition hover:bg-gray-400 hover:text-white">
+                  <IconButton
+                    size="large"
+                    edge="start"
+                    color="inherit"
+                    aria-label="menu"
+                    sx={{ mr: 0.5 }}
+                  >
                     <PersonAddAltIcon />
-                  </button>
+                  </IconButton>
                 </Tooltip>
               </Link>
             </li>
