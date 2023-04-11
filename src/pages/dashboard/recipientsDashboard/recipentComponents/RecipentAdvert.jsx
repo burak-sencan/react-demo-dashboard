@@ -8,11 +8,14 @@ import MaterialReactTable from 'material-react-table'
 import { MRT_Localization_TR } from 'material-react-table/locales/tr'
 import LocalOfferIcon from '@mui/icons-material/LocalOffer'
 import DoDisturbIcon from '@mui/icons-material/DoDisturb'
+import { ToastContainer, toast } from 'react-toastify'
 
 const RecipentAdvert = () => {
   const navigate = useNavigate()
   const { token } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(true)
+  const [data, setData] = useState([])
+
   //should be memoized or stable
   const columns = useMemo(() => [
     {
@@ -78,7 +81,23 @@ const RecipentAdvert = () => {
     },
   ])
 
-  const [data, setData] = useState([])
+  const handleServiceStatus = (advertId) => {
+    const data = {
+      id: advertId,
+      status: 4,
+    }
+    api.changeServiceStatus(token, data).then((response) => {
+      toast(response.data.message)
+
+      //refetch
+      api.recipientsServiceRequests(token).then((response) => {
+        if (response.data.result) {
+          setData(response.data.result)
+        } else setData([])
+        setIsLoading(false)
+      })
+    })
+  }
 
   useEffect(() => {
     api.recipientsServiceRequests(token).then((response) => {
@@ -122,13 +141,30 @@ const RecipentAdvert = () => {
                   <LocalOfferIcon />
                 </Tooltip>
               </IconButton>
-              <IconButton onClick={() => console.log(row.original.id)}>
-                <Tooltip title="İlanı Durdur">
-                  <DoDisturbIcon />
-                </Tooltip>
-              </IconButton>
+
+              {row.original.status !== '4' && (
+                <IconButton
+                  onClick={() => handleServiceStatus(row.original.id)}
+                >
+                  <Tooltip title="İlanı Durdur">
+                    <DoDisturbIcon />
+                  </Tooltip>
+                </IconButton>
+              )}
             </Box>
           )}
+        />
+        <ToastContainer
+          position="bottom-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
         />
       </div>
     </DashboardContent>

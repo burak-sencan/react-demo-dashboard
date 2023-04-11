@@ -16,6 +16,7 @@ const ProtectedRecipientsRoute = ({ children }) => {
   }
 
   useEffect(() => {
+    if (token === '') <Navigate to={'/'} replace />
     getSelfData(token)
   }, [])
 

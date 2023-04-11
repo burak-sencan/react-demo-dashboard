@@ -25,14 +25,14 @@ const TrendServices = ({ services, title }) => {
               alt="service_image"
             /> */}
 
-            <div className="flex w-full justify-between gap-2 bg-dark-800/80 p-2">
+            <div className="flex w-full justify-between gap-4 bg-dark-800/80 p-2">
               <h5 className="mb-2 font-bold tracking-tight text-white truncate lg:text-lg">
                 {service.name}
               </h5>
 
               <Link
                 to={`/service/${service.id}`}
-                className="items-center rounded-md bg-lime-600 p-1 text-center text-sm font-medium text-white transition hover:bg-lime-600/80 lg:px-3 lg:py-2 "
+                className="items-center shrink-0 rounded-md bg-lime-600 p-1 text-center text-sm font-medium text-white transition hover:bg-lime-600/80 lg:px-3 lg:py-2 "
               >
                 Teklif Al
               </Link>

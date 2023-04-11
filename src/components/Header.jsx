@@ -40,7 +40,7 @@ const Header = () => {
 
   return (
     <header className="flex h-12  items-center justify-between  px-2 py-4 text-dark-800 dark:text-light-50 lg:px-8">
-      <Link to="/" className="rounded-md py-1 px-4 ">
+      <Link to="/" className="rounded-md py-1 px-4">
         <img src={logo} className="w-16" alt="biderya-logo" />
       </Link>
 

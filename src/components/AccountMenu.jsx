@@ -65,7 +65,11 @@ export default function AccountMenu() {
             aria-expanded={open ? 'true' : undefined}
           >
             <Avatar sx={{ width: 32, height: 32 }}>
-              {selfData.data.result.full_name[0]}
+              <img
+                src={`${selfData.data.result.image}`}
+                alt="profile_image"
+                className="rounded-full"
+              />
             </Avatar>
           </IconButton>
         </Tooltip>

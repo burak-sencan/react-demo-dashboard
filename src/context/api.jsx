@@ -1,31 +1,7 @@
 import axios from 'axios'
 
 const api = {
-  getServices: () => {
-    return axios.get(process.env.REACT_APP_API_URL + '/services')
-  },
-  getService: (id) => {
-    return axios.get(process.env.REACT_APP_API_URL + '/services/' + id)
-  },
-  getServiceAndDetails: (id) => {
-    return axios.get(
-      process.env.REACT_APP_API_URL +
-        '/services/service_questions_and_values/' +
-        id
-    )
-  },
-
-  getProvinces: () => {
-    return axios.get(process.env.REACT_APP_API_URL + '/cities/')
-  },
-  getCounties: (id) => {
-    return axios.get(process.env.REACT_APP_API_URL + '/cities/' + id)
-  },
-  getDistricts: (countie_id, district_id) => {
-    return axios.get(
-      process.env.REACT_APP_API_URL + `/cities/${countie_id}/${district_id}`
-    )
-  },
+  // Auth APIs
   getSelfClient: (token) => {
     return axios
       .get(process.env.REACT_APP_API_URL + '/clients/self', {
@@ -41,11 +17,88 @@ const api = {
         return 401
       })
   },
+
+  // Form, Service, Blog APIs
+  getServices: () => {
+    return axios.get(process.env.REACT_APP_API_URL + '/services')
+  },
+  getService: (id) => {
+    return axios.get(process.env.REACT_APP_API_URL + '/services/' + id)
+  },
+  getServiceAndDetails: (id) => {
+    return axios.get(
+      process.env.REACT_APP_API_URL +
+        '/services/service_questions_and_values/' +
+        id
+    )
+  },
+  getProvinces: () => {
+    return axios.get(process.env.REACT_APP_API_URL + '/cities/')
+  },
+  getCounties: (id) => {
+    return axios.get(process.env.REACT_APP_API_URL + '/cities/' + id)
+  },
+  getDistricts: (countie_id, district_id) => {
+    return axios.get(
+      process.env.REACT_APP_API_URL + `/cities/${countie_id}/${district_id}`
+    )
+  },
+  getBlogs: () => {
+    return axios.get(process.env.REACT_APP_API_URL + `/blog`)
+  },
+  getBlog: (id) => {
+    return axios.get(process.env.REACT_APP_API_URL + `/blog/${id}`)
+  },
+  uploadAvatar: (token, data) => {
+    return axios.post(
+      process.env.REACT_APP_API_URL + `/employers/upload_avatar`,
+      data,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+  },
+
+  ////////////////// Recipient APIs //////////////////
   //Yapılacak
   recipientsAddServiceRequest: (token, data) => {
     return axios.post(
       process.env.REACT_APP_API_URL + '/recipients/add_service_request',
       data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+  },
+  recipientsServiceRequests: (token) => {
+    return axios.get(
+      process.env.REACT_APP_API_URL + '/recipients/service_requests',
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+  },
+  changeServiceStatus: (token, id) => {
+    return axios.post(
+      process.env.REACT_APP_API_URL + `/recipients/change_service_status`,
+      id,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+  },
+  recipientsServiceRequest: (token, id) => {
+    return axios.get(
+      process.env.REACT_APP_API_URL + `/recipients/service_requests/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -77,26 +130,8 @@ const api = {
       },
     })
   },
-  recipientsServiceRequests: (token) => {
-    return axios.get(
-      process.env.REACT_APP_API_URL + '/recipients/service_requests',
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
-  },
-  recipientsServiceRequest: (token, id) => {
-    return axios.get(
-      process.env.REACT_APP_API_URL + `/recipients/service_requests/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
-  },
+
+  ////////////////// Employer APIs //////////////////
   getBankAccounts: (token) => {
     return axios.get(process.env.REACT_APP_API_URL + '/bank_accounts', {
       headers: {
@@ -215,12 +250,6 @@ const api = {
     })
   },
 
-  getBlogs: () => {
-    return axios.get(process.env.REACT_APP_API_URL + `/blog`)
-  },
-  getBlog: (id) => {
-    return axios.get(process.env.REACT_APP_API_URL + `/blog/${id}`)
-  },
 }
 
 export default api

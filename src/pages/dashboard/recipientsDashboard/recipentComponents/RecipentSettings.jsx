@@ -21,6 +21,7 @@ const RecipentSettings = () => {
   const [password, setPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [newPasswordRepeat, setNewPasswordRepeat] = useState('')
+  const [selectedFile, setSelectedFile] = useState(null)
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -37,6 +38,26 @@ const RecipentSettings = () => {
       }
       updateUser(userData)
     }
+  }
+
+  const onSubmitAvatar = (e) => {
+    e.preventDefault()
+    if (selectedFile) {
+      console.log(selectedFile)
+      const formData = new FormData()
+      formData.append('avatar', selectedFile)
+
+      api.uploadAvatar(token, formData).then((response) => {
+        toast(response.data.message)
+        // toast(response.data.message)
+        setTimeout(() => {
+          window.location.reload(false)
+        }, 1000)
+      })
+    }
+  }
+  const handleFileSelect = (event) => {
+    setSelectedFile(event.target.files[0])
   }
 
   //update user
@@ -82,7 +103,6 @@ const RecipentSettings = () => {
     setEmail(selfData.data.result.email)
     setPhone(selfData.data.result.phone)
   }, [])
-
 
   return (
     <DashboardContent>
@@ -216,6 +236,27 @@ const RecipentSettings = () => {
           </button>
         </div>
       </form>
+
+      {/* Upload Avatar */}
+      <form
+        onSubmit={onSubmitAvatar}
+        className="flex w-full flex-col gap-8 rounded-md bg-white p-2 text-dark-800 dark:bg-dark-900 dark:text-light-50 lg:gap-4 lg:p-4"
+      >
+        <label className="flex w-full flex-col p-4 shadow-md lg:w-1/2">
+          Profil Resmi Seç
+          <input type="file" onChange={handleFileSelect} />
+        </label>
+
+        <div className="flex w-full lg:w-1/2">
+          <button
+            className="w-full rounded-md bg-lime-600 py-4 px-8 text-slate-200 shadow-md transition hover:text-white"
+            type="submit"
+          >
+            Yükle
+          </button>
+        </div>
+      </form>
+
       <ToastContainer
         position="bottom-right"
         autoClose={3000}

@@ -13,18 +13,18 @@ const Duration = ({ data, activeStep }) => {
   )
 
   const handleDate = (date) => {
-    const today = new Date()
+//     const today = new Date()
 
-    const dateStr = date.toLocaleDateString('tr-TR')
-    const todayStr = today.toLocaleDateString('tr-TR')
-
-    if (dateStr === todayStr) {
-      console.log('İki tarih aynı günde.')
-    } else if (today > date) {
-      console.log('today büyük')
-    } else {
-      console.log('date küçük')
-    }
+// //     const dateStr = date.toLocaleDateString('tr-TR')
+// //     const todayStr = today.toLocaleDateString('tr-TR')
+// //     console.log(todayStr)
+// //     if (dateStr === todayStr) {
+// //       console.log('İki tarih aynı günde.')
+// //     } else if (today > date) {
+// //       console.log('today büyük')
+// //     } else {
+// //       console.log('date küçük')
+// //     }
 
     setStartDate(date)
     setFormData(
