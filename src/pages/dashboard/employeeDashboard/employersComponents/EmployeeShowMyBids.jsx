@@ -68,9 +68,23 @@ const EmployeeShowMyBids = () => {
               <div className="absolute left-0 top-0 h-full w-2 rounded-l-md  bg-blue-400"></div>
               <p className="text-base"> Bütçe</p>
               <h1 className="text-xl text-blue-400 ">
-                {data.request_details.budget === 0
-                  ? 'Bütçe Belirtilmedi'
-                  : `${data.request_details.budget} Lira`}
+                {`${
+                  data.request_details.budget === 1000
+                    ? '1.000 - 5.000 ₺'
+                    : data.request_details.budget === 5000
+                    ? '5.000 - 10.000 ₺'
+                    : data.request_details.budget === 10000
+                    ? '10.000 - 15.000 ₺'
+                    : data.request_details.budget === 15000
+                    ? '15.000 - 30.000 ₺'
+                    : data.request_details.budget === 30000
+                    ? '30.000 - 50.000 ₺'
+                    : data.request_details.budget === 50000
+                    ? '50.000 - 100.000 ₺'
+                    : data.request_details.budget === 100000
+                    ? '100.000+ ₺'
+                    : data.request_details.budget
+                } `}
               </h1>
             </div>
             <div className="relative flex h-40 w-full flex-col items-center justify-start gap-1 rounded-md bg-white  py-8 text-zinc-400 shadow-md transition hover:shadow-lg dark:bg-dark-900 dark:text-light-50 lg:h-44 lg:w-1/4 2xl:h-96">

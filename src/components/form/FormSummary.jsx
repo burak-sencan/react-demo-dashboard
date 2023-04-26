@@ -21,6 +21,9 @@ const FormSummary = () => {
     let showBudget
     let budget
 
+    // soruların cevaplandıktan sonra <FormSummary /> componenti render ediliyor. bu komponent'te
+    // daha önce cevaplanmış soruların cevapları gösteriliyor. bu cevaplar formData contexinde tutuluyordu.
+    // formData içinde cevapları uygun şekilde gösteriyorum.
     formData.forEach((item) => {
       if (item.question_id != null) {
         service_id = item.service_id
@@ -71,7 +74,22 @@ const FormSummary = () => {
       details: workDetail,
       can_see_number: canSeeNumber,
       show_budget: showBudget,
-      budget: budget,
+      budget:
+        budget === '1000'
+          ? '1.000 - 5.000 ₺'
+          : budget === '5000'
+          ? '5.000 - 10.000 ₺'
+          : budget === '10000'
+          ? '10.000 - 15.000 ₺'
+          : budget === '15000'
+          ? '15.000 - 30.000 ₺'
+          : budget === '30000'
+          ? '30.000 - 50.000 ₺'
+          : budget === '50000'
+          ? '50.000 - 100.000 ₺'
+          : budget === '100000'
+          ? '100.000+ ₺'
+          : '',
       service_id: service_id,
     })
   }, [])
@@ -85,8 +103,8 @@ const FormSummary = () => {
       <div className="flex  min-h-[100%] flex-col justify-between gap-8 rounded-md">
         {/* Buget Info */}
         <p className="mt-4 rounded-md bg-light-50 p-4 text-center text-xl text-lime-600">
-              Talep Temel Cevapları
-            </p>
+          Talep Temel Cevapları
+        </p>
         <div className="flex w-full flex-col gap-4">
           <div className="flex w-full  overflow-hidden rounded-md shadow-sm">
             <p className="w-1/2 shrink-0 bg-light-50 p-4  dark:text-dark-800">

@@ -11,10 +11,10 @@ import AuthContext from '../context/authContext'
 import { IconButton, Tooltip } from '@mui/material'
 
 const Header = () => {
+  const { token } = useContext(AuthContext)
   const [theme, setTheme] = useState(
     localStorage.getItem('theme') === 'light' ? 'dark' : 'light'
   )
-  const { token } = useContext(AuthContext)
 
   const toggleTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light')

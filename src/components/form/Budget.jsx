@@ -7,6 +7,7 @@ import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import ServiceContext from '../../context/serviceContext'
 
+// select box'ın açılan ekranı
 const ITEM_HEIGHT = 48
 const ITEM_PADDING_TOP = 8
 const MenuProps = {

@@ -25,7 +25,6 @@ const Duration = ({ data, activeStep }) => {
   return (
     <div className="flex flex-col  overflow-auto">
       <Question data={data} />
-
       <DatePicker
         className="w-full rounded-md border border-gray-300/40 bg-zinc-50  p-4 text-center  hover:cursor-context-menu hover:border-gray-600 focus:border-gray-600 focus:outline-none"
         dateFormat="dd/MM/yyyy"

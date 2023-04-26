@@ -1,4 +1,14 @@
 // Adres sorusu için il ilçe mahalle verilerinin çekilmesi ve formdataya set edilmesi.
+/*
+ilk olarak il listesi useEffectte fetch ediliyor. Sonrasında tıklanan ilden, o ilin ilçeleri fetch ediliyor.
+seçilen ilçeden ise o ilçenin mahalleleri fetch ediliyor.
+3 seçimde tamamlanırsa next butonu aktif oluyor.
+eğer seçim yapılmış ise il veya ilçeden değişme olursa altındaki childlar sıfırlanıyor. 
+
+yani il ilçe mahalle seçilmiş ise kullanıcı il değiştirirse ilçe ve mahalle
+il ilçe mahalle seçilmiş ise kullanıcı ilçe değiştirirse mahalle sıfırlanıyor.
+bu iki durumdada il ilçe mahalle seçilmeden ileri butonu aktif olmuyor.
+*/
 import { useContext, useEffect, useState } from 'react'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'

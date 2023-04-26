@@ -60,7 +60,25 @@ const EmployeeMyBids = () => {
       maxSize: 10,
 
       Cell: ({ cell }) => (
-        <p>{`${cell.getValue() === 0 ? 'Belirtilmedi' : cell.getValue()}`} </p>
+        <p>
+          {`${
+            cell.getValue() === 1000
+              ? '1.000 - 5.000 ₺'
+              : cell.getValue() === 5000
+              ? '5.000 - 10.000 ₺'
+              : cell.getValue() === 10000
+              ? '10.000 - 15.000 ₺'
+              : cell.getValue() === 15000
+              ? '15.000 - 30.000 ₺'
+              : cell.getValue() === 30000
+              ? '30.000 - 50.000 ₺'
+              : cell.getValue() === 50000
+              ? '50.000 - 100.000 ₺'
+              : cell.getValue() === 100000
+              ? '100.000+ ₺'
+              : cell.getValue()
+          }`}
+        </p>
       ),
     },
     {

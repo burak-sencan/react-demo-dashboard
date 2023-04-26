@@ -26,14 +26,12 @@ const CanSeeNumber = ({ data, activeStep }) => {
     setValue(
       formData[activeStep].answer === null ? '1' : formData[activeStep].answer
     )
-    // setValue(formData[activeStep].answer)
   }, [activeStep])
 
   return (
     <div className="flex flex-col overflow-auto">
       <Question data={data} />
       <FormControl>
-        {/* <FormLabel id="demo-controlled-radio-buttons-group">Cevabınız?</FormLabel> */}
         <RadioGroup
           aria-labelledby="demo-controlled-radio-buttons-group"
           name="controlled-radio-buttons-group"

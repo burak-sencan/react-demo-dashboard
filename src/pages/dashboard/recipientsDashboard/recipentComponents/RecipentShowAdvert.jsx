@@ -61,9 +61,23 @@ const RecipentShowAdvert = () => {
               <div className="absolute left-0 top-0 h-full w-2 rounded-l-md  bg-blue-400"></div>
               <p className="text-base"> Bütçe</p>
               <h1 className="text-xl text-blue-400 ">
-                {data.budget === 0
-                  ? 'Bütçe Belirtilmedi'
-                  : `${data.budget} Lira`}
+                {`${
+                  data.budget === 1000
+                    ? '1.000 - 5.000 ₺'
+                    : data.budget === 5000
+                    ? '5.000 - 10.000 ₺'
+                    : data.budget === 10000
+                    ? '10.000 - 15.000 ₺'
+                    : data.budget === 15000
+                    ? '15.000 - 30.000 ₺'
+                    : data.budget === 30000
+                    ? '30.000 - 50.000 ₺'
+                    : data.budget === 50000
+                    ? '50.000 - 100.000 ₺'
+                    : data.budget === 100000
+                    ? '100.000+ ₺'
+                    : data.budget
+                } Lira`}
               </h1>
             </div>
             <div className="relative flex h-40 w-full flex-col items-center justify-start gap-1 rounded-md bg-white  py-8 text-zinc-400 shadow-md transition hover:shadow-lg dark:bg-dark-900 dark:text-light-50 lg:h-44 lg:w-1/4 2xl:h-96">

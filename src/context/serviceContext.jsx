@@ -26,8 +26,8 @@ export const ServiceProvider = ({ children }) => {
             service_id: data.id, // cevapları gönderirken backend için lazımdı.
             service_name: data.name, // formun içinde header kısmında gösteriliyor.
             question_id: question.id, // cevapları gönderirken backend için lazımdı.
-            type_id: question.type_id, // sorular raido button, select box, plus gibi tiplerde bakendnden geliyor. bu tipe bakarak raio ise soruyu radio butonda render ediyorum. bu kontrolu <QuestionTypes> komponenti yapıyor. 
-            question: question.label, // ilgili servisin soruları 
+            type_id: question.type_id, // sorular raido button, select box, plus gibi tiplerde bakendnden geliyor. bu tipe bakarak raio ise soruyu radio butonda render ediyorum. bu kontrolu <QuestionTypes> komponenti yapıyor.
+            question: question.label, // ilgili servisin soruları
             answers: question.answers, // ilgili servisin sorularının cevapları
             answer: null, // kullanıcının answers'tan gelen cevaplardan birini seçince hangi cevabın seçildiğini tutan değişken.
           }
@@ -120,6 +120,7 @@ export const ServiceProvider = ({ children }) => {
       service_name: data.name,
       type_id: 'showBudget',
       question: 'Bütçe',
+      //not: backende sadece value gidiyor ama sitede text kullanılıyor. bu yüzden burasını değiştirirsen tabloda, formSummary'de kullandığım static ternary kodları düzeltmen gerekecek
       answers: [
         { id: 1, text: '1.000 - 5.000 ₺', value: '1000' },
         { id: 2, text: '5.000 - 10.000 ₺', value: '5000' },
@@ -152,7 +153,6 @@ export const ServiceProvider = ({ children }) => {
 
     setFormData(tempFormData)
     console.log('tempFormData: ', tempFormData)
-
   }
 
   return (

@@ -1,10 +1,10 @@
 // + number - sorularının verilerini formdataya set edilmesi
 import { useContext, useEffect, useState } from 'react'
+import ServiceContext from '../../context/serviceContext'
 import Question from './Question'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline'
 import { IconButton } from '@mui/material'
-import ServiceContext from '../../context/serviceContext'
 
 const Plus = ({ data, activeStep }) => {
   const { formData, setFormData } = useContext(ServiceContext)
