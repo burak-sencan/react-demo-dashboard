@@ -21,10 +21,17 @@ const RecipentShowAdvert = () => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    api.recipientsServiceRequest(token, id).then((response) => {
-      setData(response.data.result)
-      setIsLoading(false)
-    })
+    const fetchData = async () => {
+      try {
+        const response = await api.recipientsServiceRequest(token, id)
+        setData(response.data.result)
+        setIsLoading(false)
+      } catch (error) {
+        console.error('Hata: ', error)
+      }
+    }
+
+    fetchData()
   }, [])
 
   if (isLoading) return <Loading />

@@ -29,11 +29,12 @@ const RecipentShowMessage = () => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [data])
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
+
     if (messageText !== '') {
-      api
-        .sendRequestMessage(token, {
+      try {
+        const response = await api.sendRequestMessage(token, {
           message: messageText,
           recipient_id: selfData.data.result.id,
           employer_id: recid,
@@ -41,18 +42,24 @@ const RecipentShowMessage = () => {
           bid_id: data[0].bid_id,
           sender_id: data[0].sender_id,
         })
-        .then((response) => {
-          api.getSelfRequestMessages(token, reqid, recid).then((response) => {
-            setData(response.data.result)
-            setMessageText('')
-            toast('Mesaj Gönderildi.')
-            toast('Mesajlar bölümüne yönlendiriliyorsunuz.')
-            setTimeout(() => {
-              navigate('/recipentDashboard/message/')
-            }, 3000)
-          })
-        })
-    }else{
+
+        const requestMessageResponse = await api.getSelfRequestMessages(
+          token,
+          reqid,
+          recid
+        )
+
+        setData(requestMessageResponse.data.result)
+        setMessageText('')
+        toast('Mesaj Gönderildi.')
+        toast('Mesajlar bölümüne yönlendiriliyorsunuz.')
+        setTimeout(() => {
+          navigate('/recipentDashboard/message/')
+        }, 3000)
+      } catch (error) {
+        console.error('Hata: ', error)
+      }
+    } else {
       toast('Boş mesaj gönderilemez!')
     }
   }

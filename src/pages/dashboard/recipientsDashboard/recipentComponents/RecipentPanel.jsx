@@ -71,14 +71,21 @@ const RecipentPanel = () => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    api.getReciPanelData(token).then((response) => {
-      if (response.data.result) {
-        setData(response.data.result)
-      } else {
-        setData([])
+    const fetchData = async () => {
+      try {
+        const response = await api.getReciPanelData(token)
+        if (response.data.result) {
+          setData(response.data.result)
+        } else {
+          setData([])
+        }
+        setIsLoading(false)
+      } catch (error) {
+        console.error('Hata: ', error)
       }
-      setIsLoading(false)
-    })
+    }
+
+    fetchData()
   }, [])
 
   if (isLoading) return <Loading />

@@ -228,26 +228,30 @@ const EmployeeSettings = () => {
   }
 
   useEffect(() => {
-    setFullName(selfData.data.result.full_name)
-    setAccountType(selfData.data.result.account_type)
-    setEmail(selfData.data.result.email)
-    setPhone(selfData.data.result.phone)
+    const fetchData = async () => {
+      try {
+        setFullName(selfData.data.result.full_name)
+        setAccountType(selfData.data.result.account_type)
+        setEmail(selfData.data.result.email)
+        setPhone(selfData.data.result.phone)
 
-    api
-      .getServices()
-      .then((response) => {
-        setServices(response.data.result)
-      })
-      .then(
-        api.getClientInterestedServices(token).then((response) => {
-          if (response.data.result) {
-            setEmployeerSkills(response.data.result)
-          } else {
-            setEmployeerSkills([])
-          }
-          setIsLoading(false)
-        })
-      )
+        const servicesResponse = await api.getServices()
+        setServices(servicesResponse.data.result)
+
+        const clientInterestedServicesResponse =
+          await api.getClientInterestedServices(token)
+        if (clientInterestedServicesResponse.data.result) {
+          setEmployeerSkills(clientInterestedServicesResponse.data.result)
+        } else {
+          setEmployeerSkills([])
+        }
+        setIsLoading(false)
+      } catch (error) {
+        console.error('Hata: ', error)
+      }
+    }
+
+    fetchData()
   }, [])
 
   if (typeof selfData === 'string' || isLoading) {

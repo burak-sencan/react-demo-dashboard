@@ -31,12 +31,22 @@ const Service = () => {
   const [disableSubmitBtn, setDisableSubmitBtn] = useState(false)
 
   useEffect(() => {
-    if (selfData === '') navigate('/login')
-    else {
-      api.getServiceAndDetails(id).then((response) => {
-        prepareFormData(response.data.result)
-      })
+    const fetchData = async () => {
+      try {
+        if (selfData === '') {
+          navigate('/login')
+        } else {
+          const response = await api.getServiceAndDetails(id)
+          prepareFormData(response.data.result)
+        }
+      } catch (error) {
+        // Hata yakalanması ve işlenmesi
+        console.error('Hata: ', error)
+        // Hatanın durumunu ve kullanıcıya uygun bir geri bildirim sağlanabilir
+      }
     }
+
+    fetchData()
   }, [])
 
   const handleNext = () => {

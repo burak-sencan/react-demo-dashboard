@@ -14,19 +14,22 @@ export const ServiceProvider = ({ children }) => {
     let idx = 0
     const tempFormData = []
     console.log('prepareFormData: ', data)
-    //if questions not empty
+    // bazı servislerin soruları bulunmamakta.
+    // eger sorular varsa soru tipine göre gelen sorular için tempFormData dizisini oluşturuyorum.
+    // dizi hazırlandıktan statik sorularıda ekleyip setFormData'ya set ediyorum.
+    // formData verisi ilgili servisin tüm sorularını tutuyor. alanların ne işe yaradıklarını ilk json dizisinde yorum olarak ekledim.
     if (data.questions !== null) {
       data.questions.map((question) => {
         if (question.type_id === 6) {
           let tempJson = {
-            activeStep: idx,
-            service_id: data.id,
-            service_name: data.name,
-            question_id: question.id,
-            type_id: question.type_id,
-            question: question.label,
-            answers: question.answers,
-            answer: null,
+            activeStep: idx, // formda ileri geri gitmek için kullanılıyor. activeStep render edilen component olacak.
+            service_id: data.id, // cevapları gönderirken backend için lazımdı.
+            service_name: data.name, // formun içinde header kısmında gösteriliyor.
+            question_id: question.id, // cevapları gönderirken backend için lazımdı.
+            type_id: question.type_id, // sorular raido button, select box, plus gibi tiplerde bakendnden geliyor. bu tipe bakarak raio ise soruyu radio butonda render ediyorum. bu kontrolu <QuestionTypes> komponenti yapıyor. 
+            question: question.label, // ilgili servisin soruları 
+            answers: question.answers, // ilgili servisin sorularının cevapları
+            answer: null, // kullanıcının answers'tan gelen cevaplardan birini seçince hangi cevabın seçildiğini tutan değişken.
           }
           tempFormData.push(tempJson)
         } else if (question.type_id === 5) {
@@ -91,7 +94,7 @@ export const ServiceProvider = ({ children }) => {
       })
     }
 
-    //Static
+    // Her servisin sonuna eklenen bazı sorular var bunlar adres, ne kadar zaman alacak, bütçe gibi sorular. Bu sorularıda her servisin sorularının sonuna ekliyorum.
     tempFormData.push({
       activeStep: idx,
       service_id: data.id,

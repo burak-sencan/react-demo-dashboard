@@ -61,12 +61,18 @@ const EmployeeShowJobOpportunities = () => {
       toast(response.data.message)
     })
   }
-
   useEffect(() => {
-    api.getOpportunitie(token, id).then((response) => {
-      setData(response.data.result)
-      setIsLoading(false)
-    })
+    const fetchData = async () => {
+      try {
+        const response = await api.getOpportunitie(token, id)
+        setData(response.data.result)
+        setIsLoading(false)
+      } catch (error) {
+        console.error('Hata: ', error)
+      }
+    }
+
+    fetchData()
   }, [])
 
   if (isLoading) return <Loading />

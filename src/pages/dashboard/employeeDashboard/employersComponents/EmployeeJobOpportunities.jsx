@@ -61,15 +61,21 @@ const EmployeeJobOpportunities = () => {
   const [data, setData] = useState([])
 
   useEffect(() => {
-    api.getOpportunities(token).then((response) => {
-      if (response.data.status === false) {
-        // no data
-        setData([])
-      } else {
-        setData(response.data.result)
+    const fetchData = async () => {
+      try {
+        const response = await api.getOpportunities(token)
+        if (response.data.status === false) {
+          setData([])
+        } else {
+          setData(response.data.result)
+        }
+        setIsLoading(false)
+      } catch (error) {
+        console.error('Hata: ', error)
       }
-      setIsLoading(false)
-    })
+    }
+
+    fetchData()
   }, [])
 
   if (isLoading) return <Loading />

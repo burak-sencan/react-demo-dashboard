@@ -71,14 +71,23 @@ const EmployeePanel = () => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    api.getPanelData(token).then((response) => {
-      if (response.data.result) {
-        setData(response.data.result)
-      } else {
-        setData([])
+    const fetchData = async () => {
+      try {
+        const response = await api.getPanelData(token)
+        if (response.data.result) {
+          setData(response.data.result)
+        } else {
+          setData([])
+        }
+        setIsLoading(false)
+      } catch (error) {
+        // Hata yakalanması ve işlenmesi
+        console.error('Hata: ', error)
+        // Hatanın durumunu ve kullanıcıya uygun bir geri bildirim sağlanabilir
       }
-      setIsLoading(false)
-    })
+    }
+
+    fetchData()
   }, [])
 
   if (isLoading) return <Loading />

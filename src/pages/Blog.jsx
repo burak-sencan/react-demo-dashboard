@@ -16,16 +16,22 @@ const Blog = () => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-
-    api.getBlogs().then((response) => {
-      if (response.data.result) {
-        setData(response.data.result)
-      } else {
-        setData([])
+    const fetchData = async () => {
+      try {
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+        const response = await api.getBlogs()
+        if (response.data.result) {
+          setData(response.data.result)
+        } else {
+          setData([])
+        }
+        setIsLoading(false)
+      } catch (error) {
+        console.error('Hata: ', error)
       }
-      setIsLoading(false)
-    })
+    }
+
+    fetchData()
   }, [])
 
   if (isLoading) return <Loading />

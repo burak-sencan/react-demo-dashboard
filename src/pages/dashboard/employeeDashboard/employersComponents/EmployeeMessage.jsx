@@ -39,14 +39,19 @@ const EmployeeMessage = () => {
   )
 
   useEffect(() => {
-    api.getSelfMessages(token).then((response) => {
-      if (response.data.result) {
-        setData(response.data.result)
-      } else {
-        setData([])
-      }
-      setIsLoading(false)
-    })
+    api
+      .getSelfMessages(token)
+      .then((response) => {
+        if (response.data.result) {
+          setData(response.data.result)
+        } else {
+          setData([])
+        }
+        setIsLoading(false)
+      })
+      .catch((error) => {
+        console.error('Hata: ', error)
+      })
   }, [])
 
   if (isLoading) return <Loading />

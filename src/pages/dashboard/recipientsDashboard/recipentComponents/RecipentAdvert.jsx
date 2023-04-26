@@ -109,7 +109,7 @@ const RecipentAdvert = () => {
     setRowId('')
   }
 
-  const handleServiceStatus = () => {
+  const handleServiceStatus = async () => {
     const data = {
       id: rowId,
       status: 4, // 0-6 arası ilan durumları bulunmakta. 4 ilanın durumunu duraklatıldı yapmak için kullanılıyor.
@@ -124,7 +124,7 @@ const RecipentAdvert = () => {
       */
     }
 
-    api.changeServiceStatus(token, data).then((response) => {
+    await api.changeServiceStatus(token, data).then((response) => {
       toast(response.data.message)
 
       //refetch

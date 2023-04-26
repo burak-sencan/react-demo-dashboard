@@ -33,14 +33,21 @@ const RecipentMessage = () => {
   const handleDeleteMessage = (data) => {}
 
   useEffect(() => {
-    api.getSelfMessages(token).then((response) => {
-      if (response.data.result) {
-        setData(response.data.result)
-      } else {
-        setData([])
+    const fetchData = async () => {
+      try {
+        const response = await api.getSelfMessages(token)
+        if (response.data.result) {
+          setData(response.data.result)
+        } else {
+          setData([])
+        }
+        setIsLoading(false)
+      } catch (error) {
+        console.error('Hata: ', error)
       }
-      setIsLoading(false)
-    })
+    }
+
+    fetchData()
   }, [])
 
   if (isLoading) return <Loading />

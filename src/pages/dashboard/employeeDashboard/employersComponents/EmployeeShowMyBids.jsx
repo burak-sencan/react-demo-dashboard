@@ -23,10 +23,17 @@ const EmployeeShowMyBids = () => {
   const [data, setData] = useState([])
 
   useEffect(() => {
-    api.getMyBid(token, id).then((response) => {
-      setData(response.data.result)
-      setIsLoading(false)
-    })
+    const fetchData = async () => {
+      try {
+        const response = await api.getMyBid(token, id)
+        setData(response.data.result)
+        setIsLoading(false)
+      } catch (error) {
+        console.error('Hata: ', error)
+      }
+    }
+
+    fetchData()
   }, [])
 
   if (isLoading) return <Loading />

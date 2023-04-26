@@ -29,22 +29,26 @@ const EmployeeShowBudgetTransfer = ({ handleClose, bankAcccountId }) => {
     }))
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
 
-    const formattedDate = date.toISOString().slice(0, 10)
-    const formattedTime = date.toTimeString().slice(0, 8)
-    const sending_datetime = `${formattedDate} ${formattedTime}`
+    try {
+      const formattedDate = date.toISOString().slice(0, 10)
+      const formattedTime = date.toTimeString().slice(0, 8)
+      const sending_datetime = `${formattedDate} ${formattedTime}`
 
-    const data = {
-      full_name,
-      bank_account_id: bankAcccountId,
-      sending_datetime,
-      amount,
-    }
-    api.bankTransferNotify(token, data).then((response) => {
+      const data = {
+        full_name,
+        bank_account_id: bankAcccountId,
+        sending_datetime,
+        amount,
+      }
+
+      const response = await api.bankTransferNotify(token, data)
       toast(response?.data?.message)
-    })
+    } catch (error) {
+      console.error('Hata: ', error)
+    }
   }
 
   return (
