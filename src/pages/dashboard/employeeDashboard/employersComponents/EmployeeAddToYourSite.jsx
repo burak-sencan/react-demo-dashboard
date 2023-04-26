@@ -39,7 +39,7 @@ const EmployeeAddToYourSite = () => {
           Bu linki sitenize ekleyin. Bu link üzerinden kayıt olması halinde 5
           ücretsiz teklif verme hakkı kazanın.
         </p>
-        <Divider sx={{ marginY: 2 }} className="dark:border-white/40"/>
+        <Divider sx={{ marginY: 2 }} className="dark:border-white/40" />
         <p
           onClick={handleCopy}
           className=" w-full cursor-pointer overflow-x-auto rounded-md bg-light-50 p-4 transition hover:bg-neutral-200 focus:outline-none"

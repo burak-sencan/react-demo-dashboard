@@ -1,3 +1,5 @@
+// formda daha önce cevaplanan soruların gösterildiği özet ekranı
+
 import { useContext, useEffect, useState } from 'react'
 import ServiceContext from '../../context/serviceContext'
 import Loading from '../Loading'

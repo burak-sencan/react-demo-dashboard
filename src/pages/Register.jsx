@@ -1,3 +1,10 @@
+/*
+Path: "/register"
+Component: <Register/>
+Kullanıcıların sisteme kayıt olurken kullandığı ekran.
+Forma girilen verilen /clients/register adresine post ediliyor. İşlemler başarılı ise login ekranına yönlendiriliyor.
+*/
+
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -31,6 +38,7 @@ const Register = () => {
     }))
   }
 
+  // Submit form function
   const onSubmit = (e) => {
     e.preventDefault()
     if (password !== password_repeat) {
@@ -48,6 +56,7 @@ const Register = () => {
       register(userData)
     }
   }
+
   //register user
   const register = async (userData) => {
     try {
@@ -65,6 +74,7 @@ const Register = () => {
     }
   }
 
+  // scroll to top on initiliaze
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
   }, [])

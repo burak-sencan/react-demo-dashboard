@@ -1,3 +1,4 @@
+// radio sorularının cevabının formdataya set edilmesi.
 import { useContext, useEffect, useState } from 'react'
 import ServiceContext from '../../context/serviceContext'
 import Question from './Question'

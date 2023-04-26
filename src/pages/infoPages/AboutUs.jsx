@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import Footer from '../../components/Footer'
 
 const AboutUs = () => {
+  // scrool to top on initiliaze
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
   }, [])
@@ -42,7 +43,7 @@ const AboutUs = () => {
           <h2 className="text-lg  font-medium leading-6 text-gray-900 dark:text-light-50">
             Hikayemiz
           </h2>
-          <div className="mt-3 text-gray-500 text-justify">
+          <div className="mt-3 text-justify text-gray-500">
             <p>
               Uzman yazılım kadromuzla birlikte, hayatı daha da kolaylaştırmak
               ve insanların birbirleriyle daha kolay etkileşim kurmasını

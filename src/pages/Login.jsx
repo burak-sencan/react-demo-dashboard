@@ -1,3 +1,9 @@
+/*
+Path: "/login"
+Component: <Login/>
+kullanıcının sisteme giriş yapmasını sağlayan login componenti
+/clients/login adresine giriş verileri post edilir. ve dönen veriden selfdata ve token bilgileri set edilir.
+*/
 import { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import AuthContext from '../context/authContext'
@@ -37,9 +43,11 @@ const Login = () => {
   }
 
   useEffect(() => {
+    // if token doesn't exist navigate to  
     if (token !== '') {
       navigate('/')
     }
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
   }, [])
 
   const login = async (userData) => {
@@ -48,7 +56,7 @@ const Login = () => {
         process.env.REACT_APP_API_URL + '/clients/login',
         userData
       )
-
+      // login succesfull
       if (response.data.status === true) {
         localStorage.setItem('token', response.data.result)
         setToken(response.data.result)
@@ -65,6 +73,7 @@ const Login = () => {
     }
   }
 
+  // fetch selfData with token
   const getSelfData = async (token) => {
     api.getSelfClient(token).then((response) => {
       setSelfData(response)

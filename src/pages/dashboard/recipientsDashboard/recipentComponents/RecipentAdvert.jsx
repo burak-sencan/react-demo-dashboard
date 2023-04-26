@@ -1,9 +1,24 @@
+/*
+Path: "/advert"
+Component: <RecipentAdvert/>
+Kullanıcının verdiği ilanlarıgörebildiğiekran. İlan verileri /recipients/service_requests adresinden fetch edilmekte. Her satırın sonunda ilgili ilanı durdurma butonu yer almaktadır. /recipients/change_service_status adresinden ilgili ilanın statusu 
+*/
+
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from '../../../../context/api'
 import DashboardContent from '../../utils/DashboardContent'
 import AuthContext from '../../../../context/authContext'
-import { Box, Divider, IconButton, Tooltip } from '@mui/material'
+import {
+  Box,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Divider,
+  IconButton,
+  Tooltip,
+} from '@mui/material'
 import MaterialReactTable from 'material-react-table'
 import { MRT_Localization_TR } from 'material-react-table/locales/tr'
 import LocalOfferIcon from '@mui/icons-material/LocalOffer'
@@ -16,7 +31,10 @@ const RecipentAdvert = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState([])
 
-  //should be memoized or stable
+  // Modal
+  const [open, setOpen] = useState(false)
+  const [rowId, setRowId] = useState('')
+  // Should be memoized or stable
   const columns = useMemo(() => [
     {
       accessorKey: 'service_details.name',
@@ -81,11 +99,31 @@ const RecipentAdvert = () => {
     },
   ])
 
-  const handleServiceStatus = (advertId) => {
+  const handleClickOpen = (id) => {
+    setOpen(true)
+    setRowId(id)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+    setRowId('')
+  }
+
+  const handleServiceStatus = () => {
     const data = {
-      id: advertId,
-      status: 4,
+      id: rowId,
+      status: 4, // 0-6 arası ilan durumları bulunmakta. 4 ilanın durumunu duraklatıldı yapmak için kullanılıyor.
+      /*
+      0:onay bekliyor.
+      1:yayında
+      2:teklif onaylandı
+      3:ilansüresi doldu
+      4: Duraklatıldı
+      5:onaylanmadı
+      6 iş tamamlandı
+      */
     }
+
     api.changeServiceStatus(token, data).then((response) => {
       toast(response.data.message)
 
@@ -93,6 +131,8 @@ const RecipentAdvert = () => {
       api.recipientsServiceRequests(token).then((response) => {
         if (response.data.result) {
           setData(response.data.result)
+          setRowId('')
+          handleClose()
         } else setData([])
         setIsLoading(false)
       })
@@ -143,9 +183,7 @@ const RecipentAdvert = () => {
               </IconButton>
 
               {row.original.status !== '4' && (
-                <IconButton
-                  onClick={() => handleServiceStatus(row.original.id)}
-                >
+                <IconButton onClick={() => handleClickOpen(row.original.id)}>
                   <Tooltip title="İlanı Durdur">
                     <DoDisturbIcon />
                   </Tooltip>
@@ -154,6 +192,33 @@ const RecipentAdvert = () => {
             </Box>
           )}
         />
+        <Dialog
+          // fullScreen={fullScreen}
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="responsive-dialog-title"
+        >
+          <DialogTitle id="responsive-dialog-title">İlanı Durdur</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              İlanı Durdurmak İstediğinize Emin Misiniz?
+            </DialogContentText>
+            <div className="flex w-full justify-between p-4">
+              <button
+                onClick={handleServiceStatus}
+                className="rounded-md bg-white px-4 py-2 text-red-500 shadow-md "
+              >
+                İlanı Durdur
+              </button>
+              <button
+                onClick={handleClose}
+                className="rounded-md bg-white px-4 py-2  shadow-md "
+              >
+                İptal
+              </button>
+            </div>
+          </DialogContent>
+        </Dialog>
         <ToastContainer
           position="bottom-right"
           autoClose={3000}

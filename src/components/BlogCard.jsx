@@ -1,3 +1,4 @@
+// blog verileri için /blog adresinde gösterilan içerik kartları
 import { Link } from 'react-router-dom'
 
 const BlogCard = ({ blogData }) => {

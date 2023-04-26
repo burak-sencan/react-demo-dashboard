@@ -1,3 +1,11 @@
+/*
+Path: "/recipentDashboard"
+Component: <RecipentDashboard/>
+Sidebar ve sag kısımda Outlet komponenti bulunan
+dashboard komponent. /employeeDashboard içindeki bir url
+ değişikliği <Outlet /> komponenti içinde render ediliyor. sidebardan tıklanılan urller burda render ediliyor. 
+*/
+
 import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import Sidebar from './Sidebar'

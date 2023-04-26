@@ -1,3 +1,11 @@
+/*
+Path: "/service/:id"
+Component: <Service/>
+İlgili servisin sorularının gösterildiği formu oluşturan component.
+Burda form ekranları activeStep ile ayarlanıyor.
+İleri ve Geri butonları ile bu stepdeğeri arttırılıp azaltılıyor.
+*/
+
 import { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import ServiceContext from '../context/serviceContext'
@@ -14,13 +22,13 @@ import SendIcon from '@mui/icons-material/Send'
 import Loading from '../components/Loading'
 
 const Service = () => {
-  const [activeStep, setActiveStep] = useState(0)
-  const { formData, prepareFormData } = useContext(ServiceContext)
-  const { selfData } = useContext(AuthContext)
-
   const { token } = useContext(AuthContext)
-  const navigate = useNavigate()
+  const { selfData } = useContext(AuthContext)
+  const { formData, prepareFormData } = useContext(ServiceContext)
   let { id } = useParams()
+  const navigate = useNavigate()
+  const [activeStep, setActiveStep] = useState(0)
+  const [disableSubmitBtn, setDisableSubmitBtn] = useState(false)
 
   useEffect(() => {
     if (selfData === '') navigate('/login')
@@ -40,6 +48,7 @@ const Service = () => {
   }
 
   const handleSubmit = () => {
+    setDisableSubmitBtn(true)
     let questions_and_values = []
     let service_id
     let city_id
@@ -104,6 +113,7 @@ const Service = () => {
       show_budget: `${showBudget}`,
       budget: `${budget}`,
       service_id: `${service_id}`,
+      won_bidder_id: 0,
     }
 
     postFormData(token, data)
@@ -111,11 +121,16 @@ const Service = () => {
 
   const postFormData = async (token, data) => {
     api.recipientsAddServiceRequest(token, data).then((response) => {
-      toast(response.data.message)
-      toast('Anasayfaya Dönülüyor.')
-      setTimeout(() => {
-        navigate('/')
-      }, 5000)
+      if (response.data.status) {
+        toast(response.data.message)
+        toast('Anasayfaya Dönülüyor.')
+        setTimeout(() => {
+          navigate('/')
+        }, 5000)
+      } else {
+        toast(response.data.message)
+        setDisableSubmitBtn(false)
+      }
     })
   }
 
@@ -127,7 +142,7 @@ const Service = () => {
           Talep Oluşturabilmeniz İçin Hizmet Alan Tipinde Bir Hesap İle Giriş
           Yapmalısınız.
         </p>
-        
+
         <Divider className="!my-1 !bg-gray-400" />
         <Link to="/">
           <Tooltip title="Anasayfa'ya Dön">
@@ -160,7 +175,11 @@ const Service = () => {
             >
               Geri
             </Button>
-            <Button onClick={handleSubmit} endIcon={<SendIcon />}>
+            <Button
+              onClick={handleSubmit}
+              disabled={disableSubmitBtn}
+              endIcon={<SendIcon />}
+            >
               Gönder
             </Button>
           </Box>

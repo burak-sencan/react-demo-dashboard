@@ -1,3 +1,4 @@
+// seçtiğimiz bazı servisleri trend servis olarak ayarladık. burdanda ilgili servis formuna yönleniyor.
 import { Divider } from '@mui/material'
 import { Link } from 'react-router-dom'
 
@@ -19,12 +20,7 @@ const TrendServices = ({ services, title }) => {
             }}
             className="flex h-48 max-w-sm items-end rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800"
           >
-            {/* <img
-              className="rounded-t-lg"
-              src={service.image}
-              alt="service_image"
-            /> */}
-
+         
             <div className="flex w-full justify-between gap-4 bg-dark-800/80 p-2">
               <h5 className="mb-2 font-bold tracking-tight text-white truncate lg:text-lg">
                 {service.name}

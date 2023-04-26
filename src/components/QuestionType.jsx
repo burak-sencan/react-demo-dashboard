@@ -1,3 +1,17 @@
+// formdatada ilgili servisin soruları hazırlanmıştı. şimdi bu formdatada sıra ile sorulara cevap vermesi gerekiyor.
+// active step formdaki soru indexi. bu formda ileri geri gezinerek cevaplarını ilgili soruya kayıt ediyorum.
+// en son gönderirken bu soruları çekip submit ediyorum.
+
+/* ek açıklama
+Component:   <QuestionType activeStep={activeStep} /> 
+bir servise tıklandıktan sonra o servisin soruları çekildi. 
+gelen sorular context'teki prepareFormData(data) fonksiyonu ile benim ayarladığım 
+özel bir diziye sırasıyla eklendi. her servisin sonuna static sorular dediğimiz 
+bütçe adres detay soruları eklendi. 
+Bu komponent hazırladığım dizideki soruları activeStep indexsine göre sırasıyla gösterme 
+işlemini yapıyor. dizide soru tipleri var bazı sorular radio bazıları select gibi tiplerde
+geliyor. bu tiplere göre ilgili komponenti render edip ilgili soruyu propla geçiyor. 
+*/
 import { useContext } from 'react'
 import ServiceContext from '../context/serviceContext'
 import Duration from './form/Duration'

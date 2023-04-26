@@ -1,3 +1,9 @@
+/*
+Path: "/panel"
+Component: <RecipentPanel />
+Kullanıcının genel bilgilerinin gösterildiği ekran Bu veriler /employers/dashboard_data  adresinden çekiliyor.
+ */
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,6 +17,10 @@ import {
 
 import { Line } from 'react-chartjs-2'
 import DashboardContent from '../../utils/DashboardContent'
+import { useContext, useEffect, useState } from 'react'
+import AuthContext from '../../../../context/authContext'
+import api from '../../../../context/api'
+import Loading from '../../../../components/Loading'
 
 ChartJS.register(
   CategoryScale,
@@ -56,34 +66,50 @@ export const data = {
 }
 
 const RecipentPanel = () => {
+  const { token } = useContext(AuthContext)
+  const [data, setData] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    api.getReciPanelData(token).then((response) => {
+      if (response.data.result) {
+        setData(response.data.result)
+      } else {
+        setData([])
+      }
+      setIsLoading(false)
+    })
+  }, [])
+
+  if (isLoading) return <Loading />
   return (
     <DashboardContent>
       <div className="flex w-full flex-col justify-between gap-4 lg:flex-row">
         <div className="flex h-44 w-full flex-col  items-center justify-center rounded-md bg-white text-zinc-400 shadow-md dark:bg-dark-900 dark:text-light-50 lg:w-1/4  2xl:h-96">
-          <p className="text-lg 2xl:text-2xl">İlan</p>
-          <h1 className="text-3xl text-orange-300">12</h1>
+          <p className="text-lg 2xl:text-2xl">Yayındaki İlanlar</p>
+          <h1 className="text-3xl text-orange-300">{data.active_requests}</h1>
         </div>
         <div className="flex h-44 w-full flex-col  items-center justify-center rounded-md bg-white text-zinc-400 shadow-md dark:bg-dark-900 dark:text-light-50 lg:w-1/4  2xl:h-96">
-          <p className="text-lg 2xl:text-2xl">Mesaj</p>
-          <h1 className="text-3xl text-red-400 ">182</h1>
+          <p className="text-lg 2xl:text-2xl">Onay Bekleyeyen İlanlar</p>
+          <h1 className="text-3xl text-red-400 ">{data.pending_requests} </h1>
         </div>
         <div className="flex h-44 w-full flex-col  items-center justify-center rounded-md bg-white text-zinc-400 shadow-md dark:bg-dark-900 dark:text-light-50 lg:w-1/4  2xl:h-96">
-          <p className="text-lg 2xl:text-2xl">Yaptırılmış İş</p>
-          <h1 className="text-3xl text-blue-400 ">12</h1>
+          <p className="text-lg 2xl:text-2xl">Tamamlanan İşler</p>
+          <h1 className="text-3xl text-blue-400 ">{data.completed_requests}</h1>
         </div>
         <div className="flex h-44 w-full flex-col  items-center justify-center rounded-md bg-white text-zinc-400 shadow-md dark:bg-dark-900 dark:text-light-50 lg:w-1/4 2xl:h-96">
-          <p className="text-lg 2xl:text-2xl">Bakiye</p>
-          <h1 className="text-3xl text-purple-400">1020 ₺</h1>
+          <p className="text-lg 2xl:text-2xl">Duraklatılan İlanlar</p>
+          <h1 className="text-3xl text-purple-400">{data.paused_requests} </h1>
         </div>
       </div>
-      <div className="flex w-full flex-col justify-between gap-4 xl:flex-row ">
+      {/* <div className="flex w-full flex-col justify-between gap-4 xl:flex-row ">
         <div className="flex items-center justify-center rounded-md bg-white p-2 shadow-md dark:bg-dark-900 xl:w-1/2">
           <Line options={options} data={data} />
         </div>
         <div className="flex items-center justify-center rounded-md bg-white p-2 shadow-md dark:bg-dark-900 xl:w-1/2">
           <Line options={options} data={data} />
         </div>
-      </div>
+      </div> */}
     </DashboardContent>
   )
 }

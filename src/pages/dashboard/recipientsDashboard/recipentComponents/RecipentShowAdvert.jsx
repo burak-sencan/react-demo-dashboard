@@ -1,3 +1,9 @@
+/*
+Path: "/advert/:id"
+Component: <RecipentShowAdvert/>
+Tıklanılan ilanın detay bilgilerinin gösterildiği ekran. ilanın detay bilgileri urldeki id parametresinin useParams hooku ile çekilip /recipients/opportunitie/${id} adresinden fetch edilmesi ile alınıyor. 
+ */
+
 import { useParams } from 'react-router-dom'
 import DashboardContent from '../../utils/DashboardContent'
 import { useContext, useEffect, useState } from 'react'

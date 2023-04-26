@@ -1,3 +1,10 @@
+/*
+Path: "/jobOpportunities"
+Component: <EmployeeJobOpportunities/>
+Kullanıcının ilgi alanlarına göre ilanların /employers/opportunities adresinden fetch edilgi yer. 
+Bu ilanlar React Material Table kütüphanesi ile bir tabloda gösterilmekte. satır sonlarında bulunan detay butonu ile ilgili ilanın detaylarını görebilmektedir.
+*/
+
 import { MRT_Localization_TR } from 'material-react-table/locales/tr'
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -52,6 +59,7 @@ const EmployeeJobOpportunities = () => {
 
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState([])
+
   useEffect(() => {
     api.getOpportunities(token).then((response) => {
       if (response.data.status === false) {

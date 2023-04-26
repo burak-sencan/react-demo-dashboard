@@ -1,3 +1,4 @@
+// numaram gösterilsin mi  sorusu için 0,1 verilerinin formdataya set edilmesi.
 import Question from './Question'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'

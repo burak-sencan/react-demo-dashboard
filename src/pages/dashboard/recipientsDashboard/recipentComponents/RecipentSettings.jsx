@@ -22,6 +22,9 @@ const RecipentSettings = () => {
   const [newPassword, setNewPassword] = useState('')
   const [newPasswordRepeat, setNewPasswordRepeat] = useState('')
   const [selectedFile, setSelectedFile] = useState(null)
+  const [selectedDoc, setSelectedDoc] = useState(null)
+  const [docType, setDocType] = useState(null)
+  const [index, setIndex] = useState('')
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -40,6 +43,7 @@ const RecipentSettings = () => {
     }
   }
 
+  // Upload avatar
   const onSubmitAvatar = (e) => {
     e.preventDefault()
     if (selectedFile) {
@@ -95,6 +99,27 @@ const RecipentSettings = () => {
         navigate('/employeeDashboard/settings')
       }
     })
+  }
+
+  // Upload docs
+  const onSubmitDoc = (e) => {
+    e.preventDefault()
+    if (docType) {
+      const formData = new FormData()
+      formData.append('file', selectedDoc)
+      formData.append('document_type', docType)
+      api.uploadDocRecipients(token, formData).then((response) => {
+        toast(response.data.message)
+        // setTimeout(() => {
+        //   window.location.reload(false)
+        // }, 1000)
+      })
+    } else {
+      toast('Belge Türü seçilmedi')
+    }
+  }
+  const handleDocSelect = (event) => {
+    setSelectedDoc(event.target.files[0])
   }
 
   useEffect(() => {
@@ -247,6 +272,91 @@ const RecipentSettings = () => {
           <input type="file" onChange={handleFileSelect} />
         </label>
 
+        <div className="flex w-full lg:w-1/2">
+          <button
+            className="w-full rounded-md bg-lime-600 py-4 px-8 text-slate-200 shadow-md transition hover:text-white"
+            type="submit"
+          >
+            Yükle
+          </button>
+        </div>
+      </form>
+
+      {/* Upload Doc */}
+      <form
+        onSubmit={onSubmitDoc}
+        className="flex w-full flex-col gap-8 rounded-md bg-white p-2 text-dark-800 dark:bg-dark-900 dark:text-light-50 lg:gap-4 lg:p-4"
+      >
+        <div className="flex gap-8">
+          <button
+            className={`${
+              index === '1' ? 'bg-light-50' : ''
+            } w-full rounded-md p-4 shadow-md`}
+            type="button"
+            onClick={() => setIndex('1')}
+          >
+            Şahıs
+          </button>
+          <button
+            className={`${
+              index === '2' ? 'bg-light-50' : ''
+            } w-full rounded-md p-4 shadow-md`}
+            type="button"
+            onClick={() => setIndex('2')}
+          >
+            Şirket
+          </button>
+        </div>
+        {/* 1 şahıs */}
+        {index === '1' ? (
+          <div className="flex gap-4">
+            <button
+              type="button"
+              className="rounded-md bg-white px-2 py-4 shadow-md dark:text-black"
+              onClick={() => setDocType('1')}
+            >
+              Kimlik Fotokopisi
+            </button>
+            <button
+              type="button"
+              className="bg-white px-2 py-4 shadow-md dark:text-black"
+              onClick={() => setDocType('2')}
+            >
+              Adına Kayıtlı Bir Fatura
+            </button>
+          </div>
+        ) : (
+          <div className="flex gap-4">
+            <button
+              type="button"
+              className="rounded-md bg-white px-2 py-4 shadow-md dark:text-black"
+              onClick={() => setDocType('1')}
+            >
+              Vergi Levhası
+            </button>
+            <button
+              type="button"
+              className="bg-white px-2 py-4 shadow-md dark:text-black"
+              onClick={() => setDocType('2')}
+            >
+              Kimlik Fotokopisi
+            </button>
+          </div>
+        )}
+
+        {docType === '1' ? (
+          <p>Kimlik fotoğrafı yükleme seçildi</p>
+        ) : docType === '2' ? (
+          <p>Vergi lefhası yükleme seçildi</p>
+        ) : (
+          <p>Yüklenecek Belge Türünü Seçiniz.</p>
+        )}
+
+        {(docType === '1' || '2') && (
+          <label className="flex w-full flex-col p-4 shadow-md lg:w-1/2">
+            <input type="file" onChange={handleDocSelect} />
+          </label>
+        )}
         <div className="flex w-full lg:w-1/2">
           <button
             className="w-full rounded-md bg-lime-600 py-4 px-8 text-slate-200 shadow-md transition hover:text-white"

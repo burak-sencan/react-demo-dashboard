@@ -1,3 +1,4 @@
+// header componentinde localstorage'da tutulan theme verisine göre tailwind dark clasının eklenmesi/çıkarılması.
 import { useState, useEffect, useContext } from 'react'
 import LoginIcon from '@mui/icons-material/Login'
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt'

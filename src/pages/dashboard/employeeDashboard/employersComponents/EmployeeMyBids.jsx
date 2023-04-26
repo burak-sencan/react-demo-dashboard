@@ -1,3 +1,8 @@
+/*
+Path: "/myBids"
+Component: <EmployeeMyBids/>
+Kullanıcının teklif verdiği ilanların listelendiği ekran.
+*/
 import { MRT_Localization_TR } from 'material-react-table/locales/tr'
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -86,7 +91,7 @@ const EmployeeMyBids = () => {
     <DashboardContent>
       <div className="rounded-md bg-white shadow-md">
         <div className="p-4">
-          Teklif Verdiklerim{' '}
+          Teklif Verdiklerim
           <Info
             title={'Teklif Verdiklerim'}
             text={
@@ -118,7 +123,7 @@ const EmployeeMyBids = () => {
                   cursor: 'pointer',
                 }}
               >
-                <Tooltip title="Teklif Ver">
+                <Tooltip title="Teklif Detayı">
                   <LocalOfferIcon />
                 </Tooltip>
               </IconButton>

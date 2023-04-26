@@ -1,3 +1,8 @@
+/* 
+Path: "/howWorks"
+Component: <HowWorks/>
+Sistemin nasıl çalıştığını anlattığım kısa bir içerik komponenti.
+*/
 import { useEffect } from 'react'
 import { deal } from '../../assets'
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm'
@@ -5,6 +10,7 @@ import FastForwardIcon from '@mui/icons-material/FastForward'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 
 const HowWorks = () => {
+  // scrool to top on initiliaze
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
   }, [])

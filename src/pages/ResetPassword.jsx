@@ -1,12 +1,16 @@
-import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+/*
+Path: "/resetPassword"
+Component: <ResetPassword/>
+Şifremi unuttum ekranı 
+*/
+
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios'
-import api from '../context/api'
 import Footer from '../components/Footer'
 const Login = () => {
-  const navigate = useNavigate()
   const [formData, setformData] = useState({
     email: '',
   })
@@ -34,7 +38,6 @@ const Login = () => {
         process.env.REACT_APP_API_URL + '/clients/login',
         userData
       )
-
     } catch (error) {
       toast(error.response.data.message)
     }

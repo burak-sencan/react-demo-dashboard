@@ -1,3 +1,10 @@
+/*
+Path: "/myBids/:id"
+Component: <EmployeeShowMyBids/>
+teklif verdiği ilanın detaylarının gösterildiği ekran. İlgili ilan detayı useParams ile ilan idsinin çekilerek daha sonra /employers/my_bids
+ 
+*/
+
 import { useParams } from 'react-router-dom'
 import DashboardContent from '../../utils/DashboardContent'
 import CircleIcon from '@mui/icons-material/Circle'

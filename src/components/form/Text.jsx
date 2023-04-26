@@ -1,3 +1,4 @@
+// text inputların cevaplarının formdataya set edilmesi
 import TextField from '@mui/material/TextField'
 import { useContext, useEffect, useState } from 'react'
 import ServiceContext from '../../context/serviceContext'

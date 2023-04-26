@@ -1,5 +1,10 @@
+/*
+Path: "/BlogPage"
+Component: <Welcome/>
+İlgili blog kartına tıklandıktan sonra o blog içeriginin gösterildiği ekran.
+ ilgili blog içeriği urldeki id'nin useParams hook'u ile alınıp /blog/:id adresinden fetch edilmesi ile alınıyor. 
+*/
 import { useEffect, useState } from 'react'
-import { logo } from '../assets'
 import Footer from '../components/Footer'
 import TopNav from '../pages/dashboard/utils/TopNav'
 import api from '../context/api'

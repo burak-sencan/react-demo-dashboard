@@ -1,3 +1,9 @@
+/*
+Path: "/"
+Component: <Welcome/>
+Hero, tend hizmetler nasıl çalışır componentlerinin render edildiği  ana giriş ekranı. 
+*/
+
 import Footer from '../components/Footer'
 import Hero from '../components/Hero'
 import { Helmet } from 'react-helmet'
@@ -23,6 +29,7 @@ const Welcome = () => {
   return (
     <div className="flex w-full flex-col bg-dark-800 dark:bg-dark-900">
       <div className="welcome-content">
+        {/* html meta control with helmet library */}
         <Helmet>
           <title>Anasayfa | Ev Tadilat, Tesisat ve Mobilya Hizmetleri</title>
           <meta

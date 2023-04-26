@@ -1,3 +1,4 @@
+// componentlerin didmount olduktan sonraki fetchte data gelene kadar gözüken loading componenti
 import './Loading.css'
 const Loading = () => {
   return (

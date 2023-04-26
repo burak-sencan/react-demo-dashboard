@@ -1,3 +1,10 @@
+/*
+Path: "/jobOpportunities/:id"
+Component: <EmployeeJobOpportunities/>
+Tıklanılan ilanın detay bilgilerinin gösterildiği ekran. 
+İlanın detay bilgileri urldeki id parametresinin useParams hooku ile çekilip /employers/opportunitie/${id} adresinden fetch edilmesi ile alınıyor. 
+*/
+
 import { useNavigate, useParams } from 'react-router-dom'
 import DashboardContent from '../../utils/DashboardContent'
 import { Divider } from '@mui/material'

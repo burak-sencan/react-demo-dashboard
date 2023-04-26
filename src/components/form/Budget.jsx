@@ -1,24 +1,37 @@
-import { useContext } from 'react'
+// Butçe sorusu için ilana butçe verme ve formdataya set edilmesi.
+import { useContext, useEffect, useState } from 'react'
 import Question from './Question'
-import { Checkbox, FormControlLabel, FormGroup, TextField } from '@mui/material'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
 import ServiceContext from '../../context/serviceContext'
 
+const ITEM_HEIGHT = 48
+const ITEM_PADDING_TOP = 8
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+}
 const Budget = ({ data, activeStep }) => {
   const { formData, setFormData } = useContext(ServiceContext)
+  const [value, setValue] = useState('')
 
-  const handleText = (e) => {
+  useEffect(() => {
+    setValue(formData[activeStep].answer)
+  }, [activeStep])
+
+  const handleChange = (e) => {
+    setValue(e.target.value)
     setFormData(
       formData.map((item) =>
         item.activeStep === activeStep
-          ? { ...item, answer: `${e.target.value}` }
+          ? { ...item, answer: e.target.value }
           : item
-      )
-    )
-  }
-  const disableBudgtInput = (e) => {
-    setFormData(
-      formData.map((item) =>
-        item.activeStep === activeStep ? { ...item, answer: 0 } : item
       )
     )
   }
@@ -26,25 +39,23 @@ const Budget = ({ data, activeStep }) => {
   return (
     <div className="flex flex-col  overflow-auto">
       <Question data={data} />
-      <TextField
-        id="outlined-multiline-static"
-        label="Proje bütçe miktarı?"
-        value={
-          formData[activeStep].answer === null
-            ? ''
-            : formData[activeStep].answer
-        }
-        placeholder="1000"
-        onChange={handleText}
-      />
-      <FormGroup className="flex items-center">
-        <FormControlLabel
-          checked={formData[activeStep].answer === 0 ? true : false}
-          onChange={disableBudgtInput}
-          control={<Checkbox />}
-          label="Belirtmek istemiyorum"
-        />
-      </FormGroup>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">{data.question}</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={value || ''}
+          label="Seçiminiz Nedir"
+          MenuProps={MenuProps}
+          onChange={handleChange}
+        >
+          {data.answers.map((opt) => (
+            <MenuItem key={opt.id} value={opt.value}>
+              {opt.text}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
     </div>
   )
 }

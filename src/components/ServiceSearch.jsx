@@ -1,3 +1,9 @@
+/*
+Component: <ServiceSearch/>
+/services' adresinden servisleri fetch edip,girilen kelimeye göre filtreleyip
+ilk 20 tane servisi render eden komponent. İlgili servise tıklandıgında
+servis idsi üzerinden /service/:id urline yönleniyor.
+ */
 import { useContext, useEffect, useState } from 'react'
 import api from '../context/api'
 import Paper from '@mui/material/Paper'

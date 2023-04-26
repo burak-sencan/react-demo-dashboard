@@ -1,3 +1,9 @@
+/*
+Path: "/message"
+Component: <EmployeeMessage/>
+Kullanıcının mesajlarının listelendiği ekran 
+*/
+
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from '../../../../context/api'

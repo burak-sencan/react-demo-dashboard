@@ -61,6 +61,30 @@ const api = {
       }
     )
   },
+  uploadDocRecipients: (token, data) => {
+    return axios.post(
+      process.env.REACT_APP_API_URL + `/recipients/upload_doc`,
+      data,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+  },
+  uploadDocEmployer: (token, data) => {
+    return axios.post(
+      process.env.REACT_APP_API_URL + `/employers/upload_doc`,
+      data,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+  },
 
   ////////////////// Recipient APIs //////////////////
   //Yapılacak
@@ -129,6 +153,16 @@ const api = {
         Authorization: `Bearer ${token}`,
       },
     })
+  },
+  getReciPanelData: (token) => {
+    return axios.get(
+      process.env.REACT_APP_API_URL + `/recipients/dashboard_data`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
   },
 
   ////////////////// Employer APIs //////////////////
@@ -249,7 +283,16 @@ const api = {
       },
     })
   },
-
+  getPanelData: (token) => {
+    return axios.get(
+      process.env.REACT_APP_API_URL + `/employers/dashboard_data`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+  },
 }
 
 export default api

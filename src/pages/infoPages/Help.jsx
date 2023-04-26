@@ -1,3 +1,8 @@
+/* 
+Path: "/help"
+Component: <Help/>
+Kısa bir yardım bilgisi ekranı. Not içerik hazır değil.
+*/
 import { useEffect } from 'react'
 import Footer from '../../components/Footer'
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'

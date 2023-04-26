@@ -1,3 +1,5 @@
+// kullanıcıların dashboard urllerine erişebilmesi için giriş yapması gerekir. eğer token yoksa direk anasayfaya yönlendirdim. eğer token varsa bu token ile self datasını güncelledim.
+
 import { Navigate } from 'react-router-dom'
 import { useContext, useEffect, useState } from 'react'
 import AuthContext from '../context/authContext'

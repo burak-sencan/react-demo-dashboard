@@ -1,3 +1,12 @@
+/*
+Path: "/employeeDashboard"
+Component: <ProtectedEmployeeRoute/>
+dashboardlara login olursa girebilmesi gerekiyor bu yüzden.
+token varmı onu kontrol edip varsa selfDatasına fetch atıyorum.
+Eger self data varsa dashboard ekranına erişebiliyor.
+Sidebar ve sag kısımda Outlet komponenti bulunan dashboard komponent.
+/employeeDashboard içindeki bir url değişikliği <Outlet /> komponenti içinde render ediliyor. sidebardan tıklanılan urller burda render ediliyor. 
+*/
 import { useContext, useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import api from '../context/api'

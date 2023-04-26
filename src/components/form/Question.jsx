@@ -1,3 +1,4 @@
+// formdaki sorunun gösterildiği komponent
 import { Divider, IconButton, Tooltip } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { Link } from 'react-router-dom'

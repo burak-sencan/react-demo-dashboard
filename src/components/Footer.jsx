@@ -1,3 +1,4 @@
+// footer
 import { Divider } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { logo_footer } from '../assets'
@@ -45,7 +46,7 @@ const Footer = () => {
             Ev Dekorasyon
           </Link>
         </div>
-        <div className="flex w-2/3 flex-col gap-1 px-8 py-4 lg:self-start ">
+        {/* <div className="flex w-2/3 flex-col gap-1 px-8 py-4 lg:self-start ">
           <p className="text-xl">Fiyatlar</p>
           <Divider className="!my-1 !bg-gray-400" />
           <Link className="text-base hover:text-white" to="#">
@@ -60,7 +61,7 @@ const Footer = () => {
           <Link className="text-base hover:text-white" to="#">
             Hakkımızda
           </Link>
-        </div>
+        </div> */}
         <div className="flex w-2/3 flex-col gap-1 px-8 py-4 lg:self-start ">
           <p className="text-xl">İleşitim</p>
           <Divider className="!my-1 !bg-gray-400" />

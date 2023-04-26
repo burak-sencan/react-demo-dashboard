@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-
 import { AuthProvider } from './context/authContext'
 import { ServiceProvider } from './context/serviceContext'
 import Header from './components/Header'
@@ -61,11 +60,11 @@ function App() {
                 <Route path="resetPassword" element={<ResetPassword />} />
                 <Route path="register" element={<Register />} />
                 <Route path="blog" element={<Blog />} />
-                <Route path="/blog/:id" element={<BlogPage />} />
-                <Route path="/howWorks" element={<HowWorks />} />
-                <Route path="/help" element={<Help />} />
-                <Route path="/aboutUs" element={<AboutUs />} />
-                <Route path="/gdpr" element={<Gdpr />} />
+                <Route path="blog/:id" element={<BlogPage />} />
+                <Route path="howWorks" element={<HowWorks />} />
+                <Route path="help" element={<Help />} />
+                <Route path="aboutUs" element={<AboutUs />} />
+                <Route path="gdpr" element={<Gdpr />} />
 
                 {/* ///////////////employeeDashboard///////////////////// */}
                 <Route
@@ -103,7 +102,6 @@ function App() {
                     element={<EmployeeAddToYourSite />}
                   />
                   <Route path="wallet" element={<EmployeeWallet />} />
-                  {/* <Route path="wallet/transfer/:id" element={<EmployeeShowBudgetTransfer />} /> */}
                   <Route path="settings" element={<EmployeeSettings />} />
                 </Route>
 
