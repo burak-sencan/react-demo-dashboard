@@ -27,6 +27,10 @@ import {
   EmployeeShowJobOpportunities,
   EmployeeShowMyBids,
   EmployeeShowMyGetBids,
+  TransferSuccesfull,
+  TransferFail,
+  CreditCardSuccessfull,
+  CreditCardFail,
 } from './pages/dashboard/employeeDashboard/employersComponents'
 import {
   RecipentAdvert,
@@ -102,6 +106,19 @@ function App() {
                     element={<EmployeeAddToYourSite />}
                   />
                   <Route path="wallet" element={<EmployeeWallet />} />
+                  <Route
+                    path="transferSuccesfull"
+                    element={<TransferSuccesfull />}
+                  />
+                  <Route path="transferFail" element={<TransferFail />} />
+                  <Route
+                    path="creditTransferSuccesfull"
+                    element={<CreditCardSuccessfull />}
+                  />
+                  <Route
+                    path="creditTransferFail"
+                    element={<CreditCardFail />}
+                  />
                   <Route path="settings" element={<EmployeeSettings />} />
                 </Route>
 

@@ -43,7 +43,7 @@ const Login = () => {
   }
 
   useEffect(() => {
-    // if token doesn't exist navigate to  
+    // if token doesn't exist navigate to
     if (token !== '') {
       navigate('/')
     }

@@ -1,6 +1,15 @@
 import axios from 'axios'
 
 const api = {
+  payTrGetToken: (token, data) => {
+    return axios.post('https://www.paytr.com/odeme/api/get-token', data, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    })
+  },
+
   // Auth APIs
   getSelfClient: (token) => {
     return axios

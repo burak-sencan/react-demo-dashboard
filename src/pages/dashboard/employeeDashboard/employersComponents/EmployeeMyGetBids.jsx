@@ -9,6 +9,59 @@ import { Box, Divider, IconButton, Tooltip } from '@mui/material'
 import LocalOfferIcon from '@mui/icons-material/LocalOffer'
 import Loading from '../../../../components/Loading'
 import Info from '../../utils/Info'
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip as TooltipChartjs2,
+  Legend,
+} from 'chart.js'
+import { Line } from 'react-chartjs-2'
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  TooltipChartjs2,
+  Legend
+)
+
+export const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top',
+    },
+    title: {
+      display: true,
+      text: 'Son 6 Ay Tamamlanan İş',
+    },
+  },
+}
+
+const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
+
+export const chartData = {
+  labels,
+  datasets: [
+    {
+      label: 'Dataset 1',
+      data: [41, 22, 13, 64, 5, 46, 27],
+      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+    },
+    {
+      label: 'Dataset 2',
+      data: [1, 22, 13, 44, 15, 6, 17],
+      borderColor: 'rgb(53, 162, 235)',
+      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+    },
+  ],
+}
 
 const EmployeeMyGetBids = () => {
   const { token } = useContext(AuthContext)
@@ -102,6 +155,15 @@ const EmployeeMyGetBids = () => {
 
   return (
     <DashboardContent>
+      <div className="flex  w-full justify-between gap-4 xl:flex-row">
+        <div className="flex items-center  justify-center rounded-md bg-white p-2 shadow-md dark:bg-dark-900 xl:w-1/2">
+          <Line options={options} data={chartData} />
+        </div>
+        <div className="flex items-center justify-center rounded-md bg-white p-2 shadow-md dark:bg-dark-900 xl:w-1/2">
+          <Line options={options} data={chartData} />
+        </div>
+      </div>
+
       <div className="rounded-md bg-white shadow-md">
         <div className="p-4">
           Kazandığım Teklifler <Info title={'Kazandığım Teklifler'} text={''} />

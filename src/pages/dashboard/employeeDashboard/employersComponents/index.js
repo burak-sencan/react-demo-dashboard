@@ -10,6 +10,10 @@ import EmployeeShowMessage from './EmployeeShowMessage'
 import EmployeeShowJobOpportunities from './EmployeeShowJobOpportunities'
 import EmployeeShowMyBids from './EmployeeShowMyBids'
 import EmployeeShowMyGetBids from './EmployeeShowMyGetBids'
+import TransferSuccesfull from './TransferSuccesfull'
+import TransferFail from './TransferFail'
+import CreditCardFail from './CreditCardFail'
+import CreditCardSuccessfull from './CreditCardSuccessfull'
 
 export {
   EmployeeAddToYourSite,
@@ -24,4 +28,8 @@ export {
   EmployeeShowJobOpportunities,
   EmployeeShowMyBids,
   EmployeeShowMyGetBids,
+  TransferSuccesfull,
+  TransferFail,
+  CreditCardFail,
+  CreditCardSuccessfull,
 }
